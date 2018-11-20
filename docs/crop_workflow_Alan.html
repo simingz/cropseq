@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Alan Selewa" />
+
+
+<title>Crop-seq Workflow</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
+<script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
+<script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">cropseq</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/jdblischak/workflowr">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Crop-seq Workflow</h1>
+<h4 class="author"><em>Alan Selewa</em></h4>
+
+</div>
+
+
+<p><strong>Last updated:</strong> 2018-11-20</p>
+<strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
+<ul>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>R Markdown file:</strong> up-to-date </summary></p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Environment:</strong> empty </summary></p>
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Seed:</strong> <code>set.seed(20181119)</code> </summary></p>
+<p>The command <code>set.seed(20181119)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Session information:</strong> recorded </summary></p>
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</details>
+</li>
+<li>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> 8be64d0 </summary></p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/figure/
+    Ignored:    data/.DS_Store
+    Ignored:    docs/figure/
+
+Untracked files:
+    Untracked:  data/CROP_data_from_Alan/
+    Untracked:  data/Gmail - Fw_ CROP-seq analysis.pdf
+    Untracked:  data/cell_ranger_from_Alan/
+    Untracked:  data/data_from_Siwei/
+
+Unstaged changes:
+    Modified:   README.md
+
+</code></pre>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes. </details>
+</li>
+</ul>
+<details> <summary> <small><strong>Expand here to see past versions:</strong></small> </summary>
+<ul>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+File
+</th>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:left;">
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+8be64d0
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2018-11-20
+</td>
+<td style="text-align:left;">
+First
+</td>
+</tr>
+</tbody>
+</table>
+</ul>
+<p></details></p>
+<hr />
+<div id="preprocessing" class="section level2">
+<h2>Preprocessing</h2>
+<p>I assume the following files are in the working directory</p>
+<ul>
+<li>NSC0507 - raw fastq</li>
+<li>NSC08 - raw fastq</li>
+<li>reference - spiked reference genome and annotations</li>
+</ul>
+<p>Load CellRanger and check version</p>
+<pre class="bash"><code>module load cellranger
+which cellranger</code></pre>
+<p>My version is 2.1.1</p>
+<p>We need to first make a special reference file for CellRanger. It uses the spiked reference genome and spiked GTF file</p>
+<pre class="bash"><code>cd reference/
+cellranger mkref --nthreads=1 
+                 --genome=cellranger_ref 
+                 --fasta=hg38_gRNA_spiked_11Jun2018.fa 
+                 --genes=gencode_gRNA_spiked_filtered_11Jul2018.gtf
+cd ..</code></pre>
+<p>Now we are ready to make our count matrix. We run <code>cellranger count</code> on both datasets. I expect 2000 cells based on what the experimentalists told me. These commands will use all available cores.</p>
+<pre class="bash"><code>cellranger count --id=NSC0507_CR 
+                 --transcriptome=reference/cellranger_ref 
+                 --fastqs=NSC0507//fastq/ 
+                 --expect-cells=2000
+                 
+cellranger count --id=NSC08_CR 
+                 --transcriptome=reference/cellranger_ref 
+                 --fastqs=NSC08/fastq/ 
+                 --expect-cells=2000</code></pre>
+<p>This command will generateo two new cellranger directories with the <code>id</code> as the filename. The output details can be found at the bottom of this <a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/count">page</a>. The keu file is the <code>filtered_gene_bc_matrices.h5</code>. The filtered here means that only cells with detected barcodes are included.</p>
+<p>Unfortunately, all of matrices are in either MEX or HDF5 format. We can use the following command to get a CSV file:</p>
+<pre class="bash"><code>cellranger mat2csv NSC0507_CR/outs/filtered_gene_bc_matrices_h5.h5 NSC0507.csv
+
+cellranger mat2csv NSC08_CR/outs/filtered_gene_bc_matrices_h5.h5 NSC08.csv</code></pre>
+</div>
+<div id="exploratory-data-analysis" class="section level2">
+<h2>Exploratory data analysis</h2>
+<p>I assume that the following are in the parent directory:</p>
+<ul>
+<li>NSC08.csv</li>
+<li>NSC0507.csv</li>
+<li>gRNAs.txt</li>
+</ul>
+<p>Now we have the count matrices and we can move on to R.</p>
+<pre class="r"><code>library(data.table)
+
+nsc0507 &lt;- data.frame(fread(&#39;data/cell_ranger_from_Alan/NSC0507.csv&#39;,sep=&#39;,&#39;),row.names=1)</code></pre>
+<pre><code>
+Read 33.4% of 29922 rows
+Read 29922 rows and 2100 (of 2100) columns from 0.119 GB file in 00:00:04</code></pre>
+<pre class="r"><code>colnames(nsc0507) = paste(colnames(nsc0507),&#39;0507&#39;) #prevent overlapping barcodes
+
+nsc08 &lt;- data.frame(fread(&#39;data/cell_ranger_from_Alan/NSC08.csv&#39;,sep=&#39;,&#39;),row.names=1)</code></pre>
+<pre><code>
+Read 66.8% of 29922 rows
+Read 29922 rows and 2101 (of 2101) columns from 0.119 GB file in 00:00:04</code></pre>
+<pre class="r"><code>colnames(nsc08) = paste(colnames(nsc08),&#39;08&#39;) #prevent overlapping barcodes</code></pre>
+<p>Combine into one matrix and remove genes found</p>
+<pre class="r"><code>comb = cbind(nsc08, nsc0507)</code></pre>
+<p>Load list of guide RNAs and subset the combined expression matrix</p>
+<pre class="r"><code>gRNAs = readLines(&#39;data/CROP_data_from_Alan/gRNAs.txt&#39;)
+gRNA.dge = comb[gRNAs,]</code></pre>
+<p>Frequency distribution of guide RNAs:</p>
+<pre class="r"><code>barplot(table(colSums(gRNA.dge&gt;0)),xlab=&#39;Number of Guide RNAs&#39;,ylab=&#39;Number of Cells&#39;)</code></pre>
+<p><img src="figure/crop_workflow_Alan.Rmd/unnamed-chunk-8-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>We would like to collapse expression data of guide RNAs from the same locus.</p>
+<pre class="r"><code>library(dplyr)
+
+gRNA.dge$label = sapply(strsplit(gRNAs,split = &#39;_&#39;), function(x){x[1]})
+gRNA.dge.col = as.data.frame(gRNA.dge %&gt;% group_by(label) %&gt;% summarise_all(funs(sum)))
+row.names(gRNA.dge.col) = gRNA.dge.col$label
+gRNAs.col = rownames(gRNA.dge.col)
+gRNA.dge.col$label = NULL
+
+#Controls (cells without any gRNAs)
+ctrls = colnames(comb)[which(colSums(gRNA.dge.col)==0)]
+
+#Singletons (cells with only 1 gRNA)
+singles = colnames(comb)[which(colSums(gRNA.dge.col&gt;0)==1)]
+
+grna.det.rate = rowSums(gRNA.dge.col[,singles]&gt;0)
+order.grna = gRNAs.col[order(grna.det.rate,decreasing = T)]
+
+grna.det.df = data.frame(det=grna.det.rate, gRNAs=factor(gRNAs.col, levels = order.grna))
+
+library(ggplot2)
+ggplot(grna.det.df, aes(x=gRNAs, y=det)) + geom_bar(stat=&quot;identity&quot;) + theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  xlab(&#39;guide RNAs&#39;) + ylab(&#39;Number of Cells&#39;)</code></pre>
+<p><img src="figure/crop_workflow_Alan.Rmd/unnamed-chunk-9-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="differential-expression-analysis" class="section level2">
+<h2>Differential Expression analysis</h2>
+<p>This <a href="https://www.nature.com/articles/nmeth.4612.pdf?origin=ppub">paper</a> shows that DESeq2 has one of the lowest false positive rates for UMI data. We use this to perform our differential expression analysis.</p>
+<p>Install DESeq2</p>
+<pre class="r"><code>source(&quot;https://bioconductor.org/biocLite.R&quot;)
+biocLite(&quot;DESeq2&quot;)</code></pre>
+<p>We use DESeq2 on cells that have/dont have the top guide RNA, which is VPS45_2</p>
+<pre class="r"><code>library(DESeq2)
+
+g = order.grna[1]
+g.only.cells = singles[which(gRNA.dge[g,singles] &gt; 0)]
+
+#We only test the expression among the top expressed genes
+comb.filt = comb[rowSums(comb&gt;0)&gt;1000,]
+
+sampleType = factor(c(rep(&#39;G&#39;,length(g.only.cells)),rep(&#39;N&#39;,length(ctrls))),levels = c(&#39;N&#39;,&#39;G&#39;))
+
+dds = DESeqDataSetFromMatrix(countData = comb.filt[,c(g.only.cells, ctrls)],
+                             colData = data.frame(row.names = c(g.only.cells, ctrls), sampleType=sampleType),
+                             design = ~sampleType) # we&#39;re testing for the different condidtions
+
+dds = estimateSizeFactors(dds)
+
+dds = DESeq(dds)
+res = results(dds)
+
+# At FDR of 10%
+resSig &lt;- subset(res, padj &lt; 0.1)
+dim(resSig)[1]
+
+write.table(resSig,paste(g,&#39;_DESeq2_FD10.1.txt&#39;),sep=&#39;\t&#39;,quote=F,row.names = T,col.names = T)
+
+upReg = resSig[resSig$log2FoldChange&gt;0,]
+downReg = resSig[resSig$log2FoldChange&lt;0,]
+
+mean(upReg$log2FoldChange)
+mean(downReg$log2FoldChange)</code></pre>
+<p>I set <code>eval=FALSE</code> above because it can take several minutes to perform the expression analysis.</p>
+</div>
+<div id="session-information" class="section level2">
+<h2>Session information</h2>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.3.2 (2016-10-31)
+Platform: x86_64-apple-darwin11.4.2 (64-bit)
+Running under: OS X El Capitan 10.11.6
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] ggplot2_2.2.1     dplyr_0.7.5       data.table_1.10.4
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_0.12.17      knitr_1.20        bindr_0.1.1      
+ [4] whisker_0.3-2     magrittr_1.5      workflowr_1.1.1  
+ [7] munsell_0.4.3     tidyselect_0.2.4  colorspace_1.3-1 
+[10] R6_2.2.2          rlang_0.2.1       plyr_1.8.4       
+[13] stringr_1.2.0     tools_3.3.2       grid_3.3.2       
+[16] gtable_0.2.0      R.oo_1.22.0       git2r_0.18.0     
+[19] htmltools_0.3.6   lazyeval_0.2.0    yaml_2.1.16      
+[22] rprojroot_1.2     digest_0.6.12     assertthat_0.2.0 
+[25] tibble_1.4.2      bindrcpp_0.2.2    purrr_0.2.5      
+[28] R.utils_2.7.0     glue_1.2.0        evaluate_0.10    
+[31] rmarkdown_1.10    labeling_0.3      stringi_1.1.5    
+[34] pillar_1.2.3      scales_0.5.0      backports_1.0.5  
+[37] R.methodsS3_1.7.1 pkgconfig_2.0.1  </code></pre>
+</div>
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+<hr>
+<p>
+  This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
+  analysis was created with
+  <a href="https://github.com/jdblischak/workflowr">workflowr</a> 1.1.1
+</p>
+<hr>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
