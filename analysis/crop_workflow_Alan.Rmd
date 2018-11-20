@@ -1,0 +1,182 @@
+---
+title: "Crop-seq Workflow"
+author: Alan Selewa
+output:
+  html_document
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=8, fig.height=5, fig.path='Figs/',
+                      echo=TRUE, warning=FALSE, message=FALSE)
+```
+
+## Preprocessing
+
+I assume the following files are in the working directory 
+
+* NSC0507 - raw fastq
+* NSC08 - raw fastq
+* reference - spiked reference genome and annotations
+
+Load CellRanger and check version
+
+```{bash, eval=FALSE}
+module load cellranger
+which cellranger
+```
+
+My version is 2.1.1
+
+We need to first make a special reference file for CellRanger. It uses the spiked reference genome and spiked GTF file
+
+```{bash,eval=FALSE}
+cd reference/
+cellranger mkref --nthreads=1 
+                 --genome=cellranger_ref 
+                 --fasta=hg38_gRNA_spiked_11Jun2018.fa 
+                 --genes=gencode_gRNA_spiked_filtered_11Jul2018.gtf
+cd ..
+```
+
+Now we are ready to make our count matrix. We run `cellranger count` on both datasets. I expect 2000 cells based on what the experimentalists told me. These commands will use all available cores.
+
+```{bash,eval=FALSE}
+cellranger count --id=NSC0507_CR 
+                 --transcriptome=reference/cellranger_ref 
+                 --fastqs=NSC0507//fastq/ 
+                 --expect-cells=2000
+                 
+cellranger count --id=NSC08_CR 
+                 --transcriptome=reference/cellranger_ref 
+                 --fastqs=NSC08/fastq/ 
+                 --expect-cells=2000
+```
+
+This command will generateo two new cellranger directories with the `id` as the filename. The output details can be found at the bottom of this [page](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/using/count). The keu file is the `filtered_gene_bc_matrices.h5`. The filtered here means that only cells with detected barcodes are included.
+
+Unfortunately, all of matrices are in either MEX or HDF5 format. We can use the following command to get a CSV file:
+
+```{bash,eval=FALSE}
+cellranger mat2csv NSC0507_CR/outs/filtered_gene_bc_matrices_h5.h5 NSC0507.csv
+
+cellranger mat2csv NSC08_CR/outs/filtered_gene_bc_matrices_h5.h5 NSC08.csv
+```
+
+## Exploratory data analysis
+
+I assume that the following are in the parent directory:
+
+* NSC08.csv
+* NSC0507.csv
+* gRNAs.txt
+
+Now we have the count matrices and we can move on to R.
+
+```{r}
+library(data.table)
+
+nsc0507 <- data.frame(fread('data/cell_ranger_from_Alan/NSC0507.csv',sep=','),row.names=1)
+colnames(nsc0507) = paste(colnames(nsc0507),'0507') #prevent overlapping barcodes
+
+nsc08 <- data.frame(fread('data/cell_ranger_from_Alan/NSC08.csv',sep=','),row.names=1)
+colnames(nsc08) = paste(colnames(nsc08),'08') #prevent overlapping barcodes
+
+```
+
+Combine into one matrix and remove genes found 
+
+```{r}
+comb = cbind(nsc08, nsc0507)
+```
+
+Load list of guide RNAs and subset the combined expression matrix
+
+```{r}
+gRNAs = readLines('data/CROP_data_from_Alan/gRNAs.txt')
+gRNA.dge = comb[gRNAs,]
+```
+
+Frequency distribution of guide RNAs:
+
+```{r}
+barplot(table(colSums(gRNA.dge>0)),xlab='Number of Guide RNAs',ylab='Number of Cells')
+```
+
+We would like to collapse expression data of guide RNAs from the same locus.
+
+```{r}
+library(dplyr)
+
+gRNA.dge$label = sapply(strsplit(gRNAs,split = '_'), function(x){x[1]})
+gRNA.dge.col = as.data.frame(gRNA.dge %>% group_by(label) %>% summarise_all(funs(sum)))
+row.names(gRNA.dge.col) = gRNA.dge.col$label
+gRNAs.col = rownames(gRNA.dge.col)
+gRNA.dge.col$label = NULL
+
+#Controls (cells without any gRNAs)
+ctrls = colnames(comb)[which(colSums(gRNA.dge.col)==0)]
+
+#Singletons (cells with only 1 gRNA)
+singles = colnames(comb)[which(colSums(gRNA.dge.col>0)==1)]
+
+grna.det.rate = rowSums(gRNA.dge.col[,singles]>0)
+order.grna = gRNAs.col[order(grna.det.rate,decreasing = T)]
+
+grna.det.df = data.frame(det=grna.det.rate, gRNAs=factor(gRNAs.col, levels = order.grna))
+
+library(ggplot2)
+ggplot(grna.det.df, aes(x=gRNAs, y=det)) + geom_bar(stat="identity") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  xlab('guide RNAs') + ylab('Number of Cells')
+
+```
+
+
+## Differential Expression analysis
+
+This [paper](https://www.nature.com/articles/nmeth.4612.pdf?origin=ppub) shows that DESeq2 has one of the lowest false positive rates for UMI data. We use this to perform our differential expression analysis.
+
+Install DESeq2
+
+```{r, eval=FALSE}
+source("https://bioconductor.org/biocLite.R")
+biocLite("DESeq2")
+```
+
+We use DESeq2 on cells that have/dont have the top guide RNA, which is VPS45_2
+
+```{r, eval=FALSE}
+library(DESeq2)
+
+g = order.grna[1]
+g.only.cells = singles[which(gRNA.dge[g,singles] > 0)]
+
+#We only test the expression among the top expressed genes
+comb.filt = comb[rowSums(comb>0)>1000,]
+
+sampleType = factor(c(rep('G',length(g.only.cells)),rep('N',length(ctrls))),levels = c('N','G'))
+
+dds = DESeqDataSetFromMatrix(countData = comb.filt[,c(g.only.cells, ctrls)],
+                             colData = data.frame(row.names = c(g.only.cells, ctrls), sampleType=sampleType),
+                             design = ~sampleType) # we're testing for the different condidtions
+
+dds = estimateSizeFactors(dds)
+
+dds = DESeq(dds)
+res = results(dds)
+
+# At FDR of 10%
+resSig <- subset(res, padj < 0.1)
+dim(resSig)[1]
+
+write.table(resSig,paste(g,'_DESeq2_FD10.1.txt'),sep='\t',quote=F,row.names = T,col.names = T)
+
+upReg = resSig[resSig$log2FoldChange>0,]
+downReg = resSig[resSig$log2FoldChange<0,]
+
+mean(upReg$log2FoldChange)
+mean(downReg$log2FoldChange)
+```
+
+
+I set `eval=FALSE` above because it can take several minutes to perform the expression analysis. 
+

@@ -1,0 +1,185 @@
+---
+title: "Crop-seq analysis by Siwei"
+author: Siwei
+output:
+  html_document
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.width=8, fig.height=5, fig.path='Figs/',
+                      echo=TRUE, warning=FALSE, message=FALSE)
+```
+
+# 
+
+
+# Siwei's original code
+```{r siweicode, eval=F}
+# 01-Nov-2018
+# obtain the gene expression profile of all gRNAs individually
+library(edgeR)
+library(Rfast)
+library(data.table)
+library(cellrangerRkit)
+#################
+# exp_matrix <- exp_matrix_backup
+##############
+gbm <- load_cellranger_matrix("../NSC_merged_05_07_08_new/") # load the GBM with NEW data 
+exp_matrix <- gbm[, colSums(exprs(gbm)) > 11000] # get cells above background value
+use_genes <-get_nonzero_genes(exp_matrix)
+exp_matrix <- exp_matrix[use_genes, ]
+exp_matrix <- normalize_barcode_sums_to_median(exp_matrix)
+
+# Select cells that have at least 1 reads in gRNA count
+exp_matrix <- exp_matrix[, colMaxs(as.matrix(exprs(exp_matrix[
+  (length(exp_matrix@featureData@data$id)-75): # should be 75 or 76?
+    (length(exp_matrix@featureData@data$id)), ])), value = T) > 0] #more than 1 count
+
+# make cell count for cells contain unique RNA
+exp_matrix <- exp_matrix[, # Select cells that have one gRNA expression more than 3x of all others
+                         (colMaxs(as.matrix(exprs(exp_matrix[
+                           (length(exp_matrix@featureData@data$id)-75):
+                             (length(exp_matrix@featureData@data$id)), ])), value = T)) >
+                           (colSums(exprs(exp_matrix[(length(exp_matrix@featureData@data$id)-75):
+                                                       (length(exp_matrix@featureData@data$id)), ]))*3/4)]
+
+# exp_GeneBCMatrix <- exp_matrix # output from the last step
+#############
+
+# find the gRNA for each cell by taking the rowMax index of gRNA columns(29847:29922)
+# will return a data.frame with entries followed by .xx since colnames should be unique
+exp_matrix <- as.matrix(exprs(exp_matrix))
+exp_matrix_backup <- exp_matrix # make a backup in case of need
+
+
+#############
+exp_matrix <- exp_matrix_backup
+############
+# total UMI count: 77,997,203
+#scale exp_matrix to 1,000,000 counts -- NO, will significantly decrease the statistic power
+# exp_matrix <- exp_matrix*(1000000/77997203)
+
+
+### Make the gRNA list
+# gRNA_list <- as.data.frame(rownames(exp_matrix
+#                                     [(nrow(exp_matrix)-76 +
+#                                         colMaxs(
+#                                           as.matrix(
+#                                             exp_matrix[
+#                                               ((nrow(exp_matrix)-75):(nrow(exp_matrix)))
+#                                               ,]                                             
+#                                           ), value = F)
+#                                     ),
+#                                       ]))
+gRNA_list <- as.data.frame(rownames(exp_matrix
+                                    [(nrow(exp_matrix)-76 +
+                                        colMaxs(
+                                            exp_matrix[
+                                              ((nrow(exp_matrix)-75):(nrow(exp_matrix)))
+                                              ,]                                             
+                                          , value = F)
+                                    ),
+                                      ]))
+
+colnames(gRNA_list) <- "gRNA"
+
+gRNA_ASoC_list <- gRNA_list[!duplicated(gRNA_list$gRNA), ]
+gRNA_ASoC_list <- gRNA_ASoC_list[order(gRNA_ASoC_list)]
+# exp_matrix$cell_type <- as.factor(gRNA_dist$gRNA)
+gRNA_ASoC_list <- gRNA_ASoC_list[-c(31,32,33,37,38,39,40,41,51,52,59,60,61,65,66,67)]
+#############
+# exp_matrix now: rownames=ENSG, colnames=barcode
+
+
+# exp_matrix <- as.matrix(t(exp_matrix)) 
+# not using
+cell_type_index <- as.vector(gRNA_list$gRNA) # use this variable as index, length = 2522
+
+############ Main Program ######
+gRNA_ASoC_list_backup <- gRNA_ASoC_list # set a backup, will use the full list after debugging
+
+# gRNA_ASoC_list <- gRNA_ASoC_list[1:2] # list for debugging, 2 elements only
+
+
+# gRNA_ASoC_list <- gRNA_ASoC_list_backup
+
+for(i in 1:length(gRNA_ASoC_list)) {
+  print(gRNA_ASoC_list[i])
+  ### make correspondence of Gene_Symbol and Gene_id
+  # write_out_with_gene_name <- as.data.frame(get_CRISPRi_result(gRNA_ASoC_list[i], 
+  #                                                              TPM_filter = F, TPM_threshold = 0.01))
+  write_out_with_gene_name <- as.data.frame(get_CRISPRi_result(gRNA_ASoC_list[i], 
+                                                               TPM_filter = F, TPM_threshold = 0.01)) # no filter set
+  write_out_with_gene_name$Geneid <- rownames(write_out_with_gene_name)
+  write_out_with_gene_name_output <- merge(write_out_with_gene_name, ENSG_coord_gene_gencodev28, by = "Geneid")
+  write_out_with_gene_name_output <- write_out_with_gene_name_output[order(write_out_with_gene_name_output$PValue), ]
+  write.table(write_out_with_gene_name_output, append = F, 
+              row.names = F, col.names = T, sep = "\t", quote = F, 
+              file = paste("output/", gRNA_ASoC_list[i], "_gRNA.txt", collapse = "", sep = ""))
+}
+
+############
+
+############## custom functions##############
+
+get_CRISPRi_result <- function(gRNA_name, TPM_filter = FALSE, TPM_threshold = 0.01) {
+
+    # TPM filter takes only genes with an estimated TPM above 1
+  # in more than 25% of the considered cells
+  # TPM_filter <- TRUE # temporary
+  # TPM_threshold <- 0.01 # temporaray
+  # if(TPM_filter) {
+  #   exp_matrix <- exp_matrix[ 
+  #     rowSums(exp_matrix > TPM_threshold) 
+  #     > trunc(ncol(exp_matrix/4)), ]
+  # }
+  # make two matrix using grepl, separate the target gRNA and control gRNA (EGFP/neg)
+  control_matrix <- exp_matrix[ , grepl("EGFP", cell_type_index) |
+                                 grepl("neg", cell_type_index)]
+  # gRNA_name <- "VPS45_2_gene" # temporary
+  gRNA_matrix <- exp_matrix[ , grepl(gRNA_name, cell_type_index)]
+ 
+  # prepare the input matrix for edgeR
+  ## merge the two matrices as one, ensure the gRNA is the first
+  matrix_combined <- as.matrix(cbind(control_matrix, gRNA_matrix))
+
+  # matrix_combined <- matrix_combined[order(cell_type_index), ]
+  ## Trim the tailing gRNA artificial genes, total 75
+  # matrix_combined_transposed <- t(matrix_combined[, -((ncol(matrix_combined)-75):
+  #                                                       ncol(matrix_combined))])
+  matrix_combined_transposed <- matrix_combined[1:(nrow(matrix_combined)-76), ]
+  ### Assign rownames as ENSG gene identifiers
+  rownames(matrix_combined_transposed) <- gsub("\\..*", "", rownames(matrix_combined_transposed))
+  # rownames(matrix_combined_transposed) <- gsub("\\..*", "", 
+  #                                              colnames(matrix_combined[ , 1:(ncol(matrix_combined)-76)]))
+  # colnames(matrix_combined_transposed) <- rownames(matrix_combined)
+
+  # print(scale(colMeans(matrix_combined_transposed > 0)))
+  # Run edgeR use edgeRQLFDetRate, nrow(control_matrix) should be 139
+  group <- factor(c(rep("ctrl", len = ncol(control_matrix)), 
+                    rep("gRNA", len = ncol(gRNA_matrix))))
+  # make DGEList()
+  main_DGE <- DGEList(counts = matrix_combined_transposed, group = group, remove.zeros = T)
+  # Use edgeRQLFDetRate flow from now on
+  main_DGE <- calcNormFactors(main_DGE)
+  cdr <- scale(colMeans(matrix_combined_transposed > 0)) # DetRate is applied here
+  design <- model.matrix(~ cdr + group) # cdr (~ cdr + group)
+  main_DGE <- estimateDisp(main_DGE, design = design)
+  fit <- glmQLFit(main_DGE, design = design) # fit
+  qlf <- glmQLFTest(fit) # QLF vs LRT
+  # tt <- topTags(qlf, n = 100)
+  exp_table <- qlf$table
+  exp_table$FDR <- p.adjust(exp_table$PValue, "fdr")
+  
+  # write.table(group, append = F, 
+  #             row.names = F, col.names = T, sep = "\t", quote = F, 
+  #             file = paste("output/", gRNA_ASoC_list[i], "_group.txt", collapse = ""))
+  
+  return(exp_table)
+}
+```
+
+
+
+
+
