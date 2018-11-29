@@ -10,8 +10,29 @@ knitr::opts_chunk$set(fig.width=8, fig.height=5, fig.path='Figs/',
                       echo=TRUE, warning=FALSE, message=FALSE)
 ```
 
-# 
+# Analysis based on Siwei's data from cell ranger
+```{r siweicode, eval=F}
+library(Matrix)
+matrix_dir = "../data/data_from_Siwei/Xin_scRNA_seq_05Nov2018/filtered_gene_bc_matrices/CellRanger_index/"
 
+matrix_dir = "/Volumes/alan/CROP-seq/NSC08_cellranger/outs/filtered_gene_bc_matrices/cellranger_ref/"
+
+barcode.path <- paste0(matrix_dir, "barcodes.tsv")
+features.path <- paste0(matrix_dir, "genes.tsv")
+matrix.path <- paste0(matrix_dir, "matrix.mtx")
+mat <- readMM(file = matrix.path)
+feature.names = read.delim(features.path, 
+                           header = FALSE,
+                           stringsAsFactors = FALSE)
+barcode.names = read.delim(barcode.path, 
+                           header = FALSE,
+                           stringsAsFactors = FALSE)
+colnames(mat) = barcode.names$V1
+rownames(mat) = feature.names$V1
+
+mat1 <- tail(mat,n=76)
+length(colSums(mat1)[colSums(mat1)==1])
+```
 
 # Siwei's original code
 ```{r siweicode, eval=F}
@@ -50,7 +71,6 @@ exp_matrix <- exp_matrix[, # Select cells that have one gRNA expression more tha
 # will return a data.frame with entries followed by .xx since colnames should be unique
 exp_matrix <- as.matrix(exprs(exp_matrix))
 exp_matrix_backup <- exp_matrix # make a backup in case of need
-
 
 #############
 exp_matrix <- exp_matrix_backup

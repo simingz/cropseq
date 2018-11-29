@@ -75,12 +75,11 @@ Now we have the count matrices and we can move on to R.
 ```{r}
 library(data.table)
 
-nsc0507 <- data.frame(fread('data/cell_ranger_from_Alan/NSC0507.csv',sep=','),row.names=1)
+nsc0507 <- data.frame(fread('../data/cell_ranger_from_Alan/NSC0507.csv',sep=','),row.names=1)
 colnames(nsc0507) = paste(colnames(nsc0507),'0507') #prevent overlapping barcodes
 
-nsc08 <- data.frame(fread('data/cell_ranger_from_Alan/NSC08.csv',sep=','),row.names=1)
+nsc08 <- data.frame(fread('../data/cell_ranger_from_Alan/NSC08.csv',sep=','),row.names=1)
 colnames(nsc08) = paste(colnames(nsc08),'08') #prevent overlapping barcodes
-
 ```
 
 Combine into one matrix and remove genes found 
@@ -92,7 +91,7 @@ comb = cbind(nsc08, nsc0507)
 Load list of guide RNAs and subset the combined expression matrix
 
 ```{r}
-gRNAs = readLines('data/CROP_data_from_Alan/gRNAs.txt')
+gRNAs = readLines('../data/CROP_data_from_Alan/gRNAs.txt')
 gRNA.dge = comb[gRNAs,]
 ```
 
