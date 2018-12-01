@@ -1,0 +1,92 @@
+---
+title: "Quality_metrics"
+author: "Siming Zhao"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Number of guide RNAs per cell
+
+## number of cells with guide RNA =1
+From Siwei's cellranger run:
+```{r siweimatrix, eval=T}
+library(Matrix)
+matrix_dir = "/Volumes/CROP-seq/data_from_Siwei/Xin_scRNA_seq_05Nov2018/filtered_gene_bc_matrices/CellRanger_index/"
+matrix.path <- paste0(matrix_dir, "matrix.mtx")
+dm <- readMM(file = matrix.path)
+dm1 <- tail(dm,n=76)
+length(colSums(dm1)[colSums(dm1)==1])
+```
+
+From Alan's cellranger run:
+```{r Alanmatrix, eval=T, cache=T}
+matrix_dir1 = "/Volumes/CROP-seq/NSC0507_cellranger/outs/filtered_gene_bc_matrices/cellranger_ref/"
+matrix.path1 <- paste0(matrix_dir1, "matrix.mtx")
+mattemp1 <- readMM(file = matrix.path1)
+mattemp11 <- tail(mattemp1,n=76)
+length(colSums(mattemp11)[colSums(mattemp11)==1])
+
+matrix_dir2 = "/Volumes/CROP-seq/NSC08_cellranger/outs/filtered_gene_bc_matrices/cellranger_ref/"
+matrix.path2 <- paste0(matrix_dir2, "matrix.mtx")
+mattemp2 <- readMM(file = matrix.path2)
+mattemp21 <- tail(mattemp2,n=76)
+length(colSums(mattemp21)[colSums(mattemp21)==1])
+```
+Note: in Alan's original analysis conversion from h5 to csv step didn't seem to work properly. if starting from matrix.mtx files. Siwei and Alan's analyses gave the same results. So from now on, we will always start from Siwei's matrix.mtx file. 
+
+## distribution of gRNA number per cell
+```{r gRNAdist, eval=T}
+barcode.path <- paste0(matrix_dir, "barcodes.tsv")
+features.path <- paste0(matrix_dir, "genes.tsv")
+feature.names = read.delim(features.path, header = FALSE,
+                           stringsAsFactors = FALSE)
+barcode.names = read.delim(barcode.path, header = FALSE,
+                           stringsAsFactors = FALSE)
+colnames(dm) = barcode.names$V1
+rownames(dm) = feature.names$V1
+dm1 <- tail(dm,n=76)
+hist(colSums(dm1),breaks=3000,xlim=c(0,30),ylim=c(0,450), main="Distribution of gRNA number per cell", xlab= "#gRNA per cell")
+```
+
+# number of cells targeted for each locus
+
+```{r celldist, eval=T,results='hide'}
+library(dplyr)
+dm1df <- as.data.frame(as.matrix(dm1))
+dm1df$label = sapply(strsplit(rownames(dm1),split = '_'), function(x){x[1]})
+dm1dfagg = as.data.frame(dm1df %>% group_by(label) %>% summarise_all(funs(sum)))
+row.names(dm1dfagg) =dm1dfagg$label
+dm1dfagg$label =NULL
+```
+
+* number of cells targeted for each locus
+```{r celldist1, eval=T}
+ncell <- apply(dm1dfagg,1, function (x) length(x[x>0]))
+barplot(ncell,las=2,cex.lab=1)
+```
+
+* number of cells only targeted for that locus
+```{r eval=F}
+# Singletons (cells with only 1 gRNA)
+singles = colnames(comb)[which(colSums(gRNA.dge.col>0)==1)]
+
+grna.det.rate = rowSums(gRNA.dge.col[,singles]>0)
+order.grna = gRNAs.col[order(grna.det.rate,decreasing = T)]
+
+grna.det.df = data.frame(det=grna.det.rate, gRNAs=factor(gRNAs.col, levels = order.grna))
+
+library(ggplot2)
+ggplot(grna.det.df, aes(x=gRNAs, y=det)) + geom_bar(stat="identity") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
+  xlab('guide RNAs') + ylab('Number of Cells')
+
+```
+
+# Parameters to tune
+* number of reads for guide RNA to considered expressed: 1.
+* negative control: neg_EGFP and neg_CTRL are pooled together.
+* cells to be exluded due to low total read coverage: 
+
+

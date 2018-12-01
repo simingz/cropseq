@@ -11,6 +11,8 @@ output:
 
 [Exploratory Analysis from Siwei](crop_workflow_Siwei.html) (11/19/2018)
 
+[Quality_metrics](Quality_metrics.html) 
+
 In this workflow, I show how to process the raw FastQ files into count matrices representing UMI. We use the CellRanger toolkit to perform the processing. Then, we load the UMI matrices into R and perform exploratory analysis. We find that 2200+ cells have exactly 1 guide RNA and ~400 cells have zero. For the top expressed guide RNA, we perform differential expression analysis using DESeq2.
 
 
