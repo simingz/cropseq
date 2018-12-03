@@ -53,7 +53,7 @@ hist(colSums(dm1),breaks=3000,xlim=c(0,30),ylim=c(0,450), main="Distribution of 
 
 ## number of cells targeted for each locus
 
-```{r celldist, eval=T,results='hide'}
+```{r celldist, eval=T,results='hide',message=F}
 library(dplyr)
 dm1df <- as.data.frame(as.matrix(dm1))
 dm1df$label = sapply(strsplit(rownames(dm1),split = '_'), function(x){x[1]})
@@ -93,7 +93,9 @@ save(dm1,dm1dfagg,nlocus, file="data/DE_input.Rd")
 ```
 Parameters used:
 * for a cell to be considered targeted uniquely at a locus: total read counts for the 3 gRNAs targeting that locus >1, total read counts for gRNA of other locus=0. 
+
 * negative control: neg_EGFP and neg_CTRL are pooled together.
+
 * cells to be exluded due to low total UMI count: no filtering
 
 

@@ -344,16 +344,13 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/c206c9d2a24d343aaf9dae5f78737a21d719db50" target="_blank">c206c9d</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/9f8ba8d6ab9cee5dcd2ec5c33defc50ef5220df2" target="_blank">9f8ba8d</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    analysis/Quality_metrics_cache/
     Ignored:    analysis/figure/
-
-Untracked files:
-    Untracked:  data/DE_input.Rd
 
 Unstaged changes:
     Modified:   analysis/Quality_metrics.Rmd
@@ -385,6 +382,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/8754cad65d01c5766bac60611204c4cdd22bb23a/analysis/Quality_metrics.Rmd" target="_blank">8754cad</a>
+</td>
+<td style="text-align:left;">
+szhao06
+</td>
+<td style="text-align:left;">
+2018-12-02
+</td>
+<td style="text-align:left;">
+qc
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/simingz/cropseq/8754cad65d01c5766bac60611204c4cdd22bb23a/docs/Quality_metrics.html" target="_blank">8754cad</a>
+</td>
+<td style="text-align:left;">
+szhao06
+</td>
+<td style="text-align:left;">
+2018-12-02
+</td>
+<td style="text-align:left;">
+qc
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Rmd
@@ -514,16 +545,8 @@ szhao06
 </div>
 <div id="number-of-cells-targeted-for-each-locus" class="section level2">
 <h2>number of cells targeted for each locus</h2>
-<pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>
-Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>The following objects are masked from &#39;package:stats&#39;:
-
-    filter, lag</code></pre>
-<pre><code>The following objects are masked from &#39;package:base&#39;:
-
-    intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>dm1df &lt;- as.data.frame(as.matrix(dm1))
+<pre class="r"><code>library(dplyr)
+dm1df &lt;- as.data.frame(as.matrix(dm1))
 dm1df$label = sapply(strsplit(rownames(dm1),split = &#39;_&#39;), function(x){x[1]})
 dm1dfagg = as.data.frame(dm1df %&gt;% group_by(label) %&gt;% summarise_all(funs(sum)))
 row.names(dm1dfagg) =dm1dfagg$label
@@ -552,6 +575,17 @@ Date
 <tbody>
 <tr>
 <td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/8754cad65d01c5766bac60611204c4cdd22bb23a/docs/figure/Quality_metrics.Rmd/celldist1-1.png" target="_blank">8754cad</a>
+</td>
+<td style="text-align:left;">
+szhao06
+</td>
+<td style="text-align:left;">
+2018-12-02
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 <a href="https://github.com/simingz/cropseq/blob/fdd56472119b02d3dfe1fadd755df6b8b1db3682/docs/figure/Quality_metrics.Rmd/celldist1-1.png" target="_blank">fdd5647</a>
 </td>
 <td style="text-align:left;">
@@ -571,11 +605,71 @@ szhao06
 nlocus &lt;- apply(dm1dfagg, 2, function (x) length(x[x&gt;=1]))
 hist(nlocus,breaks=100, main=&quot;number of targeted locus each cell&quot;)</code></pre>
 <p><img src="figure/Quality_metrics.Rmd/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-1-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/8754cad65d01c5766bac60611204c4cdd22bb23a/docs/figure/Quality_metrics.Rmd/unnamed-chunk-1-1.png" target="_blank">8754cad</a>
+</td>
+<td style="text-align:left;">
+szhao06
+</td>
+<td style="text-align:left;">
+2018-12-02
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre class="r"><code>dm1dfagg.uni= dm1dfagg[,nlocus==1]
 
 ncell.uni &lt;- apply(dm1dfagg.uni,1, function (x) length(x[x&gt;=1]))
 barplot(ncell.uni,las=2,cex.lab=1,main= &quot;# cells uniquely targted for each locus&quot;)</code></pre>
 <p><img src="figure/Quality_metrics.Rmd/unnamed-chunk-1-2.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of unnamed-chunk-1-2.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/8754cad65d01c5766bac60611204c4cdd22bb23a/docs/figure/Quality_metrics.Rmd/unnamed-chunk-1-2.png" target="_blank">8754cad</a>
+</td>
+<td style="text-align:left;">
+szhao06
+</td>
+<td style="text-align:left;">
+2018-12-02
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 </div>
 <div id="umi-count-distribution-for-cells-with-unique-targeted-locus" class="section level2">
 <h2>UMI count distribution for cells with unique targeted locus</h2>
@@ -584,11 +678,45 @@ dm.uni &lt;- dm[,nlocus==1]
 nUMI &lt;- colSums(dm.uni)
 hist(nUMI,breaks=100,xlim=c(0,1e5))  </code></pre>
 <p><img src="figure/Quality_metrics.Rmd/UMI-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of UMI-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/8754cad65d01c5766bac60611204c4cdd22bb23a/docs/figure/Quality_metrics.Rmd/UMI-1.png" target="_blank">8754cad</a>
+</td>
+<td style="text-align:left;">
+szhao06
+</td>
+<td style="text-align:left;">
+2018-12-02
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 </div>
 <div id="prepare-data-for-differential-gene-expression" class="section level2">
 <h2>Prepare data for differential gene expression</h2>
 <pre class="r"><code>save(dm1,dm1dfagg,nlocus, file=&quot;data/DE_input.Rd&quot;)</code></pre>
-<p>Parameters used: * for a cell to be considered targeted uniquely at a locus: total read counts for the 3 gRNAs targeting that locus &gt;1, total read counts for gRNA of other locus=0. * negative control: neg_EGFP and neg_CTRL are pooled together. * cells to be exluded due to low total UMI count: no filtering</p>
+<p>Parameters used: * for a cell to be considered targeted uniquely at a locus: total read counts for the 3 gRNAs targeting that locus &gt;1, total read counts for gRNA of other locus=0.</p>
+<ul>
+<li><p>negative control: neg_EGFP and neg_CTRL are pooled together.</p></li>
+<li><p>cells to be exluded due to low total UMI count: no filtering</p></li>
+</ul>
 </div>
 <div id="session-information" class="section level2">
 <h2>Session information</h2>
