@@ -92,6 +92,7 @@ hist(nUMI,breaks=100,xlim=c(0,1e5))
 save(dm1,dm1dfagg,nlocus, file="data/DE_input.Rd")
 ```
 Parameters used:
+
 * for a cell to be considered targeted uniquely at a locus: total read counts for the 3 gRNAs targeting that locus >1, total read counts for gRNA of other locus=0. 
 
 * negative control: neg_EGFP and neg_CTRL are pooled together.
