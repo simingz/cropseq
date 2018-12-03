@@ -64,28 +64,36 @@ dm1dfagg$label =NULL
 
 * number of cells targeted for each locus
 ```{r celldist1, eval=T}
-ncell <- apply(dm1dfagg,1, function (x) length(x[x>0]))
+ncell <- apply(dm1dfagg,1, function (x) length(x[x>=1]))
 barplot(ncell,las=2,cex.lab=1, main= "# cells targted for each locus")
 ```
 
 * number of cells only targeted for that locus
-```{r eval=F}
+```{r eval=T}
 # Singletons (cells with only 1 gRNA)
-nlocus <- apply(dm1dfagg, 2, function (x) length(x[x>0]))
+nlocus <- apply(dm1dfagg, 2, function (x) length(x[x>=1]))
 hist(nlocus,breaks=100, main="number of targeted locus each cell")
 dm1dfagg.uni= dm1dfagg[,nlocus==1]
 
-ncell.uni <- apply(dm1dfagg.uni,1, function (x) length(x[x>0]))
+ncell.uni <- apply(dm1dfagg.uni,1, function (x) length(x[x>=1]))
 barplot(ncell.uni,las=2,cex.lab=1,main= "# cells uniquely targted for each locus")
 ```
 
 ## UMI count distribution for cells with unique targeted locus
+```{r UMI, eval=T}
+# Singletons (cells with only 1 targeted locus)
+dm.uni <- dm[,nlocus==1]
+nUMI <- colSums(dm.uni)
+hist(nUMI,breaks=100,xlim=c(0,1e5))  
+```
 
-
-
-## Parameters used
-* number of reads for guide RNA to considered expressed: 1.
+## Prepare data for differential gene expression
+```{r save, eval=T}
+save(dm1,dm1dfagg,nlocus, file="data/DE_input.Rd")
+```
+Parameters used:
+* for a cell to be considered targeted uniquely at a locus: total read counts for the 3 gRNAs targeting that locus >1, total read counts for gRNA of other locus=0. 
 * negative control: neg_EGFP and neg_CTRL are pooled together.
-* cells to be exluded due to low total UMI count: 
+* cells to be exluded due to low total UMI count: no filtering
 
 
