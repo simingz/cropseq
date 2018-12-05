@@ -89,7 +89,7 @@ hist(nUMI,breaks=100,xlim=c(0,1e5))
 
 ## Prepare data for differential gene expression
 ```{r save, eval=T}
-save(dm1,dm1dfagg,nlocus, file="data/DE_input.Rd")
+save(dm,dm1dfagg,nlocus, file="data/DE_input.Rd")
 ```
 Parameters used:
 

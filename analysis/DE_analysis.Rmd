@@ -1,0 +1,106 @@
+---
+title: "Differential expression analysis"
+author: "Siming Zhao"
+date: "December 2, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE)
+```
+
+Load data
+```{r loaddata}
+source("code/summary_functions.R")
+library(dplyr)
+load("data/DE_input.Rd")
+glocus <- "VPS45"
+dim(dm)[1]
+gcount <- dm[1:(dim(dm)[1]-76), colnames(dm1dfagg)[dm1dfagg[glocus,] >0 & nlocus==1]]
+# negative control cells defined as neg gRNA targeted cells
+ncount <- dm[1:(dim(dm)[1]-76), colnames(dm1dfagg)[dm1dfagg["neg",] >0 & nlocus==1]]
+coldata <- data.frame(row.names = c(colnames(gcount),colnames(ncount)),     
+                      condition=c(rep('G',dim(gcount)[2]),rep('N',dim(ncount)[2])))
+```
+
+## DEseq2
+### standard DESeq2
+```{r deseq2, cathe=T}
+library(DESeq2)
+dds = DESeqDataSetFromMatrix(countData = cbind(gcount,ncount),
+                             colData = coldata,
+                             design = ~condition)
+
+dds = estimateSizeFactors(dds)
+ddsWARD = DESeq(dds)
+resWARD = results(ddsWARD)
+summ_pvalues(resWARD$pvalue[!is.na(resWARD$pvalue)])
+resSigWARD <- subset(resWARD, padj < 0.1)
+```
+There are `r dim(resSigWARD)[1]` genes passed FDR <0.1 cutoff. 
+
+### DESeq2 with LRT test
+Following recommendation for single cell from [here](http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#recommendations-for-single-cell-analysis). 
+
+```{r deseq2-lrt, cathe=T}
+ddsLRT = DESeq(dds, test="LRT", reduced = ~1,  sfType="poscounts", useT=TRUE, minmu=1e-6,minReplicatesForReplace=Inf)
+resLRT = results(ddsLRT)
+summ_pvalues(resLRT$pvalue[!is.na(resLRT$pvalue)])
+resSigLRT <- subset(resLRT, padj < 0.1)
+```
+There are `r dim(resSigLRT)[1]` genes passed FDR <0.1 cutoff. 
+
+## edgeR
+
+### quasi-likelihood F-tests
+```{r edgeR}
+library(edgeR)
+y <- DGEList(counts= cbind(gcount,ncount),group=coldata$condition)
+y <- calcNormFactors(y)
+group=coldata$condition
+design <- model.matrix(~group)
+y <- estimateDisp(y,design)
+fitqlf <- glmQLFit(y,design)
+qlf <- glmQLFTest(fitqlf,coef=2)
+summ_pvalues(qlf$table$PValue)
+topTags(qlf)
+```
+
+### likelihood ratio tests
+```{r edgeR-lrt}
+fitlrt <- glmFit(y,design)
+lrt <- glmLRT(fitlrt,coef=2)
+topTags(lrt)
+summ_pvalues(lrt$table$PValue)
+```
+
+### quasi-likelihood F-tests with prefiltering
+Filter genes with 0 coverage in all cells.
+```{r edgeR-flt-filter}
+mycount <- cbind(gcount,ncount)
+totalcount <- apply(mycount,1,sum)
+y <- DGEList(counts= mycount[totalcount>0,],group=coldata$condition)
+y <- calcNormFactors(y)
+group=coldata$condition
+design <- model.matrix(~group)
+y <- estimateDisp(y,design)
+fitqlf <- glmQLFit(y,design)
+qlf <- glmQLFTest(fitqlf,coef=2)
+topTags(qlf)
+summ_pvalues(qlf$table$PValue)
+```
+
+### likelihood ratio tests with prefiltering
+Filter genes with 0 coverage in all cells.
+```{r edgeR-lrt-filter}
+fitlrt <- glmFit(y,design)
+lrt <- glmLRT(fitlrt,coef=2)
+topTags(lrt)
+summ_pvalues(lrt$table$PValue)
+```
+
+## Parameters used
+* We used data processed after QC step [here](Quality_metrics.html).  
+* EdgeR: Prefiltering of lowly expressed genes: genes with 0 coverage in all cells.
+DEseq2 suggests that this pre-filtering step is only useful to increase speed, not for multiple testing purposes, so no filtering. 
+* targeted locus, choose `r glocus`. 

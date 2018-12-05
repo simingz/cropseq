@@ -7,13 +7,15 @@ output:
 
 ### Crop-seq 
 
-[Exploratory Analysis & DESeq2 from Alan](crop_workflow_Alan.html) (11/07/2018)
+[Exploratory Analysis & DESeq2 from Alan](crop_workflow_Alan.html) 
 
-[Exploratory Analysis from Siwei](crop_workflow_Siwei.html) (11/19/2018)
+[Exploratory Analysis from Siwei](crop_workflow_Siwei.html) 
 
 [Quality_metrics](Quality_metrics.html) 
 
-In this workflow, I show how to process the raw FastQ files into count matrices representing UMI. We use the CellRanger toolkit to perform the processing. Then, we load the UMI matrices into R and perform exploratory analysis. We find that 2200+ cells have exactly 1 guide RNA and ~400 cells have zero. For the top expressed guide RNA, we perform differential expression analysis using DESeq2.
+[Differetial expression](DE_analysis.html) 
+
+
 
 
 

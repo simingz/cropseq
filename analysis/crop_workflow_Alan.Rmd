@@ -177,5 +177,4 @@ mean(downReg$log2FoldChange)
 ```
 
 
-I set `eval=FALSE` above because it can take several minutes to perform the expression analysis. 
 
