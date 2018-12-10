@@ -14,10 +14,3 @@ output:
 [Quality_metrics](Quality_metrics.html) 
 
 [Differetial expression](DE_analysis.html) 
-
-
-
-
-
-
-
