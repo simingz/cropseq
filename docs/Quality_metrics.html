@@ -321,7 +321,7 @@ div.section {
 </div>
 
 
-<p><strong>Last updated:</strong> 2018-12-04</p>
+<p><strong>Last updated:</strong> 2018-12-14</p>
 <strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
 <ul>
 <li>
@@ -344,7 +344,7 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/275d5d865e08b6de5e4c9d3d038522c52b998039" target="_blank">275d5d8</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/21193c89db26120ec5344823fb290ff92eedca88" target="_blank">21193c8</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -353,13 +353,9 @@ Ignored files:
     Ignored:    analysis/Quality_metrics_cache/
     Ignored:    analysis/figure/
 
-Untracked files:
-    Untracked:  analysis/DE_analysis.Rmd
-
 Unstaged changes:
     Modified:   analysis/Quality_metrics.Rmd
-    Modified:   analysis/crop_workflow_Alan.Rmd
-    Modified:   analysis/index.Rmd
+    Modified:   data/DE_input.Rd
 
 </code></pre>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes. </details>
@@ -388,6 +384,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/8ce79ed3ec7d44f3ad745fd88b4e9eab6affcd0a/analysis/Quality_metrics.Rmd" target="_blank">8ce79ed</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2018-12-05
+</td>
+<td style="text-align:left;">
+de_anlysis
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/simingz/cropseq/8ce79ed3ec7d44f3ad745fd88b4e9eab6affcd0a/docs/Quality_metrics.html" target="_blank">8ce79ed</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2018-12-05
+</td>
+<td style="text-align:left;">
+de_anlysis
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Rmd
@@ -549,7 +579,7 @@ qc
 <div id="number-of-guide-rnas-per-cell" class="section level2">
 <h2>Number of guide RNAs per cell</h2>
 <ul>
-<li>number of cells with guide RNA =1 From Siwei’s cellranger run:</li>
+<li>number of cells with guide RNA reads =1 From Siwei’s cellranger run:</li>
 </ul>
 <pre class="r"><code>library(Matrix)
 matrix_dir = &quot;/Volumes/CROP-seq/data_from_Siwei/Xin_scRNA_seq_05Nov2018/filtered_gene_bc_matrices/CellRanger_index/&quot;
@@ -573,7 +603,7 @@ length(colSums(mattemp21)[colSums(mattemp21)==1])</code></pre>
 <pre><code>[1] 190</code></pre>
 <p>Note: in Alan’s original analysis conversion from h5 to csv step didn’t seem to work properly. if starting from matrix.mtx files. Siwei and Alan’s analyses gave the same results. So from now on, we will always start from Siwei’s matrix.mtx file.</p>
 <ul>
-<li>distribution of gRNA number per cell</li>
+<li>distribution of gRNA types per cell</li>
 </ul>
 <pre class="r"><code>barcode.path &lt;- paste0(matrix_dir, &quot;barcodes.tsv&quot;)
 features.path &lt;- paste0(matrix_dir, &quot;genes.tsv&quot;)
@@ -584,7 +614,8 @@ barcode.names = read.delim(barcode.path, header = FALSE,
 colnames(dm) = barcode.names$V1
 rownames(dm) = feature.names$V1
 dm1 &lt;- tail(dm,n=76)
-hist(colSums(dm1),breaks=3000,xlim=c(0,30),ylim=c(0,450), main=&quot;Distribution of gRNA number per cell&quot;, xlab= &quot;#gRNA per cell&quot;)</code></pre>
+
+hist(apply(dm1, 2, function(x) length(x[x&gt;0])),breaks=300,xlim=c(0,15),ylim=c(0,2500), main=&quot;Distribution of number of gRNA types per cell&quot;, xlab= &quot;# gRNA type per cell&quot;)</code></pre>
 <p><img src="figure/Quality_metrics.Rmd/gRNAdist-1.png" width="672" style="display: block; margin: auto;" /></p>
 <details> <summary><em>Expand here to see past versions of gRNAdist-1.png:</em></summary>
 <table style="border-collapse:separate; border-spacing:5px;">
@@ -783,6 +814,13 @@ szhao06
 </table>
 <p></details></p>
 </div>
+<div id="umi-count-distribution-for-grnas-in-cells-with-unique-targeted-locus" class="section level2">
+<h2>UMI count distribution for gRNAs in cells with unique targeted locus</h2>
+<pre class="r"><code># Singletons (cells with only 1 targeted locus)
+nUMIgRNA &lt;- colSums(tail(dm.uni,76))
+hist(nUMIgRNA,breaks=500,xlim=c(0,20), main = &quot;Histogram of nUMI for gRNAs&quot;)  </code></pre>
+<p><img src="figure/Quality_metrics.Rmd/UMIgRNA-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
 <div id="prepare-data-for-differential-gene-expression" class="section level2">
 <h2>Prepare data for differential gene expression</h2>
 <pre class="r"><code>save(dm,dm1dfagg,nlocus, file=&quot;data/DE_input.Rd&quot;)</code></pre>
@@ -796,13 +834,9 @@ szhao06
 <div id="session-information" class="section level2">
 <h2>Session information</h2>
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 3.5.1 (2018-07-02)
-Platform: x86_64-apple-darwin14.5.0 (64-bit)
+<pre><code>R version 3.3.2 (2016-10-31)
+Platform: x86_64-apple-darwin11.4.2 (64-bit)
 Running under: OS X El Capitan 10.11.6
-
-Matrix products: default
-BLAS: /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
-LAPACK: /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libLAPACK.dylib
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
@@ -811,21 +845,20 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 other attached packages:
-[1] dplyr_0.7.6   Matrix_1.2-14
+[1] dplyr_0.7.5   Matrix_1.2-10
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.0        bindr_0.1.1       knitr_1.20       
+ [1] Rcpp_0.12.17      knitr_1.20        bindr_0.1.1      
  [4] whisker_0.3-2     magrittr_1.5      workflowr_1.1.1  
- [7] tidyselect_0.2.4  lattice_0.20-35   R6_2.3.0         
-[10] rlang_0.3.0.1     stringr_1.3.1     tools_3.5.1      
-[13] grid_3.5.1        R.oo_1.22.0       git2r_0.23.0     
-[16] htmltools_0.3.6   yaml_2.2.0        rprojroot_1.3-2  
-[19] digest_0.6.18     assertthat_0.2.0  tibble_1.4.2     
-[22] crayon_1.3.4      bindrcpp_0.2.2    purrr_0.2.5      
-[25] R.utils_2.7.0     glue_1.3.0        evaluate_0.12    
-[28] rmarkdown_1.10    stringi_1.2.4     pillar_1.3.0     
-[31] compiler_3.5.1    backports_1.1.2   R.methodsS3_1.7.1
-[34] pkgconfig_2.0.2  </code></pre>
+ [7] tidyselect_0.2.4  lattice_0.20-35   R6_2.2.2         
+[10] rlang_0.2.1       stringr_1.2.0     tools_3.3.2      
+[13] grid_3.3.2        R.oo_1.22.0       git2r_0.18.0     
+[16] htmltools_0.3.6   yaml_2.1.16       rprojroot_1.2    
+[19] digest_0.6.12     assertthat_0.2.0  tibble_1.4.2     
+[22] bindrcpp_0.2.2    purrr_0.2.5       R.utils_2.7.0    
+[25] glue_1.2.0        evaluate_0.10     rmarkdown_1.10   
+[28] stringi_1.1.5     pillar_1.2.3      backports_1.0.5  
+[31] R.methodsS3_1.7.1 pkgconfig_2.0.1  </code></pre>
 </div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
