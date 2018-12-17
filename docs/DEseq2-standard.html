@@ -9,9 +9,11 @@
 <meta name="generator" content="pandoc" />
 
 
+<meta name="author" content="Siming Zhao" />
 
+<meta name="date" content="2018-12-02" />
 
-<title></title>
+<title>Differential expression analysis--DEseq2 standard</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -314,6 +316,9 @@ div.section {
 
 
 
+<h1 class="title toc-ignore">Differential expression analysis–DEseq2 standard</h1>
+<h4 class="author"><em>Siming Zhao</em></h4>
+<h4 class="date"><em>December 2, 2018</em></h4>
 
 </div>
 
@@ -322,11 +327,31 @@ div.section {
 <strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
 <ul>
 <li>
-<p><details> <summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<details>
+<p><summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/6b6ebde01577aff334bc59802022d3cb6c81a272" target="_blank">6b6ebde</a> </summary></p>
+<details>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Environment:</strong> empty </summary></p>
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</details>
+</li>
+<li>
+<details>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Seed:</strong> <code>set.seed(20181119)</code> </summary></p>
+<p>The command <code>set.seed(20181119)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</details>
+</li>
+<li>
+<details>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Session information:</strong> recorded </summary></p>
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</details>
+</li>
+<li>
+<details>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/6b6ebde01577aff334bc59802022d3cb6c81a272" target="_blank">6b6ebde</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -335,278 +360,118 @@ Ignored files:
     Ignored:    analysis/Quality_metrics_cache/
     Ignored:    analysis/figure/
 
+Untracked files:
+    Untracked:  analysis/DEseq2-LRT.Rmd
+    Untracked:  analysis/DEseq2-standard.Rmd
+    Untracked:  analysis/EdgeR-QLF.Rmd
+    Untracked:  docs/figure/DEseq2-standard.Rmd/
+    Untracked:  docs/figure/EdgeR-QLF.Rmd/
+
 Unstaged changes:
     Modified:   analysis/DE_analysis.Rmd
+    Modified:   analysis/Quality_metrics.Rmd
     Modified:   analysis/index.Rmd
 
 </code></pre>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes. </details>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</details>
 </li>
 </ul>
-<details> <summary> <small><strong>Expand here to see past versions:</strong></small> </summary>
-<ul>
-<table style="border-collapse:separate; border-spacing:5px;">
-<thead>
-<tr>
-<th style="text-align:left;">
-File
-</th>
-<th style="text-align:left;">
-Version
-</th>
-<th style="text-align:left;">
-Author
-</th>
-<th style="text-align:left;">
-Date
-</th>
-<th style="text-align:left;">
-Message
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-html
-</td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/simingz/cropseq/6b6ebde01577aff334bc59802022d3cb6c81a272/docs/index.html" target="_blank">6b6ebde</a>
-</td>
-<td style="text-align:left;">
-simingz
-</td>
-<td style="text-align:left;">
-2018-12-14
-</td>
-<td style="text-align:left;">
-fix Xin’s comment for qc
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-html
-</td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/simingz/cropseq/21193c89db26120ec5344823fb290ff92eedca88/docs/index.html" target="_blank">21193c8</a>
-</td>
-<td style="text-align:left;">
-simingz
-</td>
-<td style="text-align:left;">
-2018-12-10
-</td>
-<td style="text-align:left;">
-website
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Rmd
-</td>
-<td style="text-align:left;">
-<a href="https://github.com/simingz/cropseq/blob/7c8478e6dc6fa600e50925759c59a591a9143bbe/analysis/index.Rmd" target="_blank">7c8478e</a>
-</td>
-<td style="text-align:left;">
-simingz
-</td>
-<td style="text-align:left;">
-2018-12-10
-</td>
-<td style="text-align:left;">
-website
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-html
-</td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/simingz/cropseq/b94b65a916b930197dcf10422e1593beafbfe308/docs/index.html" target="_blank">b94b65a</a>
-</td>
-<td style="text-align:left;">
-simingz
-</td>
-<td style="text-align:left;">
-2018-12-05
-</td>
-<td style="text-align:left;">
-de_anlysis
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Rmd
-</td>
-<td style="text-align:left;">
-<a href="https://github.com/simingz/cropseq/blob/8ce79ed3ec7d44f3ad745fd88b4e9eab6affcd0a/analysis/index.Rmd" target="_blank">8ce79ed</a>
-</td>
-<td style="text-align:left;">
-simingz
-</td>
-<td style="text-align:left;">
-2018-12-05
-</td>
-<td style="text-align:left;">
-de_anlysis
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-html
-</td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/simingz/cropseq/275d5d865e08b6de5e4c9d3d038522c52b998039/docs/index.html" target="_blank">275d5d8</a>
-</td>
-<td style="text-align:left;">
-simingz
-</td>
-<td style="text-align:left;">
-2018-12-02
-</td>
-<td style="text-align:left;">
-qc
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-html
-</td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/simingz/cropseq/9f8ba8d6ab9cee5dcd2ec5c33defc50ef5220df2/docs/index.html" target="_blank">9f8ba8d</a>
-</td>
-<td style="text-align:left;">
-szhao06
-</td>
-<td style="text-align:left;">
-2018-12-02
-</td>
-<td style="text-align:left;">
-qc
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-html
-</td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/simingz/cropseq/c206c9d2a24d343aaf9dae5f78737a21d719db50/docs/index.html" target="_blank">c206c9d</a>
-</td>
-<td style="text-align:left;">
-szhao06
-</td>
-<td style="text-align:left;">
-2018-12-01
-</td>
-<td style="text-align:left;">
-qc
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Rmd
-</td>
-<td style="text-align:left;">
-<a href="https://github.com/simingz/cropseq/blob/fdd56472119b02d3dfe1fadd755df6b8b1db3682/analysis/index.Rmd" target="_blank">fdd5647</a>
-</td>
-<td style="text-align:left;">
-szhao06
-</td>
-<td style="text-align:left;">
-2018-12-01
-</td>
-<td style="text-align:left;">
-qc
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-html
-</td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/simingz/cropseq/fdd56472119b02d3dfe1fadd755df6b8b1db3682/docs/index.html" target="_blank">fdd5647</a>
-</td>
-<td style="text-align:left;">
-szhao06
-</td>
-<td style="text-align:left;">
-2018-12-01
-</td>
-<td style="text-align:left;">
-qc
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-html
-</td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/simingz/cropseq/6360503650910fec56e1f698ca2d401c8b738dfe/docs/index.html" target="_blank">6360503</a>
-</td>
-<td style="text-align:left;">
-simingz
-</td>
-<td style="text-align:left;">
-2018-11-20
-</td>
-<td style="text-align:left;">
-Build site.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Rmd
-</td>
-<td style="text-align:left;">
-<a href="https://github.com/simingz/cropseq/blob/8be64d02528d178c3f9ed0934bcb75137b9f6e9d/analysis/index.Rmd" target="_blank">8be64d0</a>
-</td>
-<td style="text-align:left;">
-simingz
-</td>
-<td style="text-align:left;">
-2018-11-20
-</td>
-<td style="text-align:left;">
-First
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Rmd
-</td>
-<td style="text-align:left;">
-<a href="https://github.com/simingz/cropseq/blob/fe55f5da2b09ec040cbce97696bbdab1e6f69547/analysis/index.Rmd" target="_blank">fe55f5d</a>
-</td>
-<td style="text-align:left;">
-simingz
-</td>
-<td style="text-align:left;">
-2018-11-19
-</td>
-<td style="text-align:left;">
-Start workflowr project.
-</td>
-</tr>
-</tbody>
-</table>
-</ul>
-<p></details></p>
 <hr />
-<div id="crop-seq" class="section level3">
-<h3>Crop-seq</h3>
-<p><a href="crop_workflow_Alan.html">Exploratory Analysis &amp; DESeq2 from Alan</a></p>
-<p><a href="crop_workflow_Siwei.html">Exploratory Analysis from Siwei</a></p>
-<p><a href="Quality_metrics.html">Quality_metrics</a></p>
-<p>Differetial expression</p>
+<p>Load data</p>
+<pre class="r"><code>source(&quot;code/summary_functions.R&quot;)
+library(dplyr)
+load(&quot;data/DE_input.Rd&quot;)
+glocus &lt;- &quot;VPS45&quot;
+dim(dm)[1]</code></pre>
+<pre><code>NULL</code></pre>
+<pre class="r"><code>gcount &lt;- dm[1:(dim(dm)[1]-76), colnames(dm1dfagg)[dm1dfagg[glocus,] &gt;0 &amp; nlocus==1]]
+# negative control cells defined as neg gRNA targeted cells
+ncount &lt;- dm[1:(dim(dm)[1]-76), colnames(dm1dfagg)[dm1dfagg[&quot;neg&quot;,] &gt;0 &amp; nlocus==1]]
+coldata &lt;- data.frame(row.names = c(colnames(gcount),colnames(ncount)),     
+                      condition=c(rep(&#39;G&#39;,dim(gcount)[2]),rep(&#39;N&#39;,dim(ncount)[2])))</code></pre>
+<p>run deseq2 standard function</p>
+<pre class="r"><code>library(DESeq2)
+run_deseq2 &lt;- function(dds) {
+  dds = estimateSizeFactors(dds)
+  ddsWARD = DESeq(dds)
+  resWARD = results(ddsWARD)
+  summ_pvalues(resWARD$pvalue[!is.na(resWARD$pvalue)])
+  resSigWARD &lt;- subset(resWARD, padj &lt; 0.1)
+  print(paste0(&quot;There are &quot;,dim(resSigWARD)[1], &quot; genes passed FDR &lt;0.1 cutoff&quot;))
+  knitr::kable(signif(as.matrix(head(resWARD[order(resWARD$pvalue),])),digit=2))
+  return(resWARD)
+}</code></pre>
+<div id="run-deseq2no-filtering" class="section level2">
+<h2>Run DEseq2–No filtering</h2>
+<pre class="r"><code>countall &lt;- cbind(gcount,ncount)
+dds = DESeqDataSetFromMatrix(countData = countall, colData = coldata,design = ~condition)
+res &lt;- run_deseq2(dds)</code></pre>
+<p><img src="figure/DEseq2-standard.Rmd/deseq2-1.png" width="672" style="display: block; margin: auto;" />[1] “There are 0 genes passed FDR &lt;0.1 cutoff”</p>
+</div>
+<div id="parameters-used" class="section level2">
+<h2>Parameters used</h2>
 <ul>
-<li><a href="DEseq2-standard.html">DEseq2-standard</a><br />
+<li>We used data processed after QC step <a href="Quality_metrics.html">here</a>.<br />
 </li>
-<li><a href="DESeq2-LRT.html">DESeq2-LRT</a><br />
-</li>
-<li><a href="EdgeR-QLF.html">EdgeR-QLF</a><br />
-</li>
-<li><a href="EdgeR-LRT.html">EdgeR-LRT</a></li>
+<li>EdgeR: Prefiltering of lowly expressed genes: genes with 0 coverage in all cells. DEseq2 suggests that this pre-filtering step is only useful to increase speed, not for multiple testing purposes, so no filtering.</li>
+<li>targeted locus, choose VPS45.</li>
 </ul>
+</div>
+<div id="session-information" class="section level2">
+<h2>Session information</h2>
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.5.1 (2018-07-02)
+Platform: x86_64-apple-darwin14.5.0 (64-bit)
+Running under: OS X El Capitan 10.11.6
+
+Matrix products: default
+BLAS: /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
+LAPACK: /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libLAPACK.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+ [1] grid      parallel  stats4    stats     graphics  grDevices utils    
+ [8] datasets  methods   base     
+
+other attached packages:
+ [1] gridExtra_2.3               lattice_0.20-35            
+ [3] DESeq2_1.20.0               SummarizedExperiment_1.10.1
+ [5] DelayedArray_0.6.6          BiocParallel_1.14.2        
+ [7] matrixStats_0.54.0          Biobase_2.40.0             
+ [9] GenomicRanges_1.32.7        GenomeInfoDb_1.16.0        
+[11] IRanges_2.14.12             S4Vectors_0.18.3           
+[13] BiocGenerics_0.26.0         Matrix_1.2-14              
+[15] dplyr_0.7.6                
+
+loaded via a namespace (and not attached):
+ [1] bit64_0.9-7            splines_3.5.1          R.utils_2.7.0         
+ [4] Formula_1.2-3          assertthat_0.2.0       highr_0.7             
+ [7] latticeExtra_0.6-28    blob_1.1.1             GenomeInfoDbData_1.1.0
+[10] yaml_2.2.0             RSQLite_2.1.1          pillar_1.3.0          
+[13] backports_1.1.2        glue_1.3.0             digest_0.6.18         
+[16] RColorBrewer_1.1-2     XVector_0.20.0         checkmate_1.8.5       
+[19] colorspace_1.3-2       htmltools_0.3.6        R.oo_1.22.0           
+[22] plyr_1.8.4             XML_3.98-1.16          pkgconfig_2.0.2       
+[25] genefilter_1.62.0      zlibbioc_1.26.0        xtable_1.8-3          
+[28] purrr_0.2.5            scales_1.0.0           whisker_0.3-2         
+[31] annotate_1.58.0        git2r_0.23.0           tibble_1.4.2          
+[34] htmlTable_1.12         ggplot2_3.1.0          nnet_7.3-12           
+[37] lazyeval_0.2.1         survival_2.42-6        magrittr_1.5          
+[40] crayon_1.3.4           memoise_1.1.0          evaluate_0.12         
+[43] R.methodsS3_1.7.1      foreign_0.8-71         tools_3.5.1           
+[46] data.table_1.11.6      stringr_1.3.1          locfit_1.5-9.1        
+[49] munsell_0.5.0          cluster_2.0.7-1        AnnotationDbi_1.42.1  
+[52] bindrcpp_0.2.2         compiler_3.5.1         rlang_0.3.0.1         
+[55] RCurl_1.95-4.11        rstudioapi_0.8         htmlwidgets_1.2       
+[58] bitops_1.0-6           base64enc_0.1-3        rmarkdown_1.10        
+[61] gtable_0.2.0           DBI_1.0.0              R6_2.3.0              
+[64] knitr_1.20             bit_1.1-12             bindr_0.1.1           
+[67] Hmisc_4.1-1            workflowr_1.1.1        rprojroot_1.3-2       
+[70] stringi_1.2.4          Rcpp_1.0.0             geneplotter_1.58.0    
+[73] rpart_4.1-13           acepack_1.4.1          tidyselect_0.2.4      </code></pre>
 </div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using

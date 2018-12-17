@@ -1,5 +1,5 @@
 ---
-title: "Differential expression analysis"
+title: "Differential expression analysis--DEseq2 LRT"
 author: "Siming Zhao"
 date: "December 2, 2018"
 output: html_document

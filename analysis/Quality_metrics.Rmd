@@ -99,6 +99,7 @@ hist(nUMIgRNA,breaks=500,xlim=c(0,20), main = "Histogram of nUMI for gRNAs")
 ```{r save, eval=T}
 save(dm,dm1dfagg,nlocus, file="data/DE_input.Rd")
 ```
+
 Parameters used:
 
 * for a cell to be considered targeted uniquely at a locus: total read counts for the 3 gRNAs targeting that locus >1, total read counts for gRNA of other locus=0. 

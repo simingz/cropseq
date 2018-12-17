@@ -1,0 +1,81 @@
+---
+title: "Differential expression analysis--EdgeR quasi-likelihood F-tests"
+author: "Siming Zhao"
+date: "December 2, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE)
+```
+
+Load data
+```{r loaddata}
+source("code/summary_functions.R")
+library(dplyr)
+load("data/DE_input.Rd")
+glocus <- "VPS45"
+dim(dm)[1]
+gcount <- dm[1:(dim(dm)[1]-76), colnames(dm1dfagg)[dm1dfagg[glocus,] >0 & nlocus==1]]
+# negative control cells defined as neg gRNA targeted cells
+ncount <- dm[1:(dim(dm)[1]-76), colnames(dm1dfagg)[dm1dfagg["neg",] >0 & nlocus==1]]
+coldata <- data.frame(row.names = c(colnames(gcount),colnames(ncount)),     
+                      condition=c(rep('G',dim(gcount)[2]),rep('N',dim(ncount)[2])))
+countall <- cbind(gcount,ncount)
+totalcount <- apply(countall,1,sum)
+cellpercent <-  apply(countall,1,function(x) length(x[x>0])/length(x))
+```
+
+edgeR quasi-likelihood F-tests function
+```{r edgeRfunc}
+library(edgeR)
+run_edgeR <- function(y) {
+  # y is DGElist object
+  y <- calcNormFactors(y)
+  group=coldata$condition
+  design <- model.matrix(~group)
+  y <- estimateDisp(y,design)
+  fitqlf <- glmQLFit(y,design)
+  qlf <- glmQLFTest(fitqlf,coef=2)
+  summ_pvalues(qlf$table$PValue)
+  out <- topTags(qlf, n=Inf, adjust.method = "BH")
+  outsig <- subset(out$table,FDR <0.1)
+  print(paste0("There are ",dim(outsig)[1], " genes passed FDR <0.1 cutoff"))
+  print(knitr::kable(signif(as.matrix(head(out$table[order(out$table$PValue),])),digit=2)))
+  return(out)
+}
+```
+
+## Run edgeR--No filtering
+```{r edgeRall}
+y <- DGEList(counts= countall,group=coldata$condition)
+res <- run_edgeR(y)
+```
+
+## Run edgeR--at least one cell UMI > 0 
+```{r edgeR>0}
+y <- DGEList(counts= countall[totalcount>0,],group=coldata$condition)
+res <- run_edgeR(y)
+```
+
+## Run edgeR--3% cells with UMI > 0
+```{r edgeR0.03}
+y <- DGEList(counts= countall[cellpercent > 0.03,],group=coldata$condition)
+res <- run_edgeR(y)
+```
+
+## Run edgeR--10% cells with UMI > 0
+```{r edgeR0.1}
+y <- DGEList(counts= countall[cellpercent > 0.1,],group=coldata$condition)
+res <- run_edgeR(y)
+```
+
+## Run edgeR--20% cells with UMI > 0
+```{r edgeR0.2}
+y <- DGEList(counts= countall[cellpercent > 0.2,],group=coldata$condition)
+res <- run_edgeR(y)
+```
+
+## Parameters used
+* We used data processed after QC step [here](Quality_metrics.html).  
+* targeted locus, choose `r glocus`. 

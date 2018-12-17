@@ -13,4 +13,9 @@ output:
 
 [Quality_metrics](Quality_metrics.html) 
 
-[Differetial expression](DE_analysis.html) 
+Differetial expression
+
+* [DEseq2-standard](DEseq2-standard.html)  
+* [DESeq2-LRT](DESeq2-LRT.html)  
+* [EdgeR-QLF](EdgeR-QLF.html)  
+* [EdgeR-LRT](EdgeR-LRT.html)  
