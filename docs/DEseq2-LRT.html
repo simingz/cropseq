@@ -13,7 +13,7 @@
 
 <meta name="date" content="2018-12-02" />
 
-<title>Differential expression analysis--DEseq2 standard</title>
+<title>Differential expression analysis--DEseq2 likelihood ratio test</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,19 +316,19 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Differential expression analysis–DEseq2 standard</h1>
+<h1 class="title toc-ignore">Differential expression analysis–DEseq2 likelihood ratio test</h1>
 <h4 class="author"><em>Siming Zhao</em></h4>
 <h4 class="date"><em>December 2, 2018</em></h4>
 
 </div>
 
 
-<p><strong>Last updated:</strong> 2018-12-16</p>
+<p><strong>Last updated:</strong> 2018-12-17</p>
 <strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
 <ul>
 <li>
 <details>
-<p><summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p><summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </details>
 </li>
 <li>
@@ -351,7 +351,7 @@ div.section {
 </li>
 <li>
 <details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/6b6ebde01577aff334bc59802022d3cb6c81a272" target="_blank">6b6ebde</a> </summary></p>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/49ecf6e2cf5686b9d11690f78c565c7361d08d6e" target="_blank">49ecf6e</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -361,22 +361,61 @@ Ignored files:
     Ignored:    analysis/figure/
 
 Untracked files:
-    Untracked:  analysis/DEseq2-LRT.Rmd
-    Untracked:  analysis/DEseq2-standard.Rmd
-    Untracked:  analysis/EdgeR-QLF.Rmd
-    Untracked:  docs/figure/DEseq2-standard.Rmd/
-    Untracked:  docs/figure/EdgeR-QLF.Rmd/
+    Untracked:  analysis/EdgeR-LRT.Rmd
 
 Unstaged changes:
-    Modified:   analysis/DE_analysis.Rmd
-    Modified:   analysis/Quality_metrics.Rmd
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/DEseq2-LRT.Rmd
 
 </code></pre>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
 </details>
 </li>
 </ul>
+<details>
+<summary> <small><strong>Expand here to see past versions:</strong></small> </summary>
+<ul>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+File
+</th>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:left;">
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/49ecf6e2cf5686b9d11690f78c565c7361d08d6e/analysis/DEseq2-LRT.Rmd" target="_blank">49ecf6e</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2018-12-16
+</td>
+<td style="text-align:left;">
+explore filtering
+</td>
+</tr>
+</tbody>
+</table>
+</ul>
+</details>
 <hr />
 <p>Load data</p>
 <pre class="r"><code>source(&quot;code/summary_functions.R&quot;)
@@ -393,128 +432,100 @@ coldata &lt;- data.frame(row.names = c(colnames(gcount),colnames(ncount)),
 countall &lt;- cbind(gcount,ncount)
 totalcount &lt;- apply(countall,1,sum)
 cellpercent &lt;-  apply(countall,1,function(x) length(x[x&gt;0])/length(x))</code></pre>
-<p>run deseq2 standard function</p>
+<p>run deseq2 likelihood ratio function</p>
+<ul>
+<li>Following recommendation for single cell from <a href="http://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html#recommendations-for-single-cell-analysis">here</a>.</li>
+</ul>
 <pre class="r"><code>library(DESeq2)
 run_deseq2 &lt;- function(dds) {
   dds = estimateSizeFactors(dds)
-  ddsWARD = DESeq(dds)
-  resWARD = results(ddsWARD)
-  summ_pvalues(resWARD$pvalue[!is.na(resWARD$pvalue)])
-  resSigWARD &lt;- subset(resWARD, padj &lt; 0.1)
-  print(paste0(&quot;There are &quot;,dim(resSigWARD)[1], &quot; genes passed FDR &lt;0.1 cutoff&quot;))
-  print(knitr::kable(signif(as.matrix(head(resWARD[order(resWARD$pvalue),])),digit=2)))
-  return(resWARD)
+  ddsLRT = DESeq(dds, test=&quot;LRT&quot;, reduced = ~1,  sfType=&quot;poscounts&quot;, useT=TRUE, minmu=1e-6,minReplicatesForReplace=Inf)
+  resLRT = results(ddsLRT)
+  summ_pvalues(resLRT$pvalue[!is.na(resLRT$pvalue)])
+  resSigLRT &lt;- subset(resLRT, padj &lt; 0.1)
+  print(paste0(&quot;There are &quot;,dim(resSigLRT)[1], &quot; genes passed FDR &lt;0.1 cutoff&quot;))
+  print(knitr::kable(signif(as.matrix(head(resLRT[order(resLRT$pvalue),])),digit=2)))
+  return(resLRT)
 }</code></pre>
 <div id="run-deseq2no-filtering" class="section level2">
 <h2>Run DEseq2–No filtering</h2>
 <pre class="r"><code>dds = DESeqDataSetFromMatrix(countData = countall, colData = coldata,design = ~condition)
 res &lt;- run_deseq2(dds)</code></pre>
-<p><img src="figure/DEseq2-standard.Rmd/deseq2-1.png" width="672" style="display: block; margin: auto;" /></p>
-<details>
-<summary><em>Expand here to see past versions of deseq2-1.png:</em></summary>
-<table style = "border-collapse:separate; border-spacing:5px;">
-<thead>
-<tr>
-<th style="text-align:left;">
-Version
-</th>
-<th style="text-align:left;">
-Author
-</th>
-<th style="text-align:left;">
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-<a href="https://github.com/simingz/cropseq/blob/49ecf6e2cf5686b9d11690f78c565c7361d08d6e/docs/figure/DEseq2-standard.Rmd/deseq2-1.png" target="_blank">49ecf6e</a>
-</td>
-<td style="text-align:left;">
-simingz
-</td>
-<td style="text-align:left;">
-2018-12-16
-</td>
-</tr>
-</tbody>
-</table>
-</details>
+<p><img src="figure/DEseq2-LRT.Rmd/deseq2-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>[1] &quot;There are 0 genes passed FDR &lt;0.1 cutoff&quot;
 
                       baseMean   log2FoldChange   lfcSE   stat    pvalue   padj
 -------------------  ---------  ---------------  ------  -----  --------  -----
-ENSG00000104722.13        2.60            -1.70   0.380   -4.5   7.4e-06   0.12
-ENSG00000175899.14        0.88            -1.60   0.420   -3.8   1.5e-04   1.00
-ENSG00000184900.15        3.90             0.43   0.120    3.6   3.7e-04   1.00
-ENSG00000131669.9         0.99             0.82   0.230    3.5   4.3e-04   1.00
-ENSG00000175390.13       16.00            -0.21   0.065   -3.3   1.1e-03   1.00
-ENSG00000101198.14        1.80            -1.10   0.340   -3.2   1.3e-03   1.00</code></pre>
+ENSG00000175899.14        0.88            -1.70    0.42     16   0.00007   0.77
+ENSG00000100300.17        0.21            -2.80    0.82     13   0.00033   0.77
+ENSG00000184900.15        3.90             0.43    0.12     13   0.00036   0.77
+ENSG00000219626.8         0.31            -1.40    0.42     13   0.00037   0.77
+ENSG00000119906.11        0.27             1.60    0.47     12   0.00041   0.77
+ENSG00000131669.9         0.99             0.83    0.24     12   0.00048   0.77</code></pre>
 </div>
 <div id="run-deseq2at-least-one-cell-umi-0" class="section level2">
 <h2>Run DEseq2–at least one cell UMI &gt; 0</h2>
 <pre class="r"><code>dds = DESeqDataSetFromMatrix(countData = countall[totalcount&gt;0,], colData = coldata,design = ~condition)
 res &lt;- run_deseq2(dds)</code></pre>
-<p><img src="figure/DEseq2-standard.Rmd/deseq2%3E0-1.png" width=“672” style=“display: block; margin: auto;” /&gt;</p>
+<p><img src="figure/DEseq2-LRT.Rmd/deseq2%3E0-1.png" width=“672” style=“display: block; margin: auto;” /&gt;</p>
 <pre><code>[1] &quot;There are 0 genes passed FDR &lt;0.1 cutoff&quot;
 
                       baseMean   log2FoldChange   lfcSE   stat    pvalue   padj
 -------------------  ---------  ---------------  ------  -----  --------  -----
-ENSG00000104722.13        2.60            -1.70   0.380   -4.5   7.4e-06   0.12
-ENSG00000175899.14        0.88            -1.60   0.420   -3.8   1.5e-04   1.00
-ENSG00000184900.15        3.90             0.43   0.120    3.6   3.7e-04   1.00
-ENSG00000131669.9         0.99             0.82   0.230    3.5   4.3e-04   1.00
-ENSG00000175390.13       16.00            -0.21   0.065   -3.3   1.1e-03   1.00
-ENSG00000101198.14        1.80            -1.10   0.340   -3.2   1.3e-03   1.00</code></pre>
+ENSG00000175899.14        0.88            -1.70    0.42     16   0.00007   0.77
+ENSG00000100300.17        0.21            -2.80    0.82     13   0.00033   0.77
+ENSG00000184900.15        3.90             0.43    0.12     13   0.00036   0.77
+ENSG00000219626.8         0.31            -1.40    0.42     13   0.00037   0.77
+ENSG00000119906.11        0.27             1.60    0.47     12   0.00041   0.77
+ENSG00000131669.9         0.99             0.83    0.24     12   0.00048   0.77</code></pre>
 </div>
 <div id="run-deseq23-cells-with-umi-0" class="section level2">
 <h2>Run DEseq2–3% cells with UMI &gt; 0</h2>
 <pre class="r"><code>dds = DESeqDataSetFromMatrix(countData = countall[cellpercent &gt; 0.03,], colData = coldata,design = ~condition)
 res &lt;- run_deseq2(dds)</code></pre>
-<p><img src="figure/DEseq2-standard.Rmd/deseq20.03-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;There are 1 genes passed FDR &lt;0.1 cutoff&quot;
+<p><img src="figure/DEseq2-LRT.Rmd/deseq20.03-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 0 genes passed FDR &lt;0.1 cutoff&quot;
 
-                      baseMean   log2FoldChange   lfcSE   stat    pvalue    padj
--------------------  ---------  ---------------  ------  -----  --------  ------
-ENSG00000104722.13        2.60            -1.70   0.380   -4.5   7.4e-06   0.088
-ENSG00000175899.14        0.88            -1.60   0.420   -3.9   1.1e-04   0.650
-ENSG00000184900.15        3.90             0.43   0.120    3.5   3.9e-04   1.000
-ENSG00000131669.9         0.99             0.82   0.240    3.4   6.3e-04   1.000
-ENSG00000175390.13       16.00            -0.21   0.065   -3.3   1.0e-03   1.000
-ENSG00000101198.14        1.80            -1.10   0.340   -3.3   1.1e-03   1.000</code></pre>
+                      baseMean   log2FoldChange   lfcSE   stat    pvalue   padj
+-------------------  ---------  ---------------  ------  -----  --------  -----
+ENSG00000175899.14        0.88            -1.70    0.42     16   5.9e-05   0.70
+ENSG00000100300.17        0.21            -2.80    0.80     13   2.5e-04   0.74
+ENSG00000184900.15        3.90             0.43    0.12     13   3.6e-04   0.74
+ENSG00000219626.8         0.31            -1.40    0.42     13   3.7e-04   0.74
+ENSG00000119906.11        0.27             1.60    0.47     13   4.0e-04   0.74
+ENSG00000131669.9         0.99             0.83    0.24     12   4.7e-04   0.74</code></pre>
 </div>
 <div id="run-deseq210-cells-with-umi-0" class="section level2">
 <h2>Run DEseq2–10% cells with UMI &gt; 0</h2>
 <pre class="r"><code>dds = DESeqDataSetFromMatrix(countData = countall[cellpercent &gt; 0.1,], colData = coldata,design = ~condition)
 res &lt;- run_deseq2(dds)</code></pre>
-<p><img src="figure/DEseq2-standard.Rmd/deseq20.1-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;There are 1 genes passed FDR &lt;0.1 cutoff&quot;
+<p><img src="figure/DEseq2-LRT.Rmd/deseq20.1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 0 genes passed FDR &lt;0.1 cutoff&quot;
 
-                      baseMean   log2FoldChange   lfcSE   stat    pvalue    padj
--------------------  ---------  ---------------  ------  -----  --------  ------
-ENSG00000104722.13        2.60            -1.70   0.380   -4.5   7.4e-06   0.071
-ENSG00000175899.14        0.88            -1.60   0.410   -3.9   9.0e-05   0.430
-ENSG00000184900.15        3.90             0.43   0.120    3.5   3.9e-04   1.000
-ENSG00000131669.9         0.99             0.82   0.240    3.4   5.9e-04   1.000
-ENSG00000175390.13       16.00            -0.21   0.065   -3.3   1.1e-03   1.000
-ENSG00000101198.14        1.80            -1.10   0.340   -3.2   1.3e-03   1.000</code></pre>
+                      baseMean   log2FoldChange   lfcSE   stat    pvalue   padj
+-------------------  ---------  ---------------  ------  -----  --------  -----
+ENSG00000175899.14        0.88            -1.70    0.43     15   9.7e-05   0.61
+ENSG00000100300.17        0.21            -2.80    0.79     14   2.0e-04   0.61
+ENSG00000219626.8         0.31            -1.40    0.41     13   3.5e-04   0.61
+ENSG00000184900.15        3.90             0.43    0.12     13   3.6e-04   0.61
+ENSG00000119906.11        0.27             1.60    0.47     13   3.7e-04   0.61
+ENSG00000131669.9         0.99             0.83    0.24     12   4.4e-04   0.61</code></pre>
 </div>
 <div id="run-deseq220-cells-with-umi-0" class="section level2">
 <h2>Run DEseq2–20% cells with UMI &gt; 0</h2>
 <pre class="r"><code>dds = DESeqDataSetFromMatrix(countData = countall[cellpercent &gt; 0.2,], colData = coldata,design = ~condition)
 res &lt;- run_deseq2(dds)</code></pre>
-<p><img src="figure/DEseq2-standard.Rmd/deseq20.2-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;There are 1 genes passed FDR &lt;0.1 cutoff&quot;
+<p><img src="figure/DEseq2-LRT.Rmd/deseq20.2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 0 genes passed FDR &lt;0.1 cutoff&quot;
 
-                      baseMean   log2FoldChange   lfcSE   stat    pvalue    padj
--------------------  ---------  ---------------  ------  -----  --------  ------
-ENSG00000104722.13        2.60            -1.70   0.380   -4.5   7.4e-06   0.056
-ENSG00000175899.14        0.88            -1.60   0.420   -3.8   1.5e-04   0.570
-ENSG00000184900.15        3.90             0.43   0.120    3.5   3.9e-04   0.990
-ENSG00000131669.9         0.99             0.82   0.240    3.5   5.6e-04   1.000
-ENSG00000175390.13       16.00            -0.21   0.066   -3.3   1.1e-03   1.000
-ENSG00000101198.14        1.80            -1.10   0.340   -3.2   1.3e-03   1.000</code></pre>
+                      baseMean   log2FoldChange   lfcSE   stat    pvalue   padj
+-------------------  ---------  ---------------  ------  -----  --------  -----
+ENSG00000175899.14        0.88            -1.70    0.43     15   9.7e-05   0.58
+ENSG00000219626.8         0.31            -1.40    0.41     13   3.3e-04   0.58
+ENSG00000119906.11        0.27             1.60    0.46     13   3.5e-04   0.58
+ENSG00000184900.15        3.90             0.43    0.12     13   3.7e-04   0.58
+ENSG00000131669.9         0.99             0.83    0.24     12   4.2e-04   0.58
+ENSG00000078061.12        0.50            -1.10    0.31     12   5.0e-04   0.58</code></pre>
 </div>
 <div id="parameters-used" class="section level2">
 <h2>Parameters used</h2>

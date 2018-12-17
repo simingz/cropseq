@@ -323,12 +323,13 @@ div.section {
 </div>
 
 
-<p><strong>Last updated:</strong> 2018-12-16</p>
+<p><strong>Last updated:</strong> 2018-12-17</p>
 <strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
 <ul>
 <li>
 <details>
-<p><summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>R Markdown file:</strong> up-to-date </summary></p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </details>
 </li>
 <li>
@@ -351,7 +352,7 @@ div.section {
 </li>
 <li>
 <details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/6b6ebde01577aff334bc59802022d3cb6c81a272" target="_blank">6b6ebde</a> </summary></p>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/49ecf6e2cf5686b9d11690f78c565c7361d08d6e" target="_blank">49ecf6e</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -360,23 +361,73 @@ Ignored files:
     Ignored:    analysis/Quality_metrics_cache/
     Ignored:    analysis/figure/
 
-Untracked files:
-    Untracked:  analysis/DEseq2-LRT.Rmd
-    Untracked:  analysis/DEseq2-standard.Rmd
-    Untracked:  analysis/EdgeR-QLF.Rmd
-    Untracked:  docs/figure/DEseq2-standard.Rmd/
-    Untracked:  docs/figure/EdgeR-QLF.Rmd/
-
-Unstaged changes:
-    Modified:   analysis/DE_analysis.Rmd
-    Modified:   analysis/Quality_metrics.Rmd
-    Modified:   analysis/index.Rmd
-
 </code></pre>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
 </details>
 </li>
 </ul>
+<details>
+<summary> <small><strong>Expand here to see past versions:</strong></small> </summary>
+<ul>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+File
+</th>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:left;">
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/49ecf6e2cf5686b9d11690f78c565c7361d08d6e/analysis/EdgeR-QLF.Rmd" target="_blank">49ecf6e</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2018-12-16
+</td>
+<td style="text-align:left;">
+explore filtering
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/simingz/cropseq/49ecf6e2cf5686b9d11690f78c565c7361d08d6e/docs/EdgeR-QLF.html" target="_blank">49ecf6e</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2018-12-16
+</td>
+<td style="text-align:left;">
+explore filtering
+</td>
+</tr>
+</tbody>
+</table>
+</ul>
+</details>
 <hr />
 <p>Load data</p>
 <pre class="r"><code>source(&quot;code/summary_functions.R&quot;)
@@ -415,6 +466,37 @@ run_edgeR &lt;- function(y) {
 <pre class="r"><code>y &lt;- DGEList(counts= countall,group=coldata$condition)
 res &lt;- run_edgeR(y)</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/edgeRall-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details>
+<summary><em>Expand here to see past versions of edgeRall-1.png:</em></summary>
+<table style = "border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/49ecf6e2cf5686b9d11690f78c565c7361d08d6e/docs/figure/EdgeR-QLF.Rmd/edgeRall-1.png" target="_blank">49ecf6e</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2018-12-16
+</td>
+</tr>
+</tbody>
+</table>
+</details>
 <pre><code>[1] &quot;There are 18 genes passed FDR &lt;0.1 cutoff&quot;
 
                       logFC   logCPM    F   PValue       FDR
@@ -431,6 +513,37 @@ ENSG00000089116.3      -1.5      6.3   37        0   7.6e-05</code></pre>
 <pre class="r"><code>y &lt;- DGEList(counts= countall[totalcount&gt;0,],group=coldata$condition)
 res &lt;- run_edgeR(y)</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/edgeR%3E0-1.png" width=“672” style=“display: block; margin: auto;” /&gt;</p>
+<details>
+<summary><em>Expand here to see past versions of edgeR&gt;0-1.png:</em></summary>
+<table style = "border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/49ecf6e2cf5686b9d11690f78c565c7361d08d6e/docs/figure/EdgeR-QLF.Rmd/edgeR>0-1.png" target="_blank">49ecf6e</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2018-12-16
+</td>
+</tr>
+</tbody>
+</table>
+</details>
 <pre><code>[1] &quot;There are 26 genes passed FDR &lt;0.1 cutoff&quot;
 
                       logFC   logCPM    F   PValue       FDR
@@ -447,6 +560,37 @@ ENSG00000089116.3      -1.5      6.3   37        0   4.0e-05</code></pre>
 <pre class="r"><code>y &lt;- DGEList(counts= countall[cellpercent &gt; 0.03,],group=coldata$condition)
 res &lt;- run_edgeR(y)</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/edgeR0.03-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details>
+<summary><em>Expand here to see past versions of edgeR0.03-1.png:</em></summary>
+<table style = "border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/49ecf6e2cf5686b9d11690f78c565c7361d08d6e/docs/figure/EdgeR-QLF.Rmd/edgeR0.03-1.png" target="_blank">49ecf6e</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2018-12-16
+</td>
+</tr>
+</tbody>
+</table>
+</details>
 <pre><code>[1] &quot;There are 20 genes passed FDR &lt;0.1 cutoff&quot;
 
                       logFC   logCPM    F   PValue       FDR
@@ -458,11 +602,42 @@ ENSG00000100300.17     -1.6      6.4   43        0   1.0e-06
 ENSG00000175899.14     -1.6      6.9   35        0   1.9e-05
 ENSG00000198417.6      -1.6      6.4   34        0   3.5e-05</code></pre>
 </div>
-<div id="run-edger10" class="section level2">
-<h2>Run edgeR–10%</h2>
+<div id="run-edger10-cells-with-umi-0" class="section level2">
+<h2>Run edgeR–10% cells with UMI &gt; 0</h2>
 <pre class="r"><code>y &lt;- DGEList(counts= countall[cellpercent &gt; 0.1,],group=coldata$condition)
 res &lt;- run_edgeR(y)</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/edgeR0.1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details>
+<summary><em>Expand here to see past versions of edgeR0.1-1.png:</em></summary>
+<table style = "border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/49ecf6e2cf5686b9d11690f78c565c7361d08d6e/docs/figure/EdgeR-QLF.Rmd/edgeR0.1-1.png" target="_blank">49ecf6e</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2018-12-16
+</td>
+</tr>
+</tbody>
+</table>
+</details>
 <pre><code>[1] &quot;There are 7 genes passed FDR &lt;0.1 cutoff&quot;
 
                       logFC   logCPM    F    PValue       FDR
@@ -474,11 +649,42 @@ ENSG00000119906.11      1.1      6.5   20   5.0e-05   8.4e-02
 ENSG00000111057.10      1.3      7.1   17   5.3e-05   8.4e-02
 ENSG00000170293.8       1.1      6.6   17   5.7e-05   8.4e-02</code></pre>
 </div>
-<div id="run-edger20" class="section level2">
-<h2>Run edgeR–20%</h2>
+<div id="run-edger20-cells-with-umi-0" class="section level2">
+<h2>Run edgeR–20% cells with UMI &gt; 0</h2>
 <pre class="r"><code>y &lt;- DGEList(counts= countall[cellpercent &gt; 0.2,],group=coldata$condition)
 res &lt;- run_edgeR(y)</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/edgeR0.2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details>
+<summary><em>Expand here to see past versions of edgeR0.2-1.png:</em></summary>
+<table style = "border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/49ecf6e2cf5686b9d11690f78c565c7361d08d6e/docs/figure/EdgeR-QLF.Rmd/edgeR0.2-1.png" target="_blank">49ecf6e</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2018-12-16
+</td>
+</tr>
+</tbody>
+</table>
+</details>
 <pre><code>[1] &quot;There are 1 genes passed FDR &lt;0.1 cutoff&quot;
 
                       logFC   logCPM    F    PValue       FDR

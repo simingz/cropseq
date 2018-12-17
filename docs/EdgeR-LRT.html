@@ -13,7 +13,7 @@
 
 <meta name="date" content="2018-12-02" />
 
-<title>Differential expression analysis--DEseq2 standard</title>
+<title>Differential expression analysis--EdgeR log likelihood ratio tests</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -316,14 +316,14 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">Differential expression analysis–DEseq2 standard</h1>
+<h1 class="title toc-ignore">Differential expression analysis–EdgeR log likelihood ratio tests</h1>
 <h4 class="author"><em>Siming Zhao</em></h4>
 <h4 class="date"><em>December 2, 2018</em></h4>
 
 </div>
 
 
-<p><strong>Last updated:</strong> 2018-12-16</p>
+<p><strong>Last updated:</strong> 2018-12-17</p>
 <strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
 <ul>
 <li>
@@ -351,7 +351,7 @@ div.section {
 </li>
 <li>
 <details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/6b6ebde01577aff334bc59802022d3cb6c81a272" target="_blank">6b6ebde</a> </summary></p>
+<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/49ecf6e2cf5686b9d11690f78c565c7361d08d6e" target="_blank">49ecf6e</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
@@ -361,16 +361,11 @@ Ignored files:
     Ignored:    analysis/figure/
 
 Untracked files:
-    Untracked:  analysis/DEseq2-LRT.Rmd
-    Untracked:  analysis/DEseq2-standard.Rmd
-    Untracked:  analysis/EdgeR-QLF.Rmd
-    Untracked:  docs/figure/DEseq2-standard.Rmd/
-    Untracked:  docs/figure/EdgeR-QLF.Rmd/
+    Untracked:  analysis/EdgeR-LRT.Rmd
+    Untracked:  docs/figure/DEseq2-LRT.Rmd/
 
 Unstaged changes:
-    Modified:   analysis/DE_analysis.Rmd
-    Modified:   analysis/Quality_metrics.Rmd
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/DEseq2-LRT.Rmd
 
 </code></pre>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
@@ -393,128 +388,103 @@ coldata &lt;- data.frame(row.names = c(colnames(gcount),colnames(ncount)),
 countall &lt;- cbind(gcount,ncount)
 totalcount &lt;- apply(countall,1,sum)
 cellpercent &lt;-  apply(countall,1,function(x) length(x[x&gt;0])/length(x))</code></pre>
-<p>run deseq2 standard function</p>
-<pre class="r"><code>library(DESeq2)
-run_deseq2 &lt;- function(dds) {
-  dds = estimateSizeFactors(dds)
-  ddsWARD = DESeq(dds)
-  resWARD = results(ddsWARD)
-  summ_pvalues(resWARD$pvalue[!is.na(resWARD$pvalue)])
-  resSigWARD &lt;- subset(resWARD, padj &lt; 0.1)
-  print(paste0(&quot;There are &quot;,dim(resSigWARD)[1], &quot; genes passed FDR &lt;0.1 cutoff&quot;))
-  print(knitr::kable(signif(as.matrix(head(resWARD[order(resWARD$pvalue),])),digit=2)))
-  return(resWARD)
+<p>edgeR log likelihood ratio tests function</p>
+<pre class="r"><code>library(edgeR)
+run_edgeR &lt;- function(y) {
+  # y is DGElist object
+  y &lt;- calcNormFactors(y)
+  group=coldata$condition
+  design &lt;- model.matrix(~group)
+  y &lt;- estimateDisp(y,design)
+
+  fitlrt &lt;- glmFit(y,design)
+  lrt &lt;- glmLRT(fitlrt,coef=2)
+  summ_pvalues(lrt$table$PValue)
+  out &lt;- topTags(lrt, n=Inf, adjust.method = &quot;BH&quot;)
+  outsig &lt;- subset(out$table,FDR &lt;0.1)
+  print(paste0(&quot;There are &quot;,dim(outsig)[1], &quot; genes passed FDR &lt;0.1 cutoff&quot;))
+  print(knitr::kable(signif(as.matrix(head(out$table[order(out$table$PValue),])),digit=2)))
+  return(out)
 }</code></pre>
-<div id="run-deseq2no-filtering" class="section level2">
-<h2>Run DEseq2–No filtering</h2>
-<pre class="r"><code>dds = DESeqDataSetFromMatrix(countData = countall, colData = coldata,design = ~condition)
-res &lt;- run_deseq2(dds)</code></pre>
-<p><img src="figure/DEseq2-standard.Rmd/deseq2-1.png" width="672" style="display: block; margin: auto;" /></p>
-<details>
-<summary><em>Expand here to see past versions of deseq2-1.png:</em></summary>
-<table style = "border-collapse:separate; border-spacing:5px;">
-<thead>
-<tr>
-<th style="text-align:left;">
-Version
-</th>
-<th style="text-align:left;">
-Author
-</th>
-<th style="text-align:left;">
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;">
-<a href="https://github.com/simingz/cropseq/blob/49ecf6e2cf5686b9d11690f78c565c7361d08d6e/docs/figure/DEseq2-standard.Rmd/deseq2-1.png" target="_blank">49ecf6e</a>
-</td>
-<td style="text-align:left;">
-simingz
-</td>
-<td style="text-align:left;">
-2018-12-16
-</td>
-</tr>
-</tbody>
-</table>
-</details>
+<div id="run-edgerno-filtering" class="section level2">
+<h2>Run edgeR–No filtering</h2>
+<pre class="r"><code>y &lt;- DGEList(counts= countall,group=coldata$condition)
+res &lt;- run_edgeR(y)</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/edgeRall-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>[1] &quot;There are 0 genes passed FDR &lt;0.1 cutoff&quot;
 
-                      baseMean   log2FoldChange   lfcSE   stat    pvalue   padj
--------------------  ---------  ---------------  ------  -----  --------  -----
-ENSG00000104722.13        2.60            -1.70   0.380   -4.5   7.4e-06   0.12
-ENSG00000175899.14        0.88            -1.60   0.420   -3.8   1.5e-04   1.00
-ENSG00000184900.15        3.90             0.43   0.120    3.6   3.7e-04   1.00
-ENSG00000131669.9         0.99             0.82   0.230    3.5   4.3e-04   1.00
-ENSG00000175390.13       16.00            -0.21   0.065   -3.3   1.1e-03   1.00
-ENSG00000101198.14        1.80            -1.10   0.340   -3.2   1.3e-03   1.00</code></pre>
+                      logFC   logCPM   LR    PValue    FDR
+-------------------  ------  -------  ---  --------  -----
+ENSG00000175899.14    -1.50      6.9   20   8.5e-06   0.12
+ENSG00000176956.12    -2.60      6.6   19   1.1e-05   0.12
+ENSG00000100097.11    -2.20      6.6   19   1.2e-05   0.12
+ENSG00000100300.17    -1.50      6.4   14   1.5e-04   0.97
+ENSG00000119906.11     1.10      6.4   14   1.9e-04   0.97
+ENSG00000185900.9     -0.79      6.3   14   2.2e-04   0.97</code></pre>
 </div>
-<div id="run-deseq2at-least-one-cell-umi-0" class="section level2">
-<h2>Run DEseq2–at least one cell UMI &gt; 0</h2>
-<pre class="r"><code>dds = DESeqDataSetFromMatrix(countData = countall[totalcount&gt;0,], colData = coldata,design = ~condition)
-res &lt;- run_deseq2(dds)</code></pre>
-<p><img src="figure/DEseq2-standard.Rmd/deseq2%3E0-1.png" width=“672” style=“display: block; margin: auto;” /&gt;</p>
-<pre><code>[1] &quot;There are 0 genes passed FDR &lt;0.1 cutoff&quot;
+<div id="run-edgerat-least-one-cell-umi-0" class="section level2">
+<h2>Run edgeR–at least one cell UMI &gt; 0</h2>
+<pre class="r"><code>y &lt;- DGEList(counts= countall[totalcount&gt;0,],group=coldata$condition)
+res &lt;- run_edgeR(y)</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/edgeR%3E0-1.png" width=“672” style=“display: block; margin: auto;” /&gt;</p>
+<pre><code>[1] &quot;There are 3 genes passed FDR &lt;0.1 cutoff&quot;
 
-                      baseMean   log2FoldChange   lfcSE   stat    pvalue   padj
--------------------  ---------  ---------------  ------  -----  --------  -----
-ENSG00000104722.13        2.60            -1.70   0.380   -4.5   7.4e-06   0.12
-ENSG00000175899.14        0.88            -1.60   0.420   -3.8   1.5e-04   1.00
-ENSG00000184900.15        3.90             0.43   0.120    3.6   3.7e-04   1.00
-ENSG00000131669.9         0.99             0.82   0.230    3.5   4.3e-04   1.00
-ENSG00000175390.13       16.00            -0.21   0.065   -3.3   1.1e-03   1.00
-ENSG00000101198.14        1.80            -1.10   0.340   -3.2   1.3e-03   1.00</code></pre>
+                      logFC   logCPM   LR    PValue     FDR
+-------------------  ------  -------  ---  --------  ------
+ENSG00000175899.14    -1.50      6.9   20   8.5e-06   0.062
+ENSG00000176956.12    -2.60      6.6   19   1.1e-05   0.062
+ENSG00000100097.11    -2.20      6.6   19   1.2e-05   0.062
+ENSG00000100300.17    -1.50      6.4   14   1.5e-04   0.510
+ENSG00000119906.11     1.10      6.4   14   1.9e-04   0.510
+ENSG00000185900.9     -0.79      6.3   14   2.2e-04   0.510</code></pre>
 </div>
-<div id="run-deseq23-cells-with-umi-0" class="section level2">
-<h2>Run DEseq2–3% cells with UMI &gt; 0</h2>
-<pre class="r"><code>dds = DESeqDataSetFromMatrix(countData = countall[cellpercent &gt; 0.03,], colData = coldata,design = ~condition)
-res &lt;- run_deseq2(dds)</code></pre>
-<p><img src="figure/DEseq2-standard.Rmd/deseq20.03-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="run-edger3-cells-with-umi-0" class="section level2">
+<h2>Run edgeR–3% cells with UMI &gt; 0</h2>
+<pre class="r"><code>y &lt;- DGEList(counts= countall[cellpercent &gt; 0.03,],group=coldata$condition)
+res &lt;- run_edgeR(y)</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/edgeR0.03-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 3 genes passed FDR &lt;0.1 cutoff&quot;
+
+                      logFC   logCPM   LR    PValue     FDR
+-------------------  ------  -------  ---  --------  ------
+ENSG00000176956.12    -2.70      6.6   21   4.1e-06   0.023
+ENSG00000100097.11    -2.30      6.6   21   5.3e-06   0.023
+ENSG00000175899.14    -1.50      6.9   21   5.9e-06   0.023
+ENSG00000100300.17    -1.50      6.4   15   1.1e-04   0.340
+ENSG00000219626.8     -1.00      6.5   14   2.0e-04   0.360
+ENSG00000185900.9     -0.79      6.3   14   2.1e-04   0.360</code></pre>
+</div>
+<div id="run-edger10-cells-with-umi-0" class="section level2">
+<h2>Run edgeR–10% cells with UMI &gt; 0</h2>
+<pre class="r"><code>y &lt;- DGEList(counts= countall[cellpercent &gt; 0.1,],group=coldata$condition)
+res &lt;- run_edgeR(y)</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/edgeR0.1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 2 genes passed FDR &lt;0.1 cutoff&quot;
+
+                      logFC   logCPM   LR    PValue    FDR
+-------------------  ------  -------  ---  --------  -----
+ENSG00000175899.14    -1.50      6.9   20   7.0e-06   0.04
+ENSG00000100097.11    -2.20      6.6   20   8.4e-06   0.04
+ENSG00000100300.17    -1.50      6.4   15   1.3e-04   0.42
+ENSG00000119906.11     1.10      6.5   14   1.8e-04   0.44
+ENSG00000219626.8     -0.98      6.5   14   2.3e-04   0.44
+ENSG00000078061.12    -0.83      6.6   13   3.5e-04   0.46</code></pre>
+</div>
+<div id="run-edger20-cells-with-umi-0" class="section level2">
+<h2>Run edgeR–20% cells with UMI &gt; 0</h2>
+<pre class="r"><code>y &lt;- DGEList(counts= countall[cellpercent &gt; 0.2,],group=coldata$condition)
+res &lt;- run_edgeR(y)</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/edgeR0.2-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>[1] &quot;There are 1 genes passed FDR &lt;0.1 cutoff&quot;
 
-                      baseMean   log2FoldChange   lfcSE   stat    pvalue    padj
--------------------  ---------  ---------------  ------  -----  --------  ------
-ENSG00000104722.13        2.60            -1.70   0.380   -4.5   7.4e-06   0.088
-ENSG00000175899.14        0.88            -1.60   0.420   -3.9   1.1e-04   0.650
-ENSG00000184900.15        3.90             0.43   0.120    3.5   3.9e-04   1.000
-ENSG00000131669.9         0.99             0.82   0.240    3.4   6.3e-04   1.000
-ENSG00000175390.13       16.00            -0.21   0.065   -3.3   1.0e-03   1.000
-ENSG00000101198.14        1.80            -1.10   0.340   -3.3   1.1e-03   1.000</code></pre>
-</div>
-<div id="run-deseq210-cells-with-umi-0" class="section level2">
-<h2>Run DEseq2–10% cells with UMI &gt; 0</h2>
-<pre class="r"><code>dds = DESeqDataSetFromMatrix(countData = countall[cellpercent &gt; 0.1,], colData = coldata,design = ~condition)
-res &lt;- run_deseq2(dds)</code></pre>
-<p><img src="figure/DEseq2-standard.Rmd/deseq20.1-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;There are 1 genes passed FDR &lt;0.1 cutoff&quot;
-
-                      baseMean   log2FoldChange   lfcSE   stat    pvalue    padj
--------------------  ---------  ---------------  ------  -----  --------  ------
-ENSG00000104722.13        2.60            -1.70   0.380   -4.5   7.4e-06   0.071
-ENSG00000175899.14        0.88            -1.60   0.410   -3.9   9.0e-05   0.430
-ENSG00000184900.15        3.90             0.43   0.120    3.5   3.9e-04   1.000
-ENSG00000131669.9         0.99             0.82   0.240    3.4   5.9e-04   1.000
-ENSG00000175390.13       16.00            -0.21   0.065   -3.3   1.1e-03   1.000
-ENSG00000101198.14        1.80            -1.10   0.340   -3.2   1.3e-03   1.000</code></pre>
-</div>
-<div id="run-deseq220-cells-with-umi-0" class="section level2">
-<h2>Run DEseq2–20% cells with UMI &gt; 0</h2>
-<pre class="r"><code>dds = DESeqDataSetFromMatrix(countData = countall[cellpercent &gt; 0.2,], colData = coldata,design = ~condition)
-res &lt;- run_deseq2(dds)</code></pre>
-<p><img src="figure/DEseq2-standard.Rmd/deseq20.2-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>[1] &quot;There are 1 genes passed FDR &lt;0.1 cutoff&quot;
-
-                      baseMean   log2FoldChange   lfcSE   stat    pvalue    padj
--------------------  ---------  ---------------  ------  -----  --------  ------
-ENSG00000104722.13        2.60            -1.70   0.380   -4.5   7.4e-06   0.056
-ENSG00000175899.14        0.88            -1.60   0.420   -3.8   1.5e-04   0.570
-ENSG00000184900.15        3.90             0.43   0.120    3.5   3.9e-04   0.990
-ENSG00000131669.9         0.99             0.82   0.240    3.5   5.6e-04   1.000
-ENSG00000175390.13       16.00            -0.21   0.066   -3.3   1.1e-03   1.000
-ENSG00000101198.14        1.80            -1.10   0.340   -3.2   1.3e-03   1.000</code></pre>
+                      logFC   logCPM   LR    PValue     FDR
+-------------------  ------  -------  ---  --------  ------
+ENSG00000175899.14    -1.50      6.9   19   1.2e-05   0.093
+ENSG00000119906.11     1.10      6.5   14   1.7e-04   0.490
+ENSG00000219626.8     -0.99      6.5   14   2.2e-04   0.490
+ENSG00000078061.12    -0.82      6.6   13   3.4e-04   0.490
+ENSG00000131669.9      0.73      6.9   12   4.5e-04   0.490
+ENSG00000141219.15     0.95      6.4   12   4.6e-04   0.490</code></pre>
 </div>
 <div id="parameters-used" class="section level2">
 <h2>Parameters used</h2>
@@ -539,45 +509,26 @@ locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
 attached base packages:
- [1] grid      parallel  stats4    stats     graphics  grDevices utils    
- [8] datasets  methods   base     
+[1] grid      stats     graphics  grDevices utils     datasets  methods  
+[8] base     
 
 other attached packages:
- [1] gridExtra_2.3               lattice_0.20-35            
- [3] DESeq2_1.20.0               SummarizedExperiment_1.10.1
- [5] DelayedArray_0.6.6          BiocParallel_1.14.2        
- [7] matrixStats_0.54.0          Biobase_2.40.0             
- [9] GenomicRanges_1.32.7        GenomeInfoDb_1.16.0        
-[11] IRanges_2.14.12             S4Vectors_0.18.3           
-[13] BiocGenerics_0.26.0         Matrix_1.2-14              
-[15] dplyr_0.7.6                
+[1] gridExtra_2.3   lattice_0.20-35 edgeR_3.22.5    limma_3.36.5   
+[5] Matrix_1.2-14   dplyr_0.7.6    
 
 loaded via a namespace (and not attached):
- [1] bit64_0.9-7            splines_3.5.1          R.utils_2.7.0         
- [4] Formula_1.2-3          assertthat_0.2.0       highr_0.7             
- [7] latticeExtra_0.6-28    blob_1.1.1             GenomeInfoDbData_1.1.0
-[10] yaml_2.2.0             RSQLite_2.1.1          pillar_1.3.0          
-[13] backports_1.1.2        glue_1.3.0             digest_0.6.18         
-[16] RColorBrewer_1.1-2     XVector_0.20.0         checkmate_1.8.5       
-[19] colorspace_1.3-2       htmltools_0.3.6        R.oo_1.22.0           
-[22] plyr_1.8.4             XML_3.98-1.16          pkgconfig_2.0.2       
-[25] genefilter_1.62.0      zlibbioc_1.26.0        xtable_1.8-3          
-[28] purrr_0.2.5            scales_1.0.0           whisker_0.3-2         
-[31] annotate_1.58.0        git2r_0.23.0           tibble_1.4.2          
-[34] htmlTable_1.12         ggplot2_3.1.0          nnet_7.3-12           
-[37] lazyeval_0.2.1         survival_2.42-6        magrittr_1.5          
-[40] crayon_1.3.4           memoise_1.1.0          evaluate_0.12         
-[43] R.methodsS3_1.7.1      foreign_0.8-71         tools_3.5.1           
-[46] data.table_1.11.6      stringr_1.3.1          locfit_1.5-9.1        
-[49] munsell_0.5.0          cluster_2.0.7-1        AnnotationDbi_1.42.1  
-[52] bindrcpp_0.2.2         compiler_3.5.1         rlang_0.3.0.1         
-[55] RCurl_1.95-4.11        rstudioapi_0.8         htmlwidgets_1.2       
-[58] bitops_1.0-6           base64enc_0.1-3        rmarkdown_1.10        
-[61] gtable_0.2.0           DBI_1.0.0              R6_2.3.0              
-[64] knitr_1.20             bit_1.1-12             bindr_0.1.1           
-[67] Hmisc_4.1-1            workflowr_1.1.1        rprojroot_1.3-2       
-[70] stringi_1.2.4          Rcpp_1.0.0             geneplotter_1.58.0    
-[73] rpart_4.1-13           acepack_1.4.1          tidyselect_0.2.4      </code></pre>
+ [1] Rcpp_1.0.0        compiler_3.5.1    pillar_1.3.0     
+ [4] git2r_0.23.0      highr_0.7         workflowr_1.1.1  
+ [7] bindr_0.1.1       R.methodsS3_1.7.1 R.utils_2.7.0    
+[10] tools_3.5.1       digest_0.6.18     evaluate_0.12    
+[13] tibble_1.4.2      gtable_0.2.0      pkgconfig_2.0.2  
+[16] rlang_0.3.0.1     yaml_2.2.0        bindrcpp_0.2.2   
+[19] stringr_1.3.1     knitr_1.20        locfit_1.5-9.1   
+[22] rprojroot_1.3-2   tidyselect_0.2.4  glue_1.3.0       
+[25] R6_2.3.0          rmarkdown_1.10    purrr_0.2.5      
+[28] magrittr_1.5      whisker_0.3-2     backports_1.1.2  
+[31] htmltools_0.3.6   splines_3.5.1     assertthat_0.2.0 
+[34] stringi_1.2.4     crayon_1.3.4      R.oo_1.22.0      </code></pre>
 </div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
