@@ -16,6 +16,6 @@ output:
 Differetial expression
 
 * [DEseq2-standard](DEseq2-standard.html)  
-* [DESeq2-LRT](DESeq2-LRT.html)  
+* [DESeq2-LRT](DEseq2-LRT.html)  
 * [EdgeR-QLF](EdgeR-QLF.html)  
 * [EdgeR-LRT](EdgeR-LRT.html)  
