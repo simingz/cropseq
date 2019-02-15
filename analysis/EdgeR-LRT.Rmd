@@ -65,7 +65,7 @@ permreslist <- list()
 permreslist[[1]] <- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key="gene")
 for (n in 2:(Nperm+1)){
   y <- DGEList(counts= countall,group=permute(coldata$condition))
-  res <- run_edgeR(y,plotit = F)
+  res <- run_edgeR(y,plotit = T)
   resp <- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key="gene")
   colnames(resp) <- c("gene", paste0("perm.p_",n-1), paste0("perm.fdr_",n-1))
   permreslist[[n]] <- resp
@@ -86,7 +86,7 @@ permreslist <- list()
 permreslist[[1]] <- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key="gene")
 for (n in 2:(Nperm+1)){
   y <- DGEList(counts= countall[totalcount>0,],group=permute(coldata$condition))
-  res <- run_edgeR(y,plotit = F)
+  res <- run_edgeR(y,plotit = T)
   resp <- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key="gene")
   colnames(resp) <- c("gene", paste0("perm.p_",n-1), paste0("perm.fdr_",n-1))
   permreslist[[n]] <- resp
@@ -107,7 +107,7 @@ permreslist <- list()
 permreslist[[1]] <- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key="gene")
 for (n in 2:(Nperm+1)){
   y <- DGEList(counts= countall[cellpercent > 0.03,],group=permute(coldata$condition))
-  res <- run_edgeR(y,plotit = F)
+  res <- run_edgeR(y,plotit = T)
   resp <- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key="gene")
   colnames(resp) <- c("gene", paste0("perm.p_",n-1), paste0("perm.fdr_",n-1))
   permreslist[[n]] <- resp
@@ -129,7 +129,7 @@ permreslist <- list()
 permreslist[[1]] <- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key="gene")
 for (n in 2:(Nperm+1)){
   y <- DGEList(counts= countall[cellpercent > 0.1,],group=permute(coldata$condition))
-  res <- run_edgeR(y,plotit = F)
+  res <- run_edgeR(y,plotit = T)
   resp <- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key="gene")
   colnames(resp) <- c("gene", paste0("perm.p_",n-1), paste0("perm.fdr_",n-1))
   permreslist[[n]] <- resp
@@ -150,7 +150,7 @@ permreslist <- list()
 permreslist[[1]] <- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key="gene")
 for (n in 2:(Nperm+1)){
   y <- DGEList(counts= countall[cellpercent > 0.2,],group=permute(coldata$condition))
-  res <- run_edgeR(y,plotit = F)
+  res <- run_edgeR(y,plotit = T)
   resp <- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key="gene")
   colnames(resp) <- c("gene", paste0("perm.p_",n-1), paste0("perm.fdr_",n-1))
   permreslist[[n]] <- resp
