@@ -13,8 +13,11 @@ Load data
 ```{r loaddata}
 source("code/summary_functions.R")
 library(dplyr)
+library(gtools)
+library(data.table)
 load("data/DE_input.Rd")
 glocus <- "VPS45"
+Nperm <- 5
 dim(dm)[1]
 gcount <- dm[1:(dim(dm)[1]-76), colnames(dm1dfagg)[dm1dfagg[glocus,] >0 & nlocus==1]]
 # negative control cells defined as neg gRNA targeted cells
@@ -54,6 +57,8 @@ res <- run_deseq2(dds)
 dds = DESeqDataSetFromMatrix(countData = countall[totalcount>0,], colData = coldata,design = ~condition)
 res <- run_deseq2(dds)
 ```
+### permutation
+
 ## Run DEseq2--3% cells with UMI > 0
 ```{r deseq20.03}
 dds = DESeqDataSetFromMatrix(countData = countall[cellpercent > 0.03,], colData = coldata,design = ~condition)

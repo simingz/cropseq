@@ -6,15 +6,18 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, message=FALSE)
+knitr::opts_chunk$set(echo = TRUE, eval=T, message=FALSE)
 ```
 
 Load data
-```{r loaddata}
+```{r loaddata, eval=T}
 source("code/summary_functions.R")
 library(dplyr)
+library(gtools)
+library(data.table)
 load("data/DE_input.Rd")
 glocus <- "VPS45"
+Nperm <- 5
 dim(dm)[1]
 gcount <- dm[1:(dim(dm)[1]-76), colnames(dm1dfagg)[dm1dfagg[glocus,] >0 & nlocus==1]]
 # negative control cells defined as neg gRNA targeted cells
@@ -27,21 +30,25 @@ cellpercent <-  apply(countall,1,function(x) length(x[x>0])/length(x))
 ```
 
 edgeR quasi-likelihood F-tests function
-```{r edgeRfunc}
+```{r edgeRfunc, eval=T}
 library(edgeR)
-run_edgeR <- function(y) {
+run_edgeR <- function(y,plotit=T) {
   # y is DGElist object
   y <- calcNormFactors(y)
-  group=coldata$condition
+  group= y$samples[,"group"]
   design <- model.matrix(~group)
   y <- estimateDisp(y,design)
+
   fitqlf <- glmQLFit(y,design)
   qlf <- glmQLFTest(fitqlf,coef=2)
-  summ_pvalues(qlf$table$PValue)
   out <- topTags(qlf, n=Inf, adjust.method = "BH")
-  outsig <- subset(out$table,FDR <0.1)
-  print(paste0("There are ",dim(outsig)[1], " genes passed FDR <0.1 cutoff"))
-  print(knitr::kable(signif(as.matrix(head(out$table[order(out$table$PValue),])),digit=2)))
+  
+  if (plotit==T) {
+    summ_pvalues(qlf$table$PValue)
+    outsig <- subset(out$table,FDR <0.1)
+    print(paste0("There are ",dim(outsig)[1], " genes passed FDR <0.1 cutoff"))
+    print(knitr::kable(signif(as.matrix(head(out$table[order(out$table$PValue),])),digit=2)))
+  }
   return(out)
 }
 ```
@@ -49,31 +56,107 @@ run_edgeR <- function(y) {
 ## Run edgeR--No filtering
 ```{r edgeRall}
 y <- DGEList(counts= countall,group=coldata$condition)
-res <- run_edgeR(y)
+resm <- run_edgeR(y)
+```
+
+### Permutation
+```{r permall}
+permreslist <- list()
+permreslist[[1]] <- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key="gene")
+for (n in 2:(Nperm+1)){
+  y <- DGEList(counts= countall,group=permute(coldata$condition))
+  res <- run_edgeR(y,plotit = F)
+  resp <- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key="gene")
+  colnames(resp) <- c("gene", paste0("perm.p_",n-1), paste0("perm.fdr_",n-1))
+  permreslist[[n]] <- resp
+}
+mergedres <- Reduce(merge,permreslist)
+knitr::kable(mergedres[fdr <0.1,],digits = 2)
 ```
 
 ## Run edgeR--at least one cell UMI > 0 
 ```{r edgeR>0}
 y <- DGEList(counts= countall[totalcount>0,],group=coldata$condition)
-res <- run_edgeR(y)
+resm <- run_edgeR(y)
+```
+
+### Permutation
+```{r perm>0}
+permreslist <- list()
+permreslist[[1]] <- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key="gene")
+for (n in 2:(Nperm+1)){
+  y <- DGEList(counts= countall[totalcount>0,],group=permute(coldata$condition))
+  res <- run_edgeR(y,plotit = F)
+  resp <- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key="gene")
+  colnames(resp) <- c("gene", paste0("perm.p_",n-1), paste0("perm.fdr_",n-1))
+  permreslist[[n]] <- resp
+}
+mergedres <- Reduce(merge,permreslist)
+knitr::kable(mergedres[fdr <0.1,],digits = 2)
 ```
 
 ## Run edgeR--3% cells with UMI > 0
 ```{r edgeR0.03}
 y <- DGEList(counts= countall[cellpercent > 0.03,],group=coldata$condition)
-res <- run_edgeR(y)
+resm <- run_edgeR(y)
+```
+
+### Permutation
+```{r perm0.03}
+permreslist <- list()
+permreslist[[1]] <- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key="gene")
+for (n in 2:(Nperm+1)){
+  y <- DGEList(counts= countall[cellpercent > 0.03,],group=permute(coldata$condition))
+  res <- run_edgeR(y,plotit = F)
+  resp <- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key="gene")
+  colnames(resp) <- c("gene", paste0("perm.p_",n-1), paste0("perm.fdr_",n-1))
+  permreslist[[n]] <- resp
+}
+mergedres <- Reduce(merge,permreslist)
+knitr::kable(mergedres[fdr <0.1,],digits = 2)
 ```
 
 ## Run edgeR--10% cells with UMI > 0
 ```{r edgeR0.1}
 y <- DGEList(counts= countall[cellpercent > 0.1,],group=coldata$condition)
-res <- run_edgeR(y)
+resm <- run_edgeR(y)
+save(resm, file="data/edgeR-qlf-10%filter_res.Rd")
+```
+
+### Permutation
+```{r perm0.1}
+permreslist <- list()
+permreslist[[1]] <- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key="gene")
+for (n in 2:(Nperm+1)){
+  y <- DGEList(counts= countall[cellpercent > 0.1,],group=permute(coldata$condition))
+  res <- run_edgeR(y,plotit = F)
+  resp <- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key="gene")
+  colnames(resp) <- c("gene", paste0("perm.p_",n-1), paste0("perm.fdr_",n-1))
+  permreslist[[n]] <- resp
+}
+mergedres <- Reduce(merge,permreslist)
+knitr::kable(mergedres[fdr <0.1,],digits = 2)
 ```
 
 ## Run edgeR--20% cells with UMI > 0
 ```{r edgeR0.2}
 y <- DGEList(counts= countall[cellpercent > 0.2,],group=coldata$condition)
-res <- run_edgeR(y)
+resm <- run_edgeR(y)
+```
+
+### Permutation
+```{r perm0.2}
+permreslist <- list()
+permreslist[[1]] <- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key="gene")
+for (n in 2:(Nperm+1)){
+  y <- DGEList(counts= countall[cellpercent > 0.2,],group=permute(coldata$condition))
+  res <- run_edgeR(y,plotit = F)
+  resp <- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key="gene")
+  colnames(resp) <- c("gene", paste0("perm.p_",n-1), paste0("perm.fdr_",n-1))
+  permreslist[[n]] <- resp
+}
+mergedres <- Reduce(merge,permreslist)
+knitr::kable(mergedres[fdr <0.1,],digits = 2)
 ```
 
 ## Parameters used

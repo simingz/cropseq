@@ -14,7 +14,7 @@ knitr::opts_chunk$set(echo = TRUE)
 From Siwei's cellranger run:
 ```{r siweimatrix, eval=T}
 library(Matrix)
-matrix_dir = "/Volumes/CROP-seq/data_from_Siwei/Xin_scRNA_seq_05Nov2018/filtered_gene_bc_matrices/CellRanger_index/"
+matrix_dir = "/project2/xinhe/simingz/CROP-seq/data_from_Siwei/Xin_scRNA_seq_05Nov2018/filtered_gene_bc_matrices/CellRanger_index/"
 matrix.path <- paste0(matrix_dir, "matrix.mtx")
 dm <- readMM(file = matrix.path)
 dm1 <- tail(dm,n=76)
@@ -23,13 +23,13 @@ length(colSums(dm1)[colSums(dm1)==1])
 
 From Alan's cellranger run:
 ```{r Alanmatrix, eval=T, cache=T}
-matrix_dir1 = "/Volumes/CROP-seq/NSC0507_cellranger/outs/filtered_gene_bc_matrices/cellranger_ref/"
+matrix_dir1 = "/project2/xinhe/simingz/CROP-seq/NSC0507_cellranger/outs/filtered_gene_bc_matrices/cellranger_ref/"
 matrix.path1 <- paste0(matrix_dir1, "matrix.mtx")
 mattemp1 <- readMM(file = matrix.path1)
 mattemp11 <- tail(mattemp1,n=76)
 length(colSums(mattemp11)[colSums(mattemp11)==1])
 
-matrix_dir2 = "/Volumes/CROP-seq/NSC08_cellranger/outs/filtered_gene_bc_matrices/cellranger_ref/"
+matrix_dir2 = "/project2/xinhe/simingz/CROP-seq/NSC08_cellranger/outs/filtered_gene_bc_matrices/cellranger_ref/"
 matrix.path2 <- paste0(matrix_dir2, "matrix.mtx")
 mattemp2 <- readMM(file = matrix.path2)
 mattemp21 <- tail(mattemp2,n=76)
@@ -46,7 +46,7 @@ feature.names = read.delim(features.path, header = FALSE,
 barcode.names = read.delim(barcode.path, header = FALSE,
                            stringsAsFactors = FALSE)
 colnames(dm) = barcode.names$V1
-rownames(dm) = feature.names$V1
+rownames(dm) = feature.names$V2
 dm1 <- tail(dm,n=76)
 
 hist(apply(dm1, 2, function(x) length(x[x>0])),breaks=300,xlim=c(0,15),ylim=c(0,2500), main="Distribution of number of gRNA types per cell", xlab= "# gRNA type per cell")

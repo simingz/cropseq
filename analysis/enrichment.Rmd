@@ -1,0 +1,39 @@
+---
+title: "enrichment"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Get cis genes for each targted locus
+```{bash, eval=F}
+module load mysql
+mysql --user=genome --host=genome-mysql.cse.ucsc.edu -A -D hg19 -e '
+select
+ K.name2,
+ K.name,
+ S.name,
+ S.avHet,
+ S.chrom,
+ S.chromStart,
+ K.txStart,
+ K.txEnd
+from snp150 as S
+left join refGene as K on
+ (S.chrom=K.chrom and not(K.txEnd+50000<S.chromStart or S.chromEnd+50000<K.txStart))
+where
+ S.name in ("rs7148456","rs12895055","rs7170068","rs520843","rs12716973","rs2192932","rs17200916","rs1198588","rs324017","rs4151680","rs301791","rs324015","rs9882911","rs11633075","rs2027349","rs186132169","rs9661794","rs7936858","rs3861678","rs10933","rs6071578")' > /project2/xinhe/simingz/CROP-seq/cropseq/data/SNP_50000.txt
+```
+
+## Enrichment by Fisher's test
+
+```{r, er}
+SNPfile <- "/project2/xinhe/simingz/CROP-seq/scRNA_seq_SNP_list.txt"
+SNPs <- read.table(SNPfile, header=F, stringsAsFactors = F)
+cisgene <- read.table("data/SNP_50000.txt", stringsAsFactors = F,sep="\t", header=T)
+load("data/edgeR-qlf-10%filter_res.Rd")
+```
+
+

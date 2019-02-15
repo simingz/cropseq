@@ -19,3 +19,5 @@ Differetial expression
 * [DESeq2-LRT](DEseq2-LRT.html)  
 * [EdgeR-QLF](EdgeR-QLF.html)  
 * [EdgeR-LRT](EdgeR-LRT.html)  
+
+Enrichment analysis

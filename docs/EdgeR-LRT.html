@@ -11,7 +11,6 @@
 
 <meta name="author" content="Siming Zhao" />
 
-<meta name="date" content="2018-12-02" />
 
 <title>Differential expression analysis--EdgeR log likelihood ratio tests</title>
 
@@ -323,61 +322,130 @@ div.section {
 </div>
 
 
-<p><strong>Last updated:</strong> 2018-12-17</p>
+<p><strong>Last updated:</strong> 2019-02-14</p>
 <strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
 <ul>
 <li>
-<details>
-<p><summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p><details> <summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </details>
 </li>
 <li>
-<details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Environment:</strong> empty </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Environment:</strong> empty </summary></p>
 <p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
 </details>
 </li>
 <li>
-<details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Seed:</strong> <code>set.seed(20181119)</code> </summary></p>
-<p>The command <code>set.seed(20181119)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Seed:</strong> <code>set.seed(20181119)</code> </summary></p>
+<p>The command <code>set.seed(20181119)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
 </details>
 </li>
 <li>
-<details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Session information:</strong> recorded </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Session information:</strong> recorded </summary></p>
 <p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
 </details>
 </li>
 <li>
-<details>
-<p><summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/49ecf6e2cf5686b9d11690f78c565c7361d08d6e" target="_blank">49ecf6e</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/fcaa3412295542bebdd9fc40efa0176a14e27855" target="_blank">fcaa341</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/Quality_metrics_cache/
-    Ignored:    analysis/figure/
 
 Untracked files:
-    Untracked:  analysis/EdgeR-LRT.Rmd
-    Untracked:  docs/figure/DEseq2-LRT.Rmd/
+    Untracked:  analysis/enrichment.Rmd
+    Untracked:  analysis/figure/
+    Untracked:  data/SNP_200000.txt
+    Untracked:  data/SNP_50000.txt
+    Untracked:  data/SNP_500000.txt
+    Untracked:  data/edgeR-qlf-10%filter_res.Rd
 
 Unstaged changes:
+    Modified:   .gitignore
     Modified:   analysis/DEseq2-LRT.Rmd
+    Modified:   analysis/EdgeR-LRT.Rmd
+    Modified:   analysis/EdgeR-QLF.Rmd
+    Modified:   analysis/Quality_metrics.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   code/summary_functions.R
+    Modified:   cropseq.Rproj
+    Modified:   data/DE_input.Rd
 
 </code></pre>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
-</details>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes. </details>
 </li>
 </ul>
+<details> <summary> <small><strong>Expand here to see past versions:</strong></small> </summary>
+<ul>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+File
+</th>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:left;">
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/a78d83a9a7b8a21aa4b6ea9010aeae420cf32679/analysis/EdgeR-LRT.Rmd" target="_blank">a78d83a</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2018-12-17
+</td>
+<td style="text-align:left;">
+explore filtering
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/simingz/cropseq/a78d83a9a7b8a21aa4b6ea9010aeae420cf32679/docs/EdgeR-LRT.html" target="_blank">a78d83a</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2018-12-17
+</td>
+<td style="text-align:left;">
+explore filtering
+</td>
+</tr>
+</tbody>
+</table>
+</ul>
+<p></details></p>
 <hr />
 <p>Load data</p>
 <pre class="r"><code>source(&quot;code/summary_functions.R&quot;)
 library(dplyr)
+library(gtools)
+library(data.table)
 load(&quot;data/DE_input.Rd&quot;)
 glocus &lt;- &quot;VPS45&quot;
+Nperm &lt;- 5
 dim(dm)[1]</code></pre>
 <pre><code>NULL</code></pre>
 <pre class="r"><code>gcount &lt;- dm[1:(dim(dm)[1]-76), colnames(dm1dfagg)[dm1dfagg[glocus,] &gt;0 &amp; nlocus==1]]
@@ -390,101 +458,545 @@ totalcount &lt;- apply(countall,1,sum)
 cellpercent &lt;-  apply(countall,1,function(x) length(x[x&gt;0])/length(x))</code></pre>
 <p>edgeR log likelihood ratio tests function</p>
 <pre class="r"><code>library(edgeR)
-run_edgeR &lt;- function(y) {
+run_edgeR &lt;- function(y,plotit=T) {
   # y is DGElist object
   y &lt;- calcNormFactors(y)
-  group=coldata$condition
+  group= y$samples[,&quot;group&quot;]
   design &lt;- model.matrix(~group)
   y &lt;- estimateDisp(y,design)
 
   fitlrt &lt;- glmFit(y,design)
   lrt &lt;- glmLRT(fitlrt,coef=2)
-  summ_pvalues(lrt$table$PValue)
   out &lt;- topTags(lrt, n=Inf, adjust.method = &quot;BH&quot;)
-  outsig &lt;- subset(out$table,FDR &lt;0.1)
-  print(paste0(&quot;There are &quot;,dim(outsig)[1], &quot; genes passed FDR &lt;0.1 cutoff&quot;))
-  print(knitr::kable(signif(as.matrix(head(out$table[order(out$table$PValue),])),digit=2)))
+
+  if (plotit==T) {
+    outsig &lt;- subset(out$table,FDR &lt;0.1) 
+    summ_pvalues(lrt$table$PValue)
+    print(paste0(&quot;There are &quot;,dim(outsig)[1], &quot; genes passed FDR &lt;0.1 cutoff&quot;))
+    print(knitr::kable(signif(as.matrix(head(out$table[order(out$table$PValue),])),digit=2)))
+  }
   return(out)
 }</code></pre>
 <div id="run-edgerno-filtering" class="section level2">
 <h2>Run edgeR–No filtering</h2>
 <pre class="r"><code>y &lt;- DGEList(counts= countall,group=coldata$condition)
-res &lt;- run_edgeR(y)</code></pre>
+resm &lt;- run_edgeR(y)</code></pre>
 <p><img src="figure/EdgeR-LRT.Rmd/edgeRall-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of edgeRall-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/a78d83a9a7b8a21aa4b6ea9010aeae420cf32679/docs/figure/EdgeR-LRT.Rmd/edgeRall-1.png" target="_blank">a78d83a</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2018-12-17
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 0 genes passed FDR &lt;0.1 cutoff&quot;
 
-                      logFC   logCPM   LR    PValue    FDR
--------------------  ------  -------  ---  --------  -----
-ENSG00000175899.14    -1.50      6.9   20   8.5e-06   0.12
-ENSG00000176956.12    -2.60      6.6   19   1.1e-05   0.12
-ENSG00000100097.11    -2.20      6.6   19   1.2e-05   0.12
-ENSG00000100300.17    -1.50      6.4   14   1.5e-04   0.97
-ENSG00000119906.11     1.10      6.4   14   1.9e-04   0.97
-ENSG00000185900.9     -0.79      6.3   14   2.2e-04   0.97</code></pre>
+          logFC   logCPM   LR    PValue    FDR
+-------  ------  -------  ---  --------  -----
+A2M       -1.50      6.9   20   8.6e-06   0.12
+LY6H      -2.60      6.6   19   1.2e-05   0.12
+LGALS1    -2.20      6.6   19   1.2e-05   0.12
+TSPO      -1.50      6.4   14   1.5e-04   0.97
+SLF2       1.10      6.4   14   1.9e-04   0.97
+POMK      -0.79      6.3   14   2.2e-04   0.97</code></pre>
+<div id="permutation" class="section level3">
+<h3>Permutation</h3>
+<pre class="r"><code>permreslist &lt;- list()
+permreslist[[1]] &lt;- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key=&quot;gene&quot;)
+for (n in 2:(Nperm+1)){
+  y &lt;- DGEList(counts= countall,group=permute(coldata$condition))
+  res &lt;- run_edgeR(y,plotit = F)
+  resp &lt;- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key=&quot;gene&quot;)
+  colnames(resp) &lt;- c(&quot;gene&quot;, paste0(&quot;perm.p_&quot;,n-1), paste0(&quot;perm.fdr_&quot;,n-1))
+  permreslist[[n]] &lt;- resp
+}
+mergedres &lt;- Reduce(merge,permreslist)
+knitr::kable(mergedres[fdr &lt;0.1,],digits = 2)</code></pre>
+<p>gene p fdr perm.p_1 perm.fdr_1 perm.p_2 perm.fdr_2 perm.p_3 perm.fdr_3 perm.p_4 perm.fdr_4 perm.p_5 perm.fdr_5 —– — —- ——— ———– ——— ———– ——— ———– ——— ———– ——— ———–</p>
+</div>
 </div>
 <div id="run-edgerat-least-one-cell-umi-0" class="section level2">
 <h2>Run edgeR–at least one cell UMI &gt; 0</h2>
 <pre class="r"><code>y &lt;- DGEList(counts= countall[totalcount&gt;0,],group=coldata$condition)
-res &lt;- run_edgeR(y)</code></pre>
-<p><img src="figure/EdgeR-LRT.Rmd/edgeR%3E0-1.png" width=“672” style=“display: block; margin: auto;” /&gt;</p>
+resm &lt;- run_edgeR(y)</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/edgeR>0-1.png&quot; width=“672” style=“display: block; margin: auto;” /&gt;</p>
+<details> <summary><em>Expand here to see past versions of edgeR&gt;0-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/a78d83a9a7b8a21aa4b6ea9010aeae420cf32679/docs/figure/EdgeR-LRT.Rmd/edgeR>0-1.png&quot; target=“_blank“&gt;a78d83a</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2018-12-17
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 3 genes passed FDR &lt;0.1 cutoff&quot;
 
-                      logFC   logCPM   LR    PValue     FDR
--------------------  ------  -------  ---  --------  ------
-ENSG00000175899.14    -1.50      6.9   20   8.5e-06   0.062
-ENSG00000176956.12    -2.60      6.6   19   1.1e-05   0.062
-ENSG00000100097.11    -2.20      6.6   19   1.2e-05   0.062
-ENSG00000100300.17    -1.50      6.4   14   1.5e-04   0.510
-ENSG00000119906.11     1.10      6.4   14   1.9e-04   0.510
-ENSG00000185900.9     -0.79      6.3   14   2.2e-04   0.510</code></pre>
+          logFC   logCPM   LR    PValue     FDR
+-------  ------  -------  ---  --------  ------
+A2M       -1.50      6.9   20   8.6e-06   0.063
+LY6H      -2.60      6.6   19   1.2e-05   0.063
+LGALS1    -2.20      6.6   19   1.2e-05   0.063
+TSPO      -1.50      6.4   14   1.5e-04   0.510
+SLF2       1.10      6.4   14   1.9e-04   0.510
+POMK      -0.79      6.3   14   2.2e-04   0.510</code></pre>
+<div id="permutation-1" class="section level3">
+<h3>Permutation</h3>
+<pre class="r"><code>permreslist &lt;- list()
+permreslist[[1]] &lt;- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key=&quot;gene&quot;)
+for (n in 2:(Nperm+1)){
+  y &lt;- DGEList(counts= countall[totalcount&gt;0,],group=permute(coldata$condition))
+  res &lt;- run_edgeR(y,plotit = F)
+  resp &lt;- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key=&quot;gene&quot;)
+  colnames(resp) &lt;- c(&quot;gene&quot;, paste0(&quot;perm.p_&quot;,n-1), paste0(&quot;perm.fdr_&quot;,n-1))
+  permreslist[[n]] &lt;- resp
+}
+mergedres &lt;- Reduce(merge,permreslist)
+knitr::kable(mergedres[fdr &lt;0.1,],digits = 2)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">gene</th>
+<th align="right">p</th>
+<th align="right">fdr</th>
+<th align="right">perm.p_1</th>
+<th align="right">perm.fdr_1</th>
+<th align="right">perm.p_2</th>
+<th align="right">perm.fdr_2</th>
+<th align="right">perm.p_3</th>
+<th align="right">perm.fdr_3</th>
+<th align="right">perm.p_4</th>
+<th align="right">perm.fdr_4</th>
+<th align="right">perm.p_5</th>
+<th align="right">perm.fdr_5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">A2M</td>
+<td align="right">0</td>
+<td align="right">0.06</td>
+<td align="right">0.44</td>
+<td align="right">0.86</td>
+<td align="right">0.52</td>
+<td align="right">0.91</td>
+<td align="right">0.64</td>
+<td align="right">0.95</td>
+<td align="right">0.63</td>
+<td align="right">0.95</td>
+<td align="right">0.06</td>
+<td align="right">0.74</td>
+</tr>
+<tr class="even">
+<td align="left">LGALS1</td>
+<td align="right">0</td>
+<td align="right">0.06</td>
+<td align="right">0.00</td>
+<td align="right">0.36</td>
+<td align="right">0.00</td>
+<td align="right">0.74</td>
+<td align="right">0.00</td>
+<td align="right">0.02</td>
+<td align="right">0.00</td>
+<td align="right">0.57</td>
+<td align="right">0.00</td>
+<td align="right">0.74</td>
+</tr>
+<tr class="odd">
+<td align="left">LY6H</td>
+<td align="right">0</td>
+<td align="right">0.06</td>
+<td align="right">0.00</td>
+<td align="right">0.16</td>
+<td align="right">0.00</td>
+<td align="right">0.06</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.57</td>
+<td align="right">0.00</td>
+<td align="right">0.10</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div id="run-edger3-cells-with-umi-0" class="section level2">
 <h2>Run edgeR–3% cells with UMI &gt; 0</h2>
 <pre class="r"><code>y &lt;- DGEList(counts= countall[cellpercent &gt; 0.03,],group=coldata$condition)
-res &lt;- run_edgeR(y)</code></pre>
+resm &lt;- run_edgeR(y)</code></pre>
 <p><img src="figure/EdgeR-LRT.Rmd/edgeR0.03-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of edgeR0.03-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/a78d83a9a7b8a21aa4b6ea9010aeae420cf32679/docs/figure/EdgeR-LRT.Rmd/edgeR0.03-1.png" target="_blank">a78d83a</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2018-12-17
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 3 genes passed FDR &lt;0.1 cutoff&quot;
 
-                      logFC   logCPM   LR    PValue     FDR
--------------------  ------  -------  ---  --------  ------
-ENSG00000176956.12    -2.70      6.6   21   4.1e-06   0.023
-ENSG00000100097.11    -2.30      6.6   21   5.3e-06   0.023
-ENSG00000175899.14    -1.50      6.9   21   5.9e-06   0.023
-ENSG00000100300.17    -1.50      6.4   15   1.1e-04   0.340
-ENSG00000219626.8     -1.00      6.5   14   2.0e-04   0.360
-ENSG00000185900.9     -0.79      6.3   14   2.1e-04   0.360</code></pre>
+           logFC   logCPM   LR    PValue     FDR
+--------  ------  -------  ---  --------  ------
+LY6H       -2.70      6.6   21   4.1e-06   0.023
+LGALS1     -2.30      6.6   21   5.3e-06   0.023
+A2M        -1.50      6.9   21   5.9e-06   0.023
+TSPO       -1.50      6.4   15   1.1e-04   0.340
+FAM228B    -1.00      6.5   14   2.0e-04   0.360
+POMK       -0.79      6.3   14   2.1e-04   0.360</code></pre>
+<div id="permutation-2" class="section level3">
+<h3>Permutation</h3>
+<pre class="r"><code>permreslist &lt;- list()
+permreslist[[1]] &lt;- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key=&quot;gene&quot;)
+for (n in 2:(Nperm+1)){
+  y &lt;- DGEList(counts= countall[cellpercent &gt; 0.03,],group=permute(coldata$condition))
+  res &lt;- run_edgeR(y,plotit = F)
+  resp &lt;- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key=&quot;gene&quot;)
+  colnames(resp) &lt;- c(&quot;gene&quot;, paste0(&quot;perm.p_&quot;,n-1), paste0(&quot;perm.fdr_&quot;,n-1))
+  permreslist[[n]] &lt;- resp
+}
+mergedres &lt;- Reduce(merge,permreslist)
+knitr::kable(mergedres[fdr &lt;0.1,],digits = 2)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">gene</th>
+<th align="right">p</th>
+<th align="right">fdr</th>
+<th align="right">perm.p_1</th>
+<th align="right">perm.fdr_1</th>
+<th align="right">perm.p_2</th>
+<th align="right">perm.fdr_2</th>
+<th align="right">perm.p_3</th>
+<th align="right">perm.fdr_3</th>
+<th align="right">perm.p_4</th>
+<th align="right">perm.fdr_4</th>
+<th align="right">perm.p_5</th>
+<th align="right">perm.fdr_5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">A2M</td>
+<td align="right">0</td>
+<td align="right">0.02</td>
+<td align="right">0.28</td>
+<td align="right">0.99</td>
+<td align="right">0.83</td>
+<td align="right">0.99</td>
+<td align="right">0.78</td>
+<td align="right">1.00</td>
+<td align="right">0.3</td>
+<td align="right">0.95</td>
+<td align="right">0.18</td>
+<td align="right">0.91</td>
+</tr>
+<tr class="even">
+<td align="left">LGALS1</td>
+<td align="right">0</td>
+<td align="right">0.02</td>
+<td align="right">0.00</td>
+<td align="right">0.01</td>
+<td align="right">0.00</td>
+<td align="right">0.38</td>
+<td align="right">0.00</td>
+<td align="right">0.11</td>
+<td align="right">0.0</td>
+<td align="right">0.03</td>
+<td align="right">0.00</td>
+<td align="right">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">LY6H</td>
+<td align="right">0</td>
+<td align="right">0.02</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">0.02</td>
+<td align="right">0.00</td>
+<td align="right">0.03</td>
+<td align="right">0.0</td>
+<td align="right">0.03</td>
+<td align="right">0.00</td>
+<td align="right">0.01</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div id="run-edger10-cells-with-umi-0" class="section level2">
 <h2>Run edgeR–10% cells with UMI &gt; 0</h2>
 <pre class="r"><code>y &lt;- DGEList(counts= countall[cellpercent &gt; 0.1,],group=coldata$condition)
-res &lt;- run_edgeR(y)</code></pre>
+resm &lt;- run_edgeR(y)</code></pre>
 <p><img src="figure/EdgeR-LRT.Rmd/edgeR0.1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of edgeR0.1-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/a78d83a9a7b8a21aa4b6ea9010aeae420cf32679/docs/figure/EdgeR-LRT.Rmd/edgeR0.1-1.png" target="_blank">a78d83a</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2018-12-17
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 2 genes passed FDR &lt;0.1 cutoff&quot;
 
-                      logFC   logCPM   LR    PValue    FDR
--------------------  ------  -------  ---  --------  -----
-ENSG00000175899.14    -1.50      6.9   20   7.0e-06   0.04
-ENSG00000100097.11    -2.20      6.6   20   8.4e-06   0.04
-ENSG00000100300.17    -1.50      6.4   15   1.3e-04   0.42
-ENSG00000119906.11     1.10      6.5   14   1.8e-04   0.44
-ENSG00000219626.8     -0.98      6.5   14   2.3e-04   0.44
-ENSG00000078061.12    -0.83      6.6   13   3.5e-04   0.46</code></pre>
+           logFC   logCPM   LR    PValue    FDR
+--------  ------  -------  ---  --------  -----
+A2M        -1.50      6.9   20   7.0e-06   0.04
+LGALS1     -2.20      6.6   20   8.4e-06   0.04
+TSPO       -1.50      6.4   15   1.3e-04   0.42
+SLF2        1.10      6.5   14   1.8e-04   0.44
+FAM228B    -0.98      6.5   14   2.3e-04   0.44
+ARAF       -0.83      6.6   13   3.5e-04   0.45</code></pre>
+<pre class="r"><code>save(resm, file=&quot;data/edgeR-lrt-10%filter_res.Rd&quot;)</code></pre>
+<div id="permutation-3" class="section level3">
+<h3>Permutation</h3>
+<pre class="r"><code>permreslist &lt;- list()
+permreslist[[1]] &lt;- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key=&quot;gene&quot;)
+for (n in 2:(Nperm+1)){
+  y &lt;- DGEList(counts= countall[cellpercent &gt; 0.1,],group=permute(coldata$condition))
+  res &lt;- run_edgeR(y,plotit = F)
+  resp &lt;- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key=&quot;gene&quot;)
+  colnames(resp) &lt;- c(&quot;gene&quot;, paste0(&quot;perm.p_&quot;,n-1), paste0(&quot;perm.fdr_&quot;,n-1))
+  permreslist[[n]] &lt;- resp
+}
+mergedres &lt;- Reduce(merge,permreslist)
+knitr::kable(mergedres[fdr &lt;0.1,],digits = 2)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">gene</th>
+<th align="right">p</th>
+<th align="right">fdr</th>
+<th align="right">perm.p_1</th>
+<th align="right">perm.fdr_1</th>
+<th align="right">perm.p_2</th>
+<th align="right">perm.fdr_2</th>
+<th align="right">perm.p_3</th>
+<th align="right">perm.fdr_3</th>
+<th align="right">perm.p_4</th>
+<th align="right">perm.fdr_4</th>
+<th align="right">perm.p_5</th>
+<th align="right">perm.fdr_5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">A2M</td>
+<td align="right">0</td>
+<td align="right">0.04</td>
+<td align="right">0.03</td>
+<td align="right">0.59</td>
+<td align="right">0.29</td>
+<td align="right">0.94</td>
+<td align="right">0.08</td>
+<td align="right">0.99</td>
+<td align="right">0.04</td>
+<td align="right">0.98</td>
+<td align="right">0.67</td>
+<td align="right">0.99</td>
+</tr>
+<tr class="even">
+<td align="left">LGALS1</td>
+<td align="right">0</td>
+<td align="right">0.04</td>
+<td align="right">0.00</td>
+<td align="right">0.04</td>
+<td align="right">0.00</td>
+<td align="right">0.34</td>
+<td align="right">0.00</td>
+<td align="right">0.19</td>
+<td align="right">0.00</td>
+<td align="right">0.10</td>
+<td align="right">0.00</td>
+<td align="right">0.72</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div id="run-edger20-cells-with-umi-0" class="section level2">
 <h2>Run edgeR–20% cells with UMI &gt; 0</h2>
 <pre class="r"><code>y &lt;- DGEList(counts= countall[cellpercent &gt; 0.2,],group=coldata$condition)
-res &lt;- run_edgeR(y)</code></pre>
+resm &lt;- run_edgeR(y)</code></pre>
 <p><img src="figure/EdgeR-LRT.Rmd/edgeR0.2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of edgeR0.2-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/a78d83a9a7b8a21aa4b6ea9010aeae420cf32679/docs/figure/EdgeR-LRT.Rmd/edgeR0.2-1.png" target="_blank">a78d83a</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2018-12-17
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 1 genes passed FDR &lt;0.1 cutoff&quot;
 
-                      logFC   logCPM   LR    PValue     FDR
--------------------  ------  -------  ---  --------  ------
-ENSG00000175899.14    -1.50      6.9   19   1.2e-05   0.093
-ENSG00000119906.11     1.10      6.5   14   1.7e-04   0.490
-ENSG00000219626.8     -0.99      6.5   14   2.2e-04   0.490
-ENSG00000078061.12    -0.82      6.6   13   3.4e-04   0.490
-ENSG00000131669.9      0.73      6.9   12   4.5e-04   0.490
-ENSG00000141219.15     0.95      6.4   12   4.6e-04   0.490</code></pre>
+            logFC   logCPM   LR    PValue     FDR
+---------  ------  -------  ---  --------  ------
+A2M         -1.50      6.9   19   1.2e-05   0.093
+SLF2         1.10      6.5   14   1.7e-04   0.490
+FAM228B     -0.99      6.5   14   2.2e-04   0.490
+ARAF        -0.82      6.6   13   3.4e-04   0.490
+NINJ1        0.73      6.9   12   4.5e-04   0.490
+C17orf80     0.95      6.4   12   4.6e-04   0.490</code></pre>
+<div id="permutation-4" class="section level3">
+<h3>Permutation</h3>
+<pre class="r"><code>permreslist &lt;- list()
+permreslist[[1]] &lt;- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key=&quot;gene&quot;)
+for (n in 2:(Nperm+1)){
+  y &lt;- DGEList(counts= countall[cellpercent &gt; 0.2,],group=permute(coldata$condition))
+  res &lt;- run_edgeR(y,plotit = F)
+  resp &lt;- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key=&quot;gene&quot;)
+  colnames(resp) &lt;- c(&quot;gene&quot;, paste0(&quot;perm.p_&quot;,n-1), paste0(&quot;perm.fdr_&quot;,n-1))
+  permreslist[[n]] &lt;- resp
+}
+mergedres &lt;- Reduce(merge,permreslist)
+knitr::kable(mergedres[fdr &lt;0.1,],digits = 2)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">gene</th>
+<th align="right">p</th>
+<th align="right">fdr</th>
+<th align="right">perm.p_1</th>
+<th align="right">perm.fdr_1</th>
+<th align="right">perm.p_2</th>
+<th align="right">perm.fdr_2</th>
+<th align="right">perm.p_3</th>
+<th align="right">perm.fdr_3</th>
+<th align="right">perm.p_4</th>
+<th align="right">perm.fdr_4</th>
+<th align="right">perm.p_5</th>
+<th align="right">perm.fdr_5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">A2M</td>
+<td align="right">0</td>
+<td align="right">0.09</td>
+<td align="right">0.31</td>
+<td align="right">0.98</td>
+<td align="right">0.02</td>
+<td align="right">0.91</td>
+<td align="right">0.27</td>
+<td align="right">0.87</td>
+<td align="right">0.21</td>
+<td align="right">0.96</td>
+<td align="right">0.96</td>
+<td align="right">1</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 <div id="parameters-used" class="section level2">
 <h2>Parameters used</h2>
@@ -498,37 +1010,41 @@ ENSG00000141219.15     0.95      6.4   12   4.6e-04   0.490</code></pre>
 <h2>Session information</h2>
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 3.5.1 (2018-07-02)
-Platform: x86_64-apple-darwin14.5.0 (64-bit)
-Running under: OS X El Capitan 10.11.6
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Scientific Linux 7.4 (Nitrogen)
 
 Matrix products: default
-BLAS: /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libBLAS.dylib
-LAPACK: /System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/libLAPACK.dylib
+BLAS/LAPACK: /software/openblas-0.2.19-el7-x86_64/lib/libopenblas_haswellp-r0.2.19.so
 
 locale:
-[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+ [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+ [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+ [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
 
 attached base packages:
 [1] grid      stats     graphics  grDevices utils     datasets  methods  
 [8] base     
 
 other attached packages:
-[1] gridExtra_2.3   lattice_0.20-35 edgeR_3.22.5    limma_3.36.5   
-[5] Matrix_1.2-14   dplyr_0.7.6    
+[1] gridExtra_2.3     edgeR_3.24.3      limma_3.38.2      Matrix_1.2-15    
+[5] data.table_1.12.0 gtools_3.8.1      dplyr_0.7.8       lattice_0.20-38  
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.0        compiler_3.5.1    pillar_1.3.0     
- [4] git2r_0.23.0      highr_0.7         workflowr_1.1.1  
+ [1] Rcpp_1.0.0        highr_0.7         compiler_3.5.1   
+ [4] pillar_1.3.1      git2r_0.23.0      workflowr_1.1.1  
  [7] bindr_0.1.1       R.methodsS3_1.7.1 R.utils_2.7.0    
-[10] tools_3.5.1       digest_0.6.18     evaluate_0.12    
-[13] tibble_1.4.2      gtable_0.2.0      pkgconfig_2.0.2  
-[16] rlang_0.3.0.1     yaml_2.2.0        bindrcpp_0.2.2   
-[19] stringr_1.3.1     knitr_1.20        locfit_1.5-9.1   
-[22] rprojroot_1.3-2   tidyselect_0.2.4  glue_1.3.0       
+[10] tools_3.5.1       digest_0.6.18     gtable_0.2.0     
+[13] evaluate_0.12     tibble_2.0.1      pkgconfig_2.0.2  
+[16] rlang_0.3.1       yaml_2.2.0        bindrcpp_0.2.2   
+[19] stringr_1.4.0     knitr_1.20        locfit_1.5-9.1   
+[22] rprojroot_1.3-2   tidyselect_0.2.5  glue_1.3.0       
 [25] R6_2.3.0          rmarkdown_1.10    purrr_0.2.5      
 [28] magrittr_1.5      whisker_0.3-2     backports_1.1.2  
 [31] htmltools_0.3.6   splines_3.5.1     assertthat_0.2.0 
-[34] stringi_1.2.4     crayon_1.3.4      R.oo_1.22.0      </code></pre>
+[34] stringi_1.3.1     crayon_1.3.4      R.oo_1.22.0      </code></pre>
 </div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
