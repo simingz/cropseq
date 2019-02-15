@@ -323,7 +323,7 @@ div.section {
 <strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
 <ul>
 <li>
-<p><details> <summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p><details> <summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </details>
 </li>
 <li>
@@ -342,30 +342,85 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/fcaa3412295542bebdd9fc40efa0176a14e27855" target="_blank">fcaa341</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/01a5914362313fd7fbf78c601924e29e58314200" target="_blank">01a5914</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
     Ignored:    .Rproj.user/
 
-Untracked files:
-    Untracked:  analysis/enrichment.Rmd
-    Untracked:  data/SNP_200000.txt
-    Untracked:  data/SNP_50000.txt
-    Untracked:  data/SNP_500000.txt
-
 Unstaged changes:
-    Modified:   .gitignore
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/enrichment.Rmd
 
 </code></pre>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes. </details>
 </li>
 </ul>
+<details> <summary> <small><strong>Expand here to see past versions:</strong></small> </summary>
+<ul>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+File
+</th>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+<th style="text-align:left;">
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/01a5914362313fd7fbf78c601924e29e58314200/analysis/enrichment.Rmd" target="_blank">01a5914</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-14
+</td>
+<td style="text-align:left;">
+permutation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/simingz/cropseq/01a5914362313fd7fbf78c601924e29e58314200/docs/enrichment.html" target="_blank">01a5914</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-14
+</td>
+<td style="text-align:left;">
+permutation
+</td>
+</tr>
+</tbody>
+</table>
+</ul>
+<p></details></p>
 <hr />
 <div id="get-cis-genes-for-each-targted-locus" class="section level2">
 <h2>Get cis genes for each targted locus</h2>
-<pre class="bash"><code>module load mysql
+<pre class="bash"><code># SNPfile: &quot;/project2/xinhe/simingz/CROP-seq/scRNA_seq_SNP_list.txt&quot;
+module load mysql
 mysql --user=genome --host=genome-mysql.cse.ucsc.edu -A -D hg19 -e &#39;
 select
  K.name2,
@@ -382,11 +437,150 @@ left join refGene as K on
 where
  S.name in (&quot;rs7148456&quot;,&quot;rs12895055&quot;,&quot;rs7170068&quot;,&quot;rs520843&quot;,&quot;rs12716973&quot;,&quot;rs2192932&quot;,&quot;rs17200916&quot;,&quot;rs1198588&quot;,&quot;rs324017&quot;,&quot;rs4151680&quot;,&quot;rs301791&quot;,&quot;rs324015&quot;,&quot;rs9882911&quot;,&quot;rs11633075&quot;,&quot;rs2027349&quot;,&quot;rs186132169&quot;,&quot;rs9661794&quot;,&quot;rs7936858&quot;,&quot;rs3861678&quot;,&quot;rs10933&quot;,&quot;rs6071578&quot;)&#39; &gt; /project2/xinhe/simingz/CROP-seq/cropseq/data/SNP_50000.txt</code></pre>
 </div>
-<div id="enrichment-by-fishers-test" class="section level2">
-<h2>Enrichment by Fisher’s test</h2>
-<pre class="r"><code>SNPfile &lt;- &quot;/project2/xinhe/simingz/CROP-seq/scRNA_seq_SNP_list.txt&quot;
-SNPs &lt;- read.table(SNPfile, header=F, stringsAsFactors = F)
-cisgene &lt;- read.table(&quot;data/SNP_50000.txt&quot;, stringsAsFactors = F,sep=&quot;\t&quot;, header=T)</code></pre>
+<div id="functions-to-get-enrichment-p-values" class="section level2">
+<h2>functions to get enrichment p values</h2>
+<pre class="r"><code>pcut &lt;- 0.05
+fisher_cisg &lt;- function(resm, cisg, pcut){
+  res &lt;- resm$table
+  res.sig &lt;- res[res$PValue &lt; pcut, ]
+  cisgres &lt;- resm$table[cisg, ]
+  cisgres &lt;- cisgres[complete.cases(cisgres), ]
+  cisgres.sig &lt;- cisgres[cisgres$PValue &lt; pcut, ]
+  ct &lt;- matrix(c(dim(cisgres.sig)[1], dim(cisgres)[1] - dim(cisgres.sig)[1], dim(res.sig)[1], dim(res)[1]-dim(res.sig)[1]), nrow = 2)
+  print(ct)
+  fisher.test(ct)
+}</code></pre>
+</div>
+<div id="enrichment-of-significant-genes---50kb-of-targeted-snps" class="section level2">
+<h2>Enrichment of significant genes +/- 50kb of targeted SNPs</h2>
+<pre class="r"><code>cisgene &lt;- read.table(&quot;data/SNP_50000.txt&quot;, stringsAsFactors = F,sep=&quot;\t&quot;, header=T)
+cisg &lt;- unique(cisgene$name2)</code></pre>
+<div id="using-edger-qlf-model-10-filtering" class="section level3">
+<h3>using EdgeR QLF model, 10% filtering</h3>
+<pre class="r"><code>load(&quot;data/edgeR-qlf-10%filter_res.Rd&quot;)
+fisher_cisg(resm, cisg, pcut)</code></pre>
+<pre><code>Loading required package: edgeR</code></pre>
+<pre><code>Loading required package: limma</code></pre>
+<pre><code>     [,1] [,2]
+[1,]    4  612
+[2,]   19 9009</code></pre>
+<pre><code>
+    Fisher&#39;s Exact Test for Count Data
+
+data:  ct
+p-value = 0.0554
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+ 0.7642145 9.3655805
+sample estimates:
+odds ratio 
+  3.098467 </code></pre>
+</div>
+<div id="using-edger-lrt-model-10-filtering" class="section level3">
+<h3>using EdgeR lrt model, 10% filtering</h3>
+<pre class="r"><code>load(&quot;data/edgeR-lrt-10%filter_res.Rd&quot;)
+fisher_cisg(resm, cisg, pcut)</code></pre>
+<pre><code>     [,1] [,2]
+[1,]    4  559
+[2,]   19 9062</code></pre>
+<pre><code>
+    Fisher&#39;s Exact Test for Count Data
+
+data:  ct
+p-value = 0.04201
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+  0.8413445 10.3169944
+sample estimates:
+odds ratio 
+  3.412093 </code></pre>
+</div>
+</div>
+<div id="enrichment-of-significant-genes---200kb-of-targeted-snps" class="section level2">
+<h2>Enrichment of significant genes +/- 200kb of targeted SNPs</h2>
+<pre class="r"><code>cisgene &lt;- read.table(&quot;data/SNP_200000.txt&quot;, stringsAsFactors = F,sep=&quot;\t&quot;, header=T)
+cisg &lt;- unique(cisgene$name2)</code></pre>
+<div id="using-edger-qlf-model-10-filtering-1" class="section level3">
+<h3>using EdgeR QLF model, 10% filtering</h3>
+<pre class="r"><code>load(&quot;data/edgeR-qlf-10%filter_res.Rd&quot;)
+fisher_cisg(resm, cisg, pcut)</code></pre>
+<pre><code>     [,1] [,2]
+[1,]    8  612
+[2,]   69 9009</code></pre>
+<pre><code>
+    Fisher&#39;s Exact Test for Count Data
+
+data:  ct
+p-value = 0.1557
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+ 0.7054235 3.5761036
+sample estimates:
+odds ratio 
+   1.70661 </code></pre>
+</div>
+<div id="using-edger-lrt-model-10-filtering-1" class="section level3">
+<h3>using EdgeR lrt model, 10% filtering</h3>
+<pre class="r"><code>load(&quot;data/edgeR-lrt-10%filter_res.Rd&quot;)
+fisher_cisg(resm, cisg, pcut)</code></pre>
+<pre><code>     [,1] [,2]
+[1,]    8  559
+[2,]   69 9062</code></pre>
+<pre><code>
+    Fisher&#39;s Exact Test for Count Data
+
+data:  ct
+p-value = 0.08919
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+ 0.7765322 3.9401042
+sample estimates:
+odds ratio 
+  1.879465 </code></pre>
+</div>
+</div>
+<div id="enrichment-of-significant-genes---500kb-of-targeted-snps" class="section level2">
+<h2>Enrichment of significant genes +/- 500kb of targeted SNPs</h2>
+<pre class="r"><code>cisgene &lt;- read.table(&quot;data/SNP_500000.txt&quot;, stringsAsFactors = F,sep=&quot;\t&quot;, header=T)
+cisg &lt;- unique(cisgene$name2)</code></pre>
+<div id="using-edger-qlf-model-10-filtering-2" class="section level3">
+<h3>using EdgeR QLF model, 10% filtering</h3>
+<pre class="r"><code>load(&quot;data/edgeR-qlf-10%filter_res.Rd&quot;)
+fisher_cisg(resm, cisg, pcut)</code></pre>
+<pre><code>     [,1] [,2]
+[1,]   13  612
+[2,]  130 9009</code></pre>
+<pre><code>
+    Fisher&#39;s Exact Test for Count Data
+
+data:  ct
+p-value = 0.1706
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+ 0.7587635 2.6261486
+sample estimates:
+odds ratio 
+  1.471976 </code></pre>
+</div>
+<div id="using-edger-lrt-model-10-filtering-2" class="section level3">
+<h3>using EdgeR lrt model, 10% filtering</h3>
+<pre class="r"><code>load(&quot;data/edgeR-lrt-10%filter_res.Rd&quot;)
+fisher_cisg(resm, cisg, pcut)</code></pre>
+<pre><code>     [,1] [,2]
+[1,]   13  559
+[2,]  130 9062</code></pre>
+<pre><code>
+    Fisher&#39;s Exact Test for Count Data
+
+data:  ct
+p-value = 0.1044
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+ 0.8351417 2.8937582
+sample estimates:
+odds ratio 
+  1.620998 </code></pre>
+</div>
 </div>
 <div id="session-information" class="section level2">
 <h2>Session information</h2>
@@ -409,14 +603,18 @@ locale:
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
+other attached packages:
+[1] edgeR_3.24.3 limma_3.38.2
+
 loaded via a namespace (and not attached):
- [1] workflowr_1.1.1   Rcpp_1.0.0        digest_0.6.18    
- [4] rprojroot_1.3-2   R.methodsS3_1.7.1 backports_1.1.2  
- [7] git2r_0.23.0      magrittr_1.5      evaluate_0.12    
-[10] stringi_1.2.4     whisker_0.3-2     R.oo_1.22.0      
-[13] R.utils_2.7.0     rmarkdown_1.10    tools_3.5.1      
-[16] stringr_1.3.1     yaml_2.2.0        compiler_3.5.1   
-[19] htmltools_0.3.6   knitr_1.20       </code></pre>
+ [1] locfit_1.5-9.1    workflowr_1.1.1   Rcpp_1.0.0       
+ [4] lattice_0.20-38   digest_0.6.18     rprojroot_1.3-2  
+ [7] R.methodsS3_1.7.1 grid_3.5.1        backports_1.1.2  
+[10] git2r_0.23.0      magrittr_1.5      evaluate_0.12    
+[13] stringi_1.3.1     whisker_0.3-2     R.oo_1.22.0      
+[16] R.utils_2.7.0     rmarkdown_1.10    tools_3.5.1      
+[19] stringr_1.4.0     yaml_2.2.0        compiler_3.5.1   
+[22] htmltools_0.3.6   knitr_1.20       </code></pre>
 </div>
 
 <!-- Adjust MathJax settings so that all math formulae are shown using

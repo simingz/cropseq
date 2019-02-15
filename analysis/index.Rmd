@@ -21,3 +21,5 @@ Differetial expression
 * [EdgeR-LRT](EdgeR-LRT.html)  
 
 Enrichment analysis
+
+* [Enrichment of differentially expressed cis genes](enrichment.html )
