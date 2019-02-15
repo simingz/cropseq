@@ -322,7 +322,7 @@ div.section {
 </div>
 
 
-<p><strong>Last updated:</strong> 2019-02-14</p>
+<p><strong>Last updated:</strong> 2019-02-15</p>
 <strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
 <ul>
 <li>
@@ -345,32 +345,15 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/fcaa3412295542bebdd9fc40efa0176a14e27855" target="_blank">fcaa341</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/a970cce48f329a5ca228fd768864311b13dd20cf" target="_blank">a970cce</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
-    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/Quality_metrics_cache/
-
-Untracked files:
-    Untracked:  analysis/enrichment.Rmd
-    Untracked:  analysis/figure/
-    Untracked:  data/SNP_200000.txt
-    Untracked:  data/SNP_50000.txt
-    Untracked:  data/SNP_500000.txt
-    Untracked:  data/edgeR-qlf-10%filter_res.Rd
 
 Unstaged changes:
-    Modified:   .gitignore
-    Modified:   analysis/DEseq2-LRT.Rmd
     Modified:   analysis/EdgeR-LRT.Rmd
     Modified:   analysis/EdgeR-QLF.Rmd
-    Modified:   analysis/Quality_metrics.Rmd
-    Modified:   analysis/index.Rmd
-    Modified:   code/summary_functions.R
-    Modified:   cropseq.Rproj
-    Modified:   data/DE_input.Rd
 
 </code></pre>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes. </details>
@@ -399,6 +382,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/01a5914362313fd7fbf78c601924e29e58314200/analysis/EdgeR-LRT.Rmd" target="_blank">01a5914</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-14
+</td>
+<td style="text-align:left;">
+permutation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/simingz/cropseq/01a5914362313fd7fbf78c601924e29e58314200/docs/EdgeR-LRT.html" target="_blank">01a5914</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-14
+</td>
+<td style="text-align:left;">
+permutation
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Rmd
@@ -500,6 +517,17 @@ Date
 <tbody>
 <tr>
 <td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/01a5914362313fd7fbf78c601924e29e58314200/docs/figure/EdgeR-LRT.Rmd/edgeRall-1.png" target="_blank">01a5914</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 <a href="https://github.com/simingz/cropseq/blob/a78d83a9a7b8a21aa4b6ea9010aeae420cf32679/docs/figure/EdgeR-LRT.Rmd/edgeRall-1.png" target="_blank">a78d83a</a>
 </td>
 <td style="text-align:left;">
@@ -528,12 +556,67 @@ POMK      -0.79      6.3   14   2.2e-04   0.97</code></pre>
 permreslist[[1]] &lt;- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key=&quot;gene&quot;)
 for (n in 2:(Nperm+1)){
   y &lt;- DGEList(counts= countall,group=permute(coldata$condition))
-  res &lt;- run_edgeR(y,plotit = F)
+  res &lt;- run_edgeR(y,plotit = T)
   resp &lt;- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key=&quot;gene&quot;)
   colnames(resp) &lt;- c(&quot;gene&quot;, paste0(&quot;perm.p_&quot;,n-1), paste0(&quot;perm.fdr_&quot;,n-1))
   permreslist[[n]] &lt;- resp
-}
-mergedres &lt;- Reduce(merge,permreslist)
+}</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/permall-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 1 genes passed FDR &lt;0.1 cutoff&quot;
+
+          logFC   logCPM   LR    PValue       FDR
+-------  ------  -------  ---  --------  --------
+MYC       -3.20      7.4   49   0.0e+00   1.0e-07
+LY6H       2.60      6.6   19   1.3e-05   1.9e-01
+MED9      -0.97      6.5   15   1.1e-04   7.5e-01
+FZD4       0.85      6.3   14   1.4e-04   7.5e-01
+LGALS1     2.00      6.6   14   1.7e-04   7.5e-01
+GALT      -1.00      6.5   14   1.8e-04   7.5e-01</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/permall-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 1 genes passed FDR &lt;0.1 cutoff&quot;
+
+             logFC   logCPM   LR    PValue     FDR
+----------  ------  -------  ---  --------  ------
+LY6H         -2.80      6.6   24   1.1e-06   0.033
+LGALS1       -2.10      6.6   16   5.5e-05   0.710
+CHD6          0.96      6.6   16   7.8e-05   0.710
+HIST1H2BC     0.88      6.3   15   1.1e-04   0.710
+CLCF1        -0.89      6.3   15   1.2e-04   0.710
+PNMA6A       -1.10      6.4   14   1.7e-04   0.870</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/permall-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 0 genes passed FDR &lt;0.1 cutoff&quot;
+
+                 logFC   logCPM   LR    PValue    FDR
+--------------  ------  -------  ---  --------  -----
+LGALS1            2.30      6.6   21   4.5e-06   0.13
+LY6H              2.50      6.6   17   3.5e-05   0.51
+CTD-2368P22.1    -1.10      6.3   15   1.1e-04   0.51
+TPP1             -1.00      6.5   15   1.1e-04   0.51
+SCLT1             1.00      6.4   15   1.1e-04   0.51
+ZDHHC4           -0.64      7.2   15   1.2e-04   0.51</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/permall-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 0 genes passed FDR &lt;0.1 cutoff&quot;
+
+           logFC   logCPM   LR    PValue    FDR
+--------  ------  -------  ---  --------  -----
+LBX1        2.70      6.4   21   4.7e-06   0.14
+LY6H       -2.50      6.6   17   4.7e-05   0.70
+PAK3        1.20      6.5   15   9.3e-05   0.93
+LGALS1     -1.90      6.6   13   2.5e-04   0.99
+GNB3        0.86      6.3   13   2.7e-04   0.99
+ZNF385A    -0.87      6.6   13   3.0e-04   0.99</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/permall-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 0 genes passed FDR &lt;0.1 cutoff&quot;
+
+                logFC   logCPM   LR    PValue    FDR
+-------------  ------  -------  ---  --------  -----
+MYC              -2.0      7.4   18   2.0e-05   0.31
+LY6H              2.6      6.6   18   2.2e-05   0.31
+DYNLT3            1.2      6.3   17   3.3e-05   0.31
+RP11-45B20.3      1.1      6.3   17   4.1e-05   0.31
+NEUROD1          -2.0      6.4   13   2.5e-04   1.00
+LRRC17            1.1      6.3   12   4.4e-04   1.00</code></pre>
+<pre class="r"><code>mergedres &lt;- Reduce(merge,permreslist)
 knitr::kable(mergedres[fdr &lt;0.1,],digits = 2)</code></pre>
 <p>gene p fdr perm.p_1 perm.fdr_1 perm.p_2 perm.fdr_2 perm.p_3 perm.fdr_3 perm.p_4 perm.fdr_4 perm.p_5 perm.fdr_5 —– — —- ——— ———– ——— ———– ——— ———– ——— ———– ——— ———–</p>
 </div>
@@ -559,6 +642,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/01a5914362313fd7fbf78c601924e29e58314200/docs/figure/EdgeR-LRT.Rmd/edgeR>0-1.png&quot; target=“_blank“&gt;01a5914</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-14
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 <a href="https://github.com/simingz/cropseq/blob/a78d83a9a7b8a21aa4b6ea9010aeae420cf32679/docs/figure/EdgeR-LRT.Rmd/edgeR>0-1.png&quot; target=“_blank“&gt;a78d83a</a>
@@ -589,12 +683,67 @@ POMK      -0.79      6.3   14   2.2e-04   0.510</code></pre>
 permreslist[[1]] &lt;- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key=&quot;gene&quot;)
 for (n in 2:(Nperm+1)){
   y &lt;- DGEList(counts= countall[totalcount&gt;0,],group=permute(coldata$condition))
-  res &lt;- run_edgeR(y,plotit = F)
+  res &lt;- run_edgeR(y,plotit = T)
   resp &lt;- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key=&quot;gene&quot;)
   colnames(resp) &lt;- c(&quot;gene&quot;, paste0(&quot;perm.p_&quot;,n-1), paste0(&quot;perm.fdr_&quot;,n-1))
   permreslist[[n]] &lt;- resp
-}
-mergedres &lt;- Reduce(merge,permreslist)
+}</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm>0-1.png&quot; width=“672” style=“display: block; margin: auto;” /&gt;</p>
+<pre><code>[1] &quot;There are 1 genes passed FDR &lt;0.1 cutoff&quot;
+
+          logFC   logCPM   LR    PValue     FDR
+-------  ------  -------  ---  --------  ------
+ZXDB      -1.20      6.3   24   9.0e-07   0.015
+LY6H       2.60      6.6   18   2.0e-05   0.160
+LGALS1     2.10      6.6   15   8.5e-05   0.360
+LAMP5     -1.50      6.5   15   9.1e-05   0.360
+NXF1       0.77      6.8   15   1.1e-04   0.360
+G0S2       1.60      6.4   14   1.4e-04   0.380</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm>0-2.png&quot; width=“672” style=“display: block; margin: auto;” /&gt;</p>
+<pre><code>[1] &quot;There are 2 genes passed FDR &lt;0.1 cutoff&quot;
+
+          logFC   logCPM   LR    PValue       FDR
+-------  ------  -------  ---  --------  --------
+CLDN5      3.60      6.8   35   0.0e+00   4.9e-05
+LY6H      -2.70      6.6   20   7.5e-06   5.9e-02
+NMNAT1     1.20      6.4   16   5.1e-05   2.5e-01
+WDR53     -1.20      6.3   16   6.3e-05   2.5e-01
+RGL2       0.94      6.5   15   8.5e-05   2.7e-01
+PIGU      -0.69      6.9   14   1.9e-04   4.9e-01</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm>0-3.png&quot; width=“672” style=“display: block; margin: auto;” /&gt;</p>
+<pre><code>[1] &quot;There are 3 genes passed FDR &lt;0.1 cutoff&quot;
+
+           logFC   logCPM   LR    PValue       FDR
+--------  ------  -------  ---  --------  --------
+LY6H       -3.00      6.6   31   0.0e+00   0.00036
+CLDN5      -3.10      6.8   24   1.0e-06   0.00800
+LGALS1     -2.30      6.6   21   3.9e-06   0.02100
+GAL        -1.70      6.4   16   5.0e-05   0.20000
+PTN        -0.97      8.0   16   6.7e-05   0.21000
+S100A11    -2.00      6.4   14   1.9e-04   0.51000</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm>0-4.png&quot; width=“672” style=“display: block; margin: auto;” /&gt;</p>
+<pre><code>[1] &quot;There are 0 genes passed FDR &lt;0.1 cutoff&quot;
+
+          logFC   logCPM   LR    PValue    FDR
+-------  ------  -------  ---  --------  -----
+ATP8A1    -0.93      6.3   15   0.00011   0.57
+LBR       -0.72      6.9   15   0.00013   0.57
+LMO1      -1.00      6.3   14   0.00021   0.57
+PARD6A    -0.96      6.5   14   0.00021   0.57
+LY6H       2.30      6.6   13   0.00024   0.57
+DARS2     -1.00      6.4   13   0.00026   0.57</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm>0-5.png&quot; width=“672” style=“display: block; margin: auto;” /&gt;</p>
+<pre><code>[1] &quot;There are 0 genes passed FDR &lt;0.1 cutoff&quot;
+
+                logFC   logCPM   LR    PValue    FDR
+-------------  ------  -------  ---  --------  -----
+LY6H             2.70      6.6   20   6.6e-06   0.10
+MYC             -2.00      7.4   17   3.3e-05   0.21
+S100A11          2.00      6.4   17   4.0e-05   0.21
+S1PR3            1.00      6.3   14   1.8e-04   0.59
+SNX18           -1.00      6.4   14   1.9e-04   0.59
+CTC-329H14.4    -0.98      6.3   13   3.2e-04   0.73</code></pre>
+<pre class="r"><code>mergedres &lt;- Reduce(merge,permreslist)
 knitr::kable(mergedres[fdr &lt;0.1,],digits = 2)</code></pre>
 <table>
 <thead>
@@ -687,6 +836,17 @@ Date
 <tbody>
 <tr>
 <td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/01a5914362313fd7fbf78c601924e29e58314200/docs/figure/EdgeR-LRT.Rmd/edgeR0.03-1.png" target="_blank">01a5914</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 <a href="https://github.com/simingz/cropseq/blob/a78d83a9a7b8a21aa4b6ea9010aeae420cf32679/docs/figure/EdgeR-LRT.Rmd/edgeR0.03-1.png" target="_blank">a78d83a</a>
 </td>
 <td style="text-align:left;">
@@ -715,12 +875,67 @@ POMK       -0.79      6.3   14   2.1e-04   0.360</code></pre>
 permreslist[[1]] &lt;- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key=&quot;gene&quot;)
 for (n in 2:(Nperm+1)){
   y &lt;- DGEList(counts= countall[cellpercent &gt; 0.03,],group=permute(coldata$condition))
-  res &lt;- run_edgeR(y,plotit = F)
+  res &lt;- run_edgeR(y,plotit = T)
   resp &lt;- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key=&quot;gene&quot;)
   colnames(resp) &lt;- c(&quot;gene&quot;, paste0(&quot;perm.p_&quot;,n-1), paste0(&quot;perm.fdr_&quot;,n-1))
   permreslist[[n]] &lt;- resp
-}
-mergedres &lt;- Reduce(merge,permreslist)
+}</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm0.03-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 4 genes passed FDR &lt;0.1 cutoff&quot;
+
+           logFC   logCPM   LR    PValue       FDR
+--------  ------  -------  ---  --------  --------
+MYC          3.1      7.4   43   0.0e+00   5.0e-07
+LY6H        -2.8      6.6   25   6.0e-07   2.8e-03
+DENND2A     -1.4      6.3   25   7.0e-07   2.8e-03
+LGALS1      -2.3      6.6   22   2.6e-06   7.8e-03
+APOE        -2.0      6.4   15   9.6e-05   2.3e-01
+RASD1       -1.9      6.5   14   1.7e-04   3.0e-01</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm0.03-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 3 genes passed FDR &lt;0.1 cutoff&quot;
+
+          logFC   logCPM   LR    PValue     FDR
+-------  ------  -------  ---  --------  ------
+LY6H       2.80      6.6   23   1.6e-06   0.018
+NEFM       1.60      7.8   22   3.0e-06   0.018
+TMEM59     0.61      7.6   18   2.5e-05   0.100
+STMN4      2.20      6.5   16   5.3e-05   0.160
+LOXL1     -1.10      6.7   15   1.2e-04   0.270
+LRIG1      0.90      6.7   14   2.2e-04   0.380</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm0.03-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 2 genes passed FDR &lt;0.1 cutoff&quot;
+
+          logFC   logCPM   LR    PValue       FDR
+-------  ------  -------  ---  --------  --------
+MYC        3.20      7.4   45   0.0e+00   2.0e-07
+LY6H       2.70      6.6   21   5.1e-06   3.1e-02
+LGALS1     2.20      6.6   18   2.6e-05   1.1e-01
+FAXC      -0.98      6.5   15   1.1e-04   3.3e-01
+COL6A1     0.88      6.7   14   1.7e-04   4.0e-01
+MELTF      0.83      6.3   14   2.2e-04   4.3e-01</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm0.03-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 2 genes passed FDR &lt;0.1 cutoff&quot;
+
+           logFC   logCPM   LR    PValue     FDR
+--------  ------  -------  ---  --------  ------
+LGALS1     -2.40      6.6   22   2.3e-06   0.028
+LY6H       -2.70      6.6   21   5.5e-06   0.033
+ICK         1.20      6.4   16   5.3e-05   0.210
+LRRC58      0.85      6.7   16   7.7e-05   0.230
+NRXN3       0.95      6.3   15   1.1e-04   0.250
+CCDC169     1.10      6.3   14   1.8e-04   0.320</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm0.03-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 3 genes passed FDR &lt;0.1 cutoff&quot;
+
+           logFC   logCPM   LR    PValue      FDR
+--------  ------  -------  ---  --------  -------
+HES6        1.20      9.1   26   3.0e-07   0.0040
+LY6H       -2.80      6.6   24   1.0e-06   0.0052
+LGALS1     -2.40      6.6   23   1.3e-06   0.0052
+GPM6B      -0.54      8.4   16   5.4e-05   0.1600
+RABL3       1.10      6.4   14   1.7e-04   0.3500
+GADD45G     1.70      7.8   14   2.1e-04   0.3500</code></pre>
+<pre class="r"><code>mergedres &lt;- Reduce(merge,permreslist)
 knitr::kable(mergedres[fdr &lt;0.1,],digits = 2)</code></pre>
 <table>
 <thead>
@@ -813,6 +1028,17 @@ Date
 <tbody>
 <tr>
 <td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/01a5914362313fd7fbf78c601924e29e58314200/docs/figure/EdgeR-LRT.Rmd/edgeR0.1-1.png" target="_blank">01a5914</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 <a href="https://github.com/simingz/cropseq/blob/a78d83a9a7b8a21aa4b6ea9010aeae420cf32679/docs/figure/EdgeR-LRT.Rmd/edgeR0.1-1.png" target="_blank">a78d83a</a>
 </td>
 <td style="text-align:left;">
@@ -842,12 +1068,67 @@ ARAF       -0.83      6.6   13   3.5e-04   0.45</code></pre>
 permreslist[[1]] &lt;- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key=&quot;gene&quot;)
 for (n in 2:(Nperm+1)){
   y &lt;- DGEList(counts= countall[cellpercent &gt; 0.1,],group=permute(coldata$condition))
-  res &lt;- run_edgeR(y,plotit = F)
+  res &lt;- run_edgeR(y,plotit = T)
   resp &lt;- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key=&quot;gene&quot;)
   colnames(resp) &lt;- c(&quot;gene&quot;, paste0(&quot;perm.p_&quot;,n-1), paste0(&quot;perm.fdr_&quot;,n-1))
   permreslist[[n]] &lt;- resp
-}
-mergedres &lt;- Reduce(merge,permreslist)
+}</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm0.1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 1 genes passed FDR &lt;0.1 cutoff&quot;
+
+           logFC   logCPM   LR    PValue     FDR
+--------  ------  -------  ---  --------  ------
+LGALS1     -2.30      6.6   21   4.5e-06   0.043
+TMPO        0.68      7.2   14   2.4e-04   0.410
+PHGDH       0.60      8.7   13   2.4e-04   0.410
+HNRNPA1     0.31     12.0   13   3.7e-04   0.410
+CIB2        0.74      6.8   13   4.0e-04   0.410
+NPM1        0.29     11.0   12   4.6e-04   0.410</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm0.1-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 0 genes passed FDR &lt;0.1 cutoff&quot;
+
+          logFC   logCPM   LR    PValue    FDR
+-------  ------  -------  ---  --------  -----
+VAV2      -1.10      6.5   19   1.5e-05   0.14
+SORT1     -1.00      6.6   16   4.9e-05   0.24
+LGALS1     2.00      6.6   15   1.1e-04   0.34
+TOB1      -1.10      6.5   14   1.7e-04   0.36
+FDXR      -0.85      7.0   14   1.9e-04   0.36
+VWA1       1.10      6.5   13   2.9e-04   0.36</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm0.1-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 2 genes passed FDR &lt;0.1 cutoff&quot;
+
+           logFC   logCPM   LR    PValue       FDR
+--------  ------  -------  ---  --------  --------
+MYC         3.20      7.4   46   0.0e+00   1.0e-07
+CHKB       -1.20      6.4   18   2.1e-05   9.9e-02
+CHMP3      -0.56      7.5   15   9.2e-05   1.9e-01
+LGALS1     -2.00      6.6   15   9.5e-05   1.9e-01
+SERTAD1    -0.96      6.7   15   1.0e-04   1.9e-01
+PLA2G15     1.00      6.4   13   2.5e-04   3.8e-01</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm0.1-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 0 genes passed FDR &lt;0.1 cutoff&quot;
+
+          logFC   logCPM   LR    PValue    FDR
+-------  ------  -------  ---  --------  -----
+LGALS1    -2.20      6.6   19   1.1e-05   0.10
+EIF4E2    -0.53      7.6   16   8.0e-05   0.29
+MYC       -1.90      7.4   15   9.0e-05   0.29
+WDR12      0.74      6.7   13   3.1e-04   0.74
+PTCD2     -0.95      6.4   12   5.5e-04   0.98
+CCDC57    -0.97      6.3   12   6.5e-04   0.98</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm0.1-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 1 genes passed FDR &lt;0.1 cutoff&quot;
+
+            logFC   logCPM   LR    PValue    FDR
+---------  ------  -------  ---  --------  -----
+MYC         -3.20      7.4   48   0.0e+00   0.00
+PPP1R14C     1.30      6.9   15   9.9e-05   0.41
+ZNF644      -0.84      6.7   15   1.3e-04   0.41
+MT1X        -1.40      6.5   13   2.8e-04   0.67
+DUSP14      -0.73      6.9   12   4.1e-04   0.72
+NME1        -0.33      9.3   12   5.1e-04   0.72</code></pre>
+<pre class="r"><code>mergedres &lt;- Reduce(merge,permreslist)
 knitr::kable(mergedres[fdr &lt;0.1,],digits = 2)</code></pre>
 <table>
 <thead>
@@ -925,6 +1206,17 @@ Date
 <tbody>
 <tr>
 <td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/01a5914362313fd7fbf78c601924e29e58314200/docs/figure/EdgeR-LRT.Rmd/edgeR0.2-1.png" target="_blank">01a5914</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-14
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
 <a href="https://github.com/simingz/cropseq/blob/a78d83a9a7b8a21aa4b6ea9010aeae420cf32679/docs/figure/EdgeR-LRT.Rmd/edgeR0.2-1.png" target="_blank">a78d83a</a>
 </td>
 <td style="text-align:left;">
@@ -953,12 +1245,67 @@ C17orf80     0.95      6.4   12   4.6e-04   0.490</code></pre>
 permreslist[[1]] &lt;- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key=&quot;gene&quot;)
 for (n in 2:(Nperm+1)){
   y &lt;- DGEList(counts= countall[cellpercent &gt; 0.2,],group=permute(coldata$condition))
-  res &lt;- run_edgeR(y,plotit = F)
+  res &lt;- run_edgeR(y,plotit = T)
   resp &lt;- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key=&quot;gene&quot;)
   colnames(resp) &lt;- c(&quot;gene&quot;, paste0(&quot;perm.p_&quot;,n-1), paste0(&quot;perm.fdr_&quot;,n-1))
   permreslist[[n]] &lt;- resp
-}
-mergedres &lt;- Reduce(merge,permreslist)
+}</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm0.2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 2 genes passed FDR &lt;0.1 cutoff&quot;
+
+          logFC   logCPM   LR    PValue       FDR
+-------  ------  -------  ---  --------  --------
+MYC        -3.0      7.4   41   0.0e+00   1.4e-06
+SPP1        2.1      7.0   20   8.0e-06   3.0e-02
+CRABP1     -1.1     10.0   16   7.3e-05   1.9e-01
+VGF         1.3      6.8   14   2.0e-04   3.7e-01
+PLK3       -1.1      6.8   13   2.6e-04   3.7e-01
+NKAIN4     -1.0      7.1   13   3.3e-04   3.7e-01</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm0.2-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 0 genes passed FDR &lt;0.1 cutoff&quot;
+
+          logFC   logCPM   LR    PValue    FDR
+-------  ------  -------  ---  --------  -----
+SLC4A2     1.10      6.5   17   3.3e-05   0.25
+ILVBL     -0.72      6.8   15   1.0e-04   0.27
+UBQLN2    -0.84      6.6   15   1.4e-04   0.27
+RIF1      -0.78      6.8   14   1.4e-04   0.27
+CAV1       1.40      7.1   14   1.9e-04   0.29
+AKT1S1     0.59      7.1   13   3.2e-04   0.32</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm0.2-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 0 genes passed FDR &lt;0.1 cutoff&quot;
+
+          logFC   logCPM   LR    PValue   FDR
+-------  ------  -------  ---  --------  ----
+MALAT1    -0.46     14.0   15   9.7e-05   0.3
+WSCD1      0.97      6.6   14   2.1e-04   0.3
+HES6       0.90      9.1   14   2.3e-04   0.3
+CCZ1B     -0.94      6.6   13   2.6e-04   0.3
+CCDC59    -0.56      7.4   13   2.7e-04   0.3
+SLC3A2    -0.69      8.6   13   3.4e-04   0.3</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm0.2-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 2 genes passed FDR &lt;0.1 cutoff&quot;
+
+          logFC   logCPM   LR    PValue       FDR
+-------  ------  -------  ---  --------  --------
+MYC       -3.00      7.4   39   0.00000   3.4e-06
+ATG14      1.20      6.4   18   0.00002   7.4e-02
+SOCS3     -0.91      6.7   13   0.00037   6.4e-01
+VPS26A     0.52      7.3   12   0.00048   6.4e-01
+PIGU       0.64      6.9   12   0.00053   6.4e-01
+UBR5       0.80      6.6   12   0.00056   6.4e-01</code></pre>
+<p><img src="figure/EdgeR-LRT.Rmd/perm0.2-5.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>[1] &quot;There are 2 genes passed FDR &lt;0.1 cutoff&quot;
+
+         logFC   logCPM   LR    PValue     FDR
+------  ------  -------  ---  --------  ------
+MYC      -2.20      7.4   20   8.6e-06   0.035
+SPP1     -2.10      7.0   20   9.2e-06   0.035
+GCLM     -1.10      6.8   13   2.4e-04   0.510
+AP1S2    -0.52      7.5   13   2.7e-04   0.510
+SPC25    -0.90      6.9   13   4.0e-04   0.600
+NCK1      0.82      6.6   12   5.2e-04   0.660</code></pre>
+<pre class="r"><code>mergedres &lt;- Reduce(merge,permreslist)
 knitr::kable(mergedres[fdr &lt;0.1,],digits = 2)</code></pre>
 <table>
 <thead>
