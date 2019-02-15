@@ -326,7 +326,8 @@ div.section {
 <strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
 <ul>
 <li>
-<p><details> <summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>R Markdown file:</strong> up-to-date </summary></p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </details>
 </li>
 <li>
@@ -345,15 +346,11 @@ div.section {
 </details>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/a970cce48f329a5ca228fd768864311b13dd20cf" target="_blank">a970cce</a> </summary></p>
+<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/0d6ec8026dfb4a23594c798f9c90dfd018584790" target="_blank">0d6ec80</a> </summary></p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 <pre><code>
 Ignored files:
     Ignored:    .Rproj.user/
-
-Unstaged changes:
-    Modified:   analysis/EdgeR-LRT.Rmd
-    Modified:   analysis/EdgeR-QLF.Rmd
 
 </code></pre>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes. </details>
@@ -382,6 +379,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/0d6ec8026dfb4a23594c798f9c90dfd018584790/analysis/EdgeR-QLF.Rmd" target="_blank">0d6ec80</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+<td style="text-align:left;">
+permutation-qqplot
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rmd
+</td>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/analysis/EdgeR-QLF.Rmd" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+<td style="text-align:left;">
+permutation-qqplot
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+html
+</td>
+<td style="text-align:left;">
+<a href="https://cdn.rawgit.com/simingz/cropseq/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/EdgeR-QLF.html" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+<td style="text-align:left;">
+permutation-qqplot
+</td>
+</tr>
 <tr>
 <td style="text-align:left;">
 Rmd
@@ -579,6 +627,36 @@ for (n in 2:(Nperm+1)){
   permreslist[[n]] &lt;- resp
 }</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/permall-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of permall-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/permall-1.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 9 genes passed FDR &lt;0.1 cutoff&quot;
 
            logFC   logCPM    F   PValue       FDR
@@ -590,6 +668,36 @@ S100A11      1.8      6.4   39        0   1.6e-05
 NEUROD1      1.7      6.4   39        0   2.4e-05
 LGALS1       2.1      6.6   35        0   5.6e-05</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/permall-2.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of permall-2.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/permall-2.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 9 genes passed FDR &lt;0.1 cutoff&quot;
 
            logFC   logCPM    F    PValue       FDR
@@ -601,6 +709,36 @@ LGALS1      -2.1      6.6   39   0.0e+00   1.6e-05
 GAL         -1.6      6.4   34   0.0e+00   9.9e-05
 TFF3        -1.2      6.4   29   3.9e-06   1.9e-02</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/permall-3.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of permall-3.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/permall-3.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 18 genes passed FDR &lt;0.1 cutoff&quot;
 
            logFC   logCPM    F   PValue       FDR
@@ -612,6 +750,36 @@ S100A11      1.9      6.4   45        0   8.0e-07
 APOE         1.7      6.4   37        0   2.7e-05
 KCNMA1      -1.5      6.4   32        0   1.7e-04</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/permall-4.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of permall-4.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/permall-4.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 13 genes passed FDR &lt;0.1 cutoff&quot;
 
            logFC   logCPM    F   PValue       FDR
@@ -623,6 +791,36 @@ LBX1         2.3      6.4   37    0e+00   6.0e-05
 LGALS1      -2.0      6.6   34    0e+00   8.6e-05
 LHX5         1.5      6.3   34    1e-07   4.6e-04</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/permall-5.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of permall-5.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/permall-5.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 19 genes passed FDR &lt;0.1 cutoff&quot;
 
            logFC   logCPM    F   PValue       FDR
@@ -990,12 +1188,42 @@ LHX5       -1.5      6.3   37        0   4.1e-05</code></pre>
 permreslist[[1]] &lt;- data.table(gene=rownames(resm$table), p=resm$table$PValue, fdr=resm$table$FDR, key=&quot;gene&quot;)
 for (n in 2:(Nperm+1)){
   y &lt;- DGEList(counts= countall[totalcount&gt;0,],group=permute(coldata$condition))
-  res &lt;- run_edgeR(y,plotit = T)
+  res &lt;- run_edgeR(y, plotit = T)
   resp &lt;- data.table(gene=rownames(res$table), p=res$table$PValue, fdr=res$table$FDR, key=&quot;gene&quot;)
   colnames(resp) &lt;- c(&quot;gene&quot;, paste0(&quot;perm.p_&quot;,n-1), paste0(&quot;perm.fdr_&quot;,n-1))
   permreslist[[n]] &lt;- resp
 }</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm>0-1.png&quot; width=“672” style=“display: block; margin: auto;” /&gt;</p>
+<details> <summary><em>Expand here to see past versions of perm&gt;0-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm>0-1.png&quot; target=“_blank“&gt;02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 29 genes passed FDR &lt;0.1 cutoff&quot;
 
                  logFC   logCPM    F   PValue       FDR
@@ -1007,6 +1235,36 @@ LGALS1             2.0      6.6   33    0e+00   1.2e-04
 RP11-389K14.3     -1.3      6.3   40    2e-07   7.2e-04
 NEUROD1            1.5      6.4   28    3e-07   7.9e-04</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm>0-2.png&quot; width=“672” style=“display: block; margin: auto;” /&gt;</p>
+<details> <summary><em>Expand here to see past versions of perm&gt;0-2.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm>0-2.png&quot; target=“_blank“&gt;02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 16 genes passed FDR &lt;0.1 cutoff&quot;
 
            logFC   logCPM    F    PValue       FDR
@@ -1018,6 +1276,36 @@ NEUROD1     -1.7      6.4   38   0.0e+00   2.4e-05
 LGALS1      -1.7      6.6   26   7.0e-07   2.2e-03
 SPARCL1     -1.0      6.3   40   6.5e-06   1.7e-02</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm>0-3.png&quot; width=“672” style=“display: block; margin: auto;” /&gt;</p>
+<details> <summary><em>Expand here to see past versions of perm&gt;0-3.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm>0-3.png&quot; target=“_blank“&gt;02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 26 genes passed FDR &lt;0.1 cutoff&quot;
 
            logFC   logCPM    F   PValue   FDR
@@ -1029,6 +1317,36 @@ APOE        -1.9      6.4   50        0     0
 LGALS1      -2.4      6.6   50        0     0
 GAL         -1.9      6.4   50        0     0</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm>0-4.png&quot; width=“672” style=“display: block; margin: auto;” /&gt;</p>
+<details> <summary><em>Expand here to see past versions of perm&gt;0-4.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm>0-4.png&quot; target=“_blank“&gt;02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 9 genes passed FDR &lt;0.1 cutoff&quot;
 
            logFC   logCPM    F   PValue       FDR
@@ -1040,6 +1358,36 @@ MT1F        -1.6      6.4   33    0e+00   1.3e-04
 LGALS1       1.9      6.6   30    1e-07   3.6e-04
 GAL          1.5      6.4   27    4e-07   1.2e-03</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm>0-5.png&quot; width=“672” style=“display: block; margin: auto;” /&gt;</p>
+<details> <summary><em>Expand here to see past versions of perm&gt;0-5.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm>0-5.png&quot; target=“_blank“&gt;02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 20 genes passed FDR &lt;0.1 cutoff&quot;
 
            logFC   logCPM    F   PValue       FDR
@@ -1533,6 +1881,36 @@ for (n in 2:(Nperm+1)){
   permreslist[[n]] &lt;- resp
 }</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm0.03-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of perm0.03-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm0.03-1.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 12 genes passed FDR &lt;0.1 cutoff&quot;
 
            logFC   logCPM    F   PValue       FDR
@@ -1544,6 +1922,36 @@ LGALS1      -2.5      6.6   53    0e+00   0.0e+00
 SSTR2        1.7      6.4   32    0e+00   7.9e-05
 DENND2A     -1.4      6.3   75    1e-07   2.2e-04</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm0.03-2.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of perm0.03-2.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm0.03-2.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 21 genes passed FDR &lt;0.1 cutoff&quot;
 
           logFC   logCPM    F   PValue       FDR
@@ -1555,6 +1963,36 @@ STMN4       1.9      6.5   32    0e+00   1.4e-04
 LGALS1      1.9      6.6   31    1e-07   1.7e-04
 KCNMA1      1.4      6.4   28    3e-07   5.2e-04</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm0.03-3.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of perm0.03-3.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm0.03-3.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 12 genes passed FDR &lt;0.1 cutoff&quot;
 
            logFC   logCPM    F    PValue       FDR
@@ -1566,6 +2004,36 @@ APOE         1.7      6.4   36   0.0e+00   1.9e-05
 CYP26A1      1.8      6.5   35   0.0e+00   2.7e-05
 GAL          1.3      6.4   23   3.2e-06   6.3e-03</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm0.03-4.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of perm0.03-4.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm0.03-4.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 19 genes passed FDR &lt;0.1 cutoff&quot;
 
           logFC   logCPM    F    PValue       FDR
@@ -1577,6 +2045,36 @@ KCNMA1      1.4      6.4   26   6.0e-07   1.7e-03
 RASD1      -1.5      6.5   21   8.0e-06   1.9e-02
 NPTX2      -1.3      6.4   20   1.2e-05   2.4e-02</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm0.03-5.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of perm0.03-5.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm0.03-5.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 36 genes passed FDR &lt;0.1 cutoff&quot;
 
            logFC   logCPM    F   PValue       FDR
@@ -1981,6 +2479,36 @@ for (n in 2:(Nperm+1)){
   permreslist[[n]] &lt;- resp
 }</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm0.1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of perm0.1-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm0.1-1.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 4 genes passed FDR &lt;0.1 cutoff&quot;
 
           logFC   logCPM    F    PValue       FDR
@@ -1992,6 +2520,36 @@ AHNAK     -1.10      6.4   21   4.2e-05   1.0e-01
 FAM83D     1.00      6.5   16   6.8e-05   1.3e-01
 ZNF91     -0.93      6.5   15   1.2e-04   1.5e-01</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm0.1-2.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of perm0.1-2.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm0.1-2.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 9 genes passed FDR &lt;0.1 cutoff&quot;
 
             logFC   logCPM    F    PValue       FDR
@@ -2003,6 +2561,36 @@ SORT1        -1.1      6.6   20   9.7e-06   2.3e-02
 VAV2         -1.1      6.5   22   1.4e-05   2.7e-02
 VWA1          1.1      6.5   19   2.5e-05   3.6e-02</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm0.1-3.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of perm0.1-3.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm0.1-3.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 7 genes passed FDR &lt;0.1 cutoff&quot;
 
           logFC   logCPM    F    PValue       FDR
@@ -2014,6 +2602,36 @@ GDF15      -1.4      6.6   21   6.6e-06   1.4e-02
 RASD1       1.5      6.5   21   8.1e-06   1.4e-02
 CHKB       -1.2      6.4   36   8.7e-06   1.4e-02</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm0.1-4.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of perm0.1-4.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm0.1-4.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 3 genes passed FDR &lt;0.1 cutoff&quot;
 
           logFC   logCPM    F    PValue       FDR
@@ -2025,6 +2643,36 @@ PALMD     -0.99      6.5   15   1.1e-04   2.7e-01
 EIF4E2    -0.53      7.6   14   2.2e-04   4.3e-01
 JOSD2     -0.87      6.5   13   3.4e-04   4.6e-01</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm0.1-5.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of perm0.1-5.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm0.1-5.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 5 genes passed FDR &lt;0.1 cutoff&quot;
 
             logFC   logCPM    F    PValue       FDR
@@ -2233,6 +2881,36 @@ for (n in 2:(Nperm+1)){
   permreslist[[n]] &lt;- resp
 }</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm0.2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of perm0.2-1.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm0.2-1.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 6 genes passed FDR &lt;0.1 cutoff&quot;
 
           logFC   logCPM    F    PValue       FDR
@@ -2244,6 +2922,36 @@ VGF         1.3      6.8   21   8.3e-06   1.6e-02
 CRABP1     -1.1     10.0   16   7.0e-05   9.9e-02
 PLK3       -1.1      6.8   16   7.8e-05   9.9e-02</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm0.2-2.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of perm0.2-2.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm0.2-2.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 2 genes passed FDR &lt;0.1 cutoff&quot;
 
             logFC   logCPM    F    PValue     FDR
@@ -2255,6 +2963,36 @@ UBQLN2      -0.85      6.6   14   2.0e-04   0.270
 RIF1        -0.78      6.8   14   2.1e-04   0.270
 TMEM43      -0.85      6.6   14   2.3e-04   0.270</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm0.2-3.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of perm0.2-3.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm0.2-3.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 0 genes passed FDR &lt;0.1 cutoff&quot;
 
           logFC   logCPM    F    PValue    FDR
@@ -2266,6 +3004,36 @@ WSCD1      0.94      6.6   15   1.4e-04   0.26
 PEX14     -0.79      6.7   13   4.6e-04   0.42
 SLC3A2    -0.67      8.6   12   4.9e-04   0.42</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm0.2-4.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of perm0.2-4.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm0.2-4.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 3 genes passed FDR &lt;0.1 cutoff&quot;
 
           logFC   logCPM    F    PValue    FDR
@@ -2277,6 +3045,36 @@ SOCS3     -0.93      6.7   16   1.0e-04   0.19
 BRAP       0.97      6.4   17   3.3e-04   0.47
 UBR5       0.79      6.6   12   5.1e-04   0.47</code></pre>
 <p><img src="figure/EdgeR-QLF.Rmd/perm0.2-5.png" width="672" style="display: block; margin: auto;" /></p>
+<details> <summary><em>Expand here to see past versions of perm0.2-5.png:</em></summary>
+<table style="border-collapse:separate; border-spacing:5px;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Version
+</th>
+<th style="text-align:left;">
+Author
+</th>
+<th style="text-align:left;">
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+<a href="https://github.com/simingz/cropseq/blob/02a94e5aa686bccdfa8572492b13b4b913d48fa0/docs/figure/EdgeR-QLF.Rmd/perm0.2-5.png" target="_blank">02a94e5</a>
+</td>
+<td style="text-align:left;">
+simingz
+</td>
+<td style="text-align:left;">
+2019-02-15
+</td>
+</tr>
+</tbody>
+</table>
+<p></details></p>
 <pre><code>[1] &quot;There are 2 genes passed FDR &lt;0.1 cutoff&quot;
 
           logFC   logCPM    F    PValue       FDR
