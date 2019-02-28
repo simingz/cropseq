@@ -33,12 +33,12 @@ pbins <- 10** (-4:-10)
 for (gRNAfile in  list.files("data/", "*edgeR-qlf_Neg2.Rd")){
   print(gRNAfile)
   load(paste0("data/", gRNAfile))
-  outpvalues <- c(res1$table[1:10,"PValue"], pbins)
-  outpbins <- matrix(NA, nrow=length(pbins), ncol=dim(res1$table)[2])
+  outpvalues <- c(res2$table[1:10,"PValue"], pbins)
+  outpbins <- matrix(NA, nrow=length(pbins), ncol=dim(res2$table)[2])
   rownames(outpbins) <- pbins
-  colnames(outpbins) <- colnames(res1$table)
-  outm <- rbind(res1$table[1:10,], outpbins)
-  fdrmetric <- empiricalFDR(outpvalues, res1$table$PValue, unlist(lapply(permres1, function(x) x$table$PValue)))
+  colnames(outpbins) <- colnames(res2$table)
+  outm <- rbind(res2$table[1:10,], outpbins)
+  fdrmetric <- empiricalFDR(outpvalues, res2$table$PValue, unlist(lapply(permres2, function(x) x$table$PValue)))
   outm <- cbind(outm,fdrmetric)
   print(signif(outm,2))
 }
