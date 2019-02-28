@@ -339,7 +339,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-02-27
+<strong>Last updated:</strong> 2019-02-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -363,7 +363,7 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 </div>
 <div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -418,10 +418,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsimingzcropseqtree76407223294849f6ee94dbcb771f4af5bab38e19targetblank7640722a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/76407223294849f6ee94dbcb771f4af5bab38e19" target="_blank">7640722</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsimingzcropseqtreea9f9f26542b4e1d1f967a06a7b02d07e9fd56c99targetblanka9f9f26a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/a9f9f26542b4e1d1f967a06a7b02d07e9fd56c99" target="_blank">a9f9f26</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomsimingzcropseqtree76407223294849f6ee94dbcb771f4af5bab38e19targetblank7640722a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomsimingzcropseqtreea9f9f26542b4e1d1f967a06a7b02d07e9fd56c99targetblanka9f9f26a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -430,15 +430,8 @@ Great! You are using Git for version control. Tracking code development and conn
 Ignored files:
     Ignored:    .Rproj.user/
 
-Untracked files:
-    Untracked:  analysis/gRNA-EdgeR-QLF.Rmd
-    Untracked:  code/DE_functions.R
-    Untracked:  code/empiricalFDR.R
-    Untracked:  code/gRNA_edgeR-QLF_run.R
-
 Unstaged changes:
-    Modified:   .gitignore
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/gRNA-EdgeR-QLF.Rmd
 
 </code></pre>
 <p>
@@ -451,14 +444,77 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/simingz/cropseq/blob/a9f9f26542b4e1d1f967a06a7b02d07e9fd56c99/analysis/gRNA-EdgeR-QLF.Rmd" target="_blank">a9f9f26</a>
+</td>
+<td>
+simingz
+</td>
+<td>
+2019-02-27
+</td>
+<td>
+gRNA-de
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/simingz/cropseq/a9f9f26542b4e1d1f967a06a7b02d07e9fd56c99/docs/gRNA-EdgeR-QLF.html" target="_blank">a9f9f26</a>
+</td>
+<td>
+simingz
+</td>
+<td>
+2019-02-27
+</td>
+<td>
+gRNA-de
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
 </div>
+<div id="using-only-cells-with-negative-control-grna-as-controls" class="section level2">
+<h2>Using only cells with negative control gRNA as controls</h2>
 <pre class="r"><code>source(&quot;code/empiricalFDR.R&quot;)
+
 pbins &lt;- 10** (-4:-10)
 for (gRNAfile in  list.files(&quot;data/&quot;, &quot;*edgeR-qlf_Neg1.Rd&quot;)){
   print(gRNAfile)
@@ -1818,6 +1874,423 @@ TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
 1e-08     NA     NA NA      NA      NA        0      0.4          Inf
 1e-09     NA     NA NA      NA      NA        0      0.3          Inf
 1e-10     NA     NA NA      NA      NA        0      0.3          Inf</code></pre>
+</div>
+<div id="using-all-cells-except-the-ones-with-targeted-grna-as-controls" class="section level2">
+<h2>Using all cells except the ones with targeted gRNA as controls</h2>
+<pre class="r"><code>source(&quot;code/empiricalFDR.R&quot;)
+
+pbins &lt;- 10** (-4:-10)
+for (gRNAfile in  list.files(&quot;data/&quot;, &quot;*edgeR-qlf_Neg2.Rd&quot;)){
+  print(gRNAfile)
+  load(paste0(&quot;data/&quot;, gRNAfile))
+  outpvalues &lt;- c(res1$table[1:10,&quot;PValue&quot;], pbins)
+  outpbins &lt;- matrix(NA, nrow=length(pbins), ncol=dim(res1$table)[2])
+  rownames(outpbins) &lt;- pbins
+  colnames(outpbins) &lt;- colnames(res1$table)
+  outm &lt;- rbind(res1$table[1:10,], outpbins)
+  fdrmetric &lt;- empiricalFDR(outpvalues, res1$table$PValue, unlist(lapply(permres1, function(x) x$table$PValue)))
+  outm &lt;- cbind(outm,fdrmetric)
+  print(signif(outm,2))
+}</code></pre>
+<pre><code>[1] &quot;BAG5_1_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;BAG5_2_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;BAG5_3_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;BCL11B_1_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;BCL11B_2_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;BCL11B_3_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;CHRNA3_1_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;CHRNA3_2_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;CHRNA3_3_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;GALNT10_1_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;GALNT10_2_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;GALNT10_3_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;KCTD13_1_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;KCTD13_2_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;KCTD13_3_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;KMT2E_1_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;KMT2E_2_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;KMT2E_3_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;LOC105376975_1_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;LOC105376975_2_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf
+[1] &quot;LOC105376975_3_gene_edgeR-qlf_Neg2.Rd&quot;
+       logFC logCPM  F  PValue     FDR #in_real #in_perm EmpiricalFDR
+LAMP5   -2.8    6.6 33 4.1e-08 0.00034        0      0.5          Inf
+SPP1    -2.7    6.9 25 1.4e-06 0.00580        1      0.7         0.70
+NKAIN4  -2.1    7.0 18 2.9e-05 0.07800        2      1.5         0.75
+WDR26   -1.9    6.5 18 8.0e-05 0.16000        3      2.2         0.73
+PCGF2    3.5    6.9 16 9.6e-05 0.16000        4      2.6         0.65
+TXNRD1  -1.6    7.2 14 2.8e-04 0.38000        5      4.1         0.82
+JUNB    -1.8    6.7 13 4.1e-04 0.43000        6      4.9         0.82
+GNPDA1  -1.7    6.9 13 4.3e-04 0.43000        7      5.1         0.73
+UCK2     2.9    6.7 13 5.0e-04 0.45000        8      5.4         0.68
+TSC1    -1.7    6.5 13 6.7e-04 0.50000        9      7.0         0.78
+1e-04     NA     NA NA      NA      NA        5      2.6         0.52
+1e-05     NA     NA NA      NA      NA        2      0.9         0.45
+1e-06     NA     NA NA      NA      NA        1      0.7         0.70
+1e-07     NA     NA NA      NA      NA        1      0.5         0.50
+1e-08     NA     NA NA      NA      NA        0      0.4          Inf
+1e-09     NA     NA NA      NA      NA        0      0.3          Inf
+1e-10     NA     NA NA      NA      NA        0      0.3          Inf</code></pre>
 <br> <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1851,9 +2324,10 @@ loaded via a namespace (and not attached):
  [1] locfit_1.5-9.1  workflowr_1.2.0 Rcpp_1.0.0      lattice_0.20-38
  [5] digest_0.6.18   rprojroot_1.3-2 grid_3.5.1      backports_1.1.2
  [9] git2r_0.23.0    magrittr_1.5    evaluate_0.12   stringi_1.3.1  
-[13] fs_1.2.6        rmarkdown_1.10  tools_3.5.1     stringr_1.4.0  
-[17] glue_1.3.0      yaml_2.2.0      compiler_3.5.1  htmltools_0.3.6
-[21] knitr_1.20     </code></pre>
+[13] fs_1.2.6        whisker_0.3-2   rmarkdown_1.10  tools_3.5.1    
+[17] stringr_1.4.0   glue_1.3.0      yaml_2.2.0      compiler_3.5.1 
+[21] htmltools_0.3.6 knitr_1.20     </code></pre>
+</div>
 </div>
 
 
