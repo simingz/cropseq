@@ -15,10 +15,14 @@ output:
 
 Differetial expression
 
-* [DEseq2-standard](DEseq2-standard.html)  
-* [DESeq2-LRT](DEseq2-LRT.html)  
-* [EdgeR-QLF](EdgeR-QLF.html)  
-* [EdgeR-LRT](EdgeR-LRT.html)  
+* Exploring different methods for locus VPS45
+    * [DEseq2-standard](DEseq2-standard.html)  
+    * [DESeq2-LRT](DEseq2-LRT.html)  
+    * [EdgeR-QLF](EdgeR-QLF.html)  
+    * [EdgeR-LRT](EdgeR-LRT.html)  
+
+* Exploring for each individual gRNA
+    * [gRNA-EdgeR-QLF](gRNA-EdgeR-QLF.html)
 
 Enrichment analysis
 
