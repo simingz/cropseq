@@ -11,9 +11,9 @@ knitr::opts_chunk$set(echo = TRUE)
 source("code/empiricalFDR.R")
 
 pbins <- 10** (-4:-10)
-for (gRNAfile in  list.files("data/", "*edgeR-qlf_Neg1.Rd")){
+for (gRNAfile in  list.files("data/gRNA_edgeR-QLF/", "*edgeR-qlf_Neg1.Rd")){
   print(gRNAfile)
-  load(paste0("data/", gRNAfile))
+  load(paste0("data/gRNA_edgeR-QLF/", gRNAfile))
   outpvalues <- c(res1$table[1:10,"PValue"], pbins)
   outpbins <- matrix(NA, nrow=length(pbins), ncol=dim(res1$table)[2])
   rownames(outpbins) <- pbins
@@ -30,9 +30,9 @@ for (gRNAfile in  list.files("data/", "*edgeR-qlf_Neg1.Rd")){
 source("code/empiricalFDR.R")
 
 pbins <- 10** (-4:-10)
-for (gRNAfile in  list.files("data/", "*edgeR-qlf_Neg2.Rd")){
+for (gRNAfile in  list.files("data/gRNA_edgeR-QLF/", "*edgeR-qlf_Neg2.Rd")){
   print(gRNAfile)
-  load(paste0("data/", gRNAfile))
+  load(paste0("data/gRNA_edgeR-QLF/", gRNAfile))
   outpvalues <- c(res2$table[1:10,"PValue"], pbins)
   outpbins <- matrix(NA, nrow=length(pbins), ncol=dim(res2$table)[2])
   rownames(outpbins) <- pbins
