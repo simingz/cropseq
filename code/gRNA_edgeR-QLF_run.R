@@ -21,7 +21,7 @@ foreach (gRNAindex=1:dim(gRNAdm0)[1], .packages = c("Matrix", "edgeR","gtools"))
   print(gRNA)
   gRNAlocus <- strsplit(gRNA, split = "_")[[1]][1]
   gcount <- genedm[,gRNAdm0[gRNA,] >0 & colSums(gRNAdm0[rownames(gRNAdm0) != gRNA,]) ==0]
-  if (dim(gcount)[2] !=0) {
+  if (dim(gcount)[2] !=0 & gRNAlocus != "neg") {
     # ncount1 <- genedm[, colnames(dm1dfagg)[dm1dfagg["neg",] >0 & nlocus==1]]
     # res1 <- run_edgeR_qlf(gcount,ncount1, filtcpm, filtpercent, perm=F)
     # permres1 <- list()
