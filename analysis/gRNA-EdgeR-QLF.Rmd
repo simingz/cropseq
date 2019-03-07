@@ -6,6 +6,11 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+```{r}
+library(Matrix)
+load("data/DE_input.Rd")
+gRNAdm0 <- dm[(dim(dm)[1]-75):dim(dm)[1],]
+```
 ## Using only cells with negative control gRNA as controls
 ```{r, message=F}
 source("code/empiricalFDR.R")
@@ -13,6 +18,8 @@ source("code/empiricalFDR.R")
 pbins <- 10** (-4:-10)
 for (gRNAfile in  list.files("data/gRNA_edgeR-QLF/", "*edgeR-qlf_Neg1.Rd")){
   print(gRNAfile)
+  gRNA <- strsplit(gRNAfile, "_edgeR")[[1]][1]
+  gRNAlocus <- strsplit(gRNA, split = "_")[[1]][1]
   load(paste0("data/gRNA_edgeR-QLF/", gRNAfile))
   outpvalues <- c(res1$table[1:10,"PValue"], pbins)
   outpbins <- matrix(NA, nrow=length(pbins), ncol=dim(res1$table)[2])
@@ -22,6 +29,17 @@ for (gRNAfile in  list.files("data/gRNA_edgeR-QLF/", "*edgeR-qlf_Neg1.Rd")){
   fdrmetric <- empiricalFDR(outpvalues, res1$table$PValue, unlist(lapply(permres1, function(x) x$table$PValue)))
   outm <- cbind(outm,fdrmetric)
   print(signif(outm,2))
+  plotgn <- rownames(outm[1:10,][outm[1:10, "EmpiricalFDR"] <0.2,])
+  if (length(plotgn)!=0){
+    for (gn in plotgn){
+      gcount <- dm[gn, gRNAdm0[gRNA,] >0 & colSums(gRNAdm0[rownames(gRNAdm0) != gRNA,]) == 0]
+      ncount1 <- dm[gn, colnames(dm1dfagg)[dm1dfagg["neg",] >0 & nlocus==1]]
+      a <- rbind(cbind(gcount,1),cbind(ncount1,2))
+      colnames(a) <- c("count","categ")
+      boxplot(count ~categ, data = a, lwd = 2, main=paste(gRNA, gn, sep=":"),  outcol="white")
+      stripchart(count ~categ, data=a, vertical = TRUE,  method = "jitter", add = TRUE, pch = 21, cex=2, col = 'blue')
+    }
+  }
 }
 ```
 ## Using all cells except the ones with targeted gRNA as controls
@@ -32,6 +50,8 @@ source("code/empiricalFDR.R")
 pbins <- 10** (-4:-10)
 for (gRNAfile in  list.files("data/gRNA_edgeR-QLF/", "*edgeR-qlf_Neg2.Rd")){
   print(gRNAfile)
+  gRNA <- strsplit(gRNAfile, "_edgeR")[[1]][1]
+  gRNAlocus <- strsplit(gRNA, split = "_")[[1]][1]
   load(paste0("data/gRNA_edgeR-QLF/", gRNAfile))
   outpvalues <- c(res2$table[1:10,"PValue"], pbins)
   outpbins <- matrix(NA, nrow=length(pbins), ncol=dim(res2$table)[2])
@@ -41,5 +61,16 @@ for (gRNAfile in  list.files("data/gRNA_edgeR-QLF/", "*edgeR-qlf_Neg2.Rd")){
   fdrmetric <- empiricalFDR(outpvalues, res2$table$PValue, unlist(lapply(permres2, function(x) x$table$PValue)))
   outm <- cbind(outm,fdrmetric)
   print(signif(outm,2))
+    plotgn <- rownames(outm[1:10,][outm[1:10, "EmpiricalFDR"] <0.2,])
+  if (length(plotgn)!=0){
+    for (gn in plotgn){
+      gcount <- dm[gn, gRNAdm0[gRNA,] >0 & colSums(gRNAdm0[rownames(gRNAdm0) != gRNA,]) == 0]
+      ncount2 <- dm[gn, colnames(dm1dfagg)[dm1dfagg[gRNAlocus,] == 0]]
+      a <- rbind(cbind(gcount,1),cbind(ncount2,2))
+      colnames(a) <- c("count","categ")
+      boxplot(count ~categ, data = a, lwd = 2, main=paste(gRNA, gn, sep=":"),  outcol="white")
+      stripchart(count ~categ, data=a, vertical = TRUE,  method = "jitter", add = TRUE, pch = 21, cex=2, col = 'blue')
+    }
+  }
 }
 ```

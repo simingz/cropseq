@@ -1,6 +1,6 @@
 library(edgeR)
 library(gtools)
-run_edgeR_qlf <- function(gcount,ncount, filtcpm=10, filtpercent=0.2, perm=F) {
+run_edgeR_qlf <- function(gcount, ncount, filtcpm=10, filtpercent=0.2, perm=F) {
   # perm true of false, if true will perform a permuted version.
   coldata <- data.frame(row.names = c(colnames(gcount),colnames(ncount)),
                         condition=c(rep('G',dim(gcount)[2]),rep('N',dim(ncount)[2])))
