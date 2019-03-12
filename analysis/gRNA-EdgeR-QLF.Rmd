@@ -9,6 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(Matrix)
 load("data/DE_input.Rd")
+source("code/qq-plot.R")
 gRNAdm0 <- dm[(dim(dm)[1]-75):dim(dm)[1],]
 ```
 ## Using only cells with negative control gRNA as controls
@@ -28,6 +29,7 @@ for (gRNAfile in  list.files("data/gRNA_edgeR-QLF/", "*edgeR-qlf_Neg1.Rd")){
   outm <- rbind(res1$table[1:10,], outpbins)
   fdrmetric <- empiricalFDR(outpvalues, res1$table$PValue, unlist(lapply(permres1, function(x) x$table$PValue)))
   outm <- cbind(outm,fdrmetric)
+  outm$logFC <- -outm$logFC
   print(signif(outm,2))
   plotgn <- rownames(outm[1:10,][outm[1:10, "EmpiricalFDR"] <0.2,])
   if (length(plotgn)!=0){
@@ -36,15 +38,19 @@ for (gRNAfile in  list.files("data/gRNA_edgeR-QLF/", "*edgeR-qlf_Neg1.Rd")){
       ncount1 <- dm[gn, colnames(dm1dfagg)[dm1dfagg["neg",] >0 & nlocus==1]]
       a <- rbind(cbind(gcount,1),cbind(ncount1,2))
       colnames(a) <- c("count","categ")
+      par(mfrow=c(1,2))
       boxplot(count ~categ, data = a, lwd = 2, main=paste(gRNA, gn, sep=":"),  outcol="white")
       stripchart(count ~categ, data=a, vertical = TRUE,  method = "jitter", add = TRUE, pch = 21, cex=2, col = 'blue')
+      qqplot(-log10(unlist(lapply(permres1, function(x) x$table$PValue))),-log10(res1$table$PValue), xlab="permuted (-log10 pvalue)", ylab="observed (-log10 pvalue)")
+      abline(a=0, b=1, col="red")
+      grid()
     }
   }
 }
 ```
 ## Using all cells except the ones with targeted gRNA as controls
 
-```{r, message=F}
+```{r, message=F, eval=T}
 source("code/empiricalFDR.R")
 
 pbins <- 10** (-4:-10)
@@ -60,6 +66,7 @@ for (gRNAfile in  list.files("data/gRNA_edgeR-QLF/", "*edgeR-qlf_Neg2.Rd")){
   outm <- rbind(res2$table[1:10,], outpbins)
   fdrmetric <- empiricalFDR(outpvalues, res2$table$PValue, unlist(lapply(permres2, function(x) x$table$PValue)))
   outm <- cbind(outm,fdrmetric)
+  outm$logFC <- -outm$logFC
   print(signif(outm,2))
     plotgn <- rownames(outm[1:10,][outm[1:10, "EmpiricalFDR"] <0.2,])
   if (length(plotgn)!=0){
@@ -68,8 +75,12 @@ for (gRNAfile in  list.files("data/gRNA_edgeR-QLF/", "*edgeR-qlf_Neg2.Rd")){
       ncount2 <- dm[gn, colnames(dm1dfagg)[dm1dfagg[gRNAlocus,] == 0]]
       a <- rbind(cbind(gcount,1),cbind(ncount2,2))
       colnames(a) <- c("count","categ")
+      par(mfrow=c(1,2))
       boxplot(count ~categ, data = a, lwd = 2, main=paste(gRNA, gn, sep=":"),  outcol="white")
       stripchart(count ~categ, data=a, vertical = TRUE,  method = "jitter", add = TRUE, pch = 21, cex=2, col = 'blue')
+      qqplot( -log10(unlist(lapply(permres2, function(x) x$table$PValue))),-log10(res2$table$PValue), xlab="permuted (-log10 pvalue)", ylab="observed (-log10 pvalue)")
+      abline(a=0, b=1, col="red")
+      grid()
     }
   }
 }
