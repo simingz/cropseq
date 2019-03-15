@@ -10,3 +10,12 @@ empiricalFDR <- function(pvalues, realp, nullpall) {
   colnames(fdrmetric) <- c("#in_real", "#in_perm","EmpiricalFDR")
   return(fdrmetric)
 }
+
+empiricalPvalue <- function(pvalues, nullpall) {
+  # will caculate FDR based on permutations
+  .empiricalPvalue <- function(p, nullpall){
+    length(nullpall[nullpall <= p]) /length(nullpall)
+  }
+  p.emp <- sapply(pvalues, .empiricalPvalue, nullpall=nullpall)
+  return(p.emp)
+}

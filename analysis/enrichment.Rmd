@@ -1,5 +1,5 @@
 ---
-title: "enrichment"
+title: "cis gene enrichment"
 output: html_document
 ---
 
@@ -27,66 +27,22 @@ left join refGene as K on
 where
  S.name in ("rs7148456","rs12895055","rs7170068","rs520843","rs12716973","rs2192932","rs17200916","rs1198588","rs324017","rs4151680","rs301791","rs324015","rs9882911","rs11633075","rs2027349","rs186132169","rs9661794","rs7936858","rs3861678","rs10933","rs6071578")' > /project2/xinhe/simingz/CROP-seq/cropseq/data/SNP_50000.txt
 ```
-## functions to get enrichment p values
-```{r, pcut}
-pcut <- 0.05
-fisher_cisg <- function(resm, cisg, pcut){
-  res <- resm$table
-  res.sig <- res[res$PValue < pcut, ]
-  cisgres <- resm$table[cisg, ]
-  cisgres <- cisgres[complete.cases(cisgres), ]
-  cisgres.sig <- cisgres[cisgres$PValue < pcut, ]
-  ct <- matrix(c(dim(cisgres.sig)[1], dim(cisgres)[1] - dim(cisgres.sig)[1], dim(res.sig)[1], dim(res)[1]-dim(res.sig)[1]), nrow = 2)
-  print(ct)
-  fisher.test(ct)
-}
-```
 
-## Enrichment of significant genes +/- 50kb of targeted SNPs
+## genes +/- 50kb of targeted SNPs
 ```{r, er50k}
 cisgene <- read.table("data/SNP_50000.txt", stringsAsFactors = F,sep="\t", header=T)
 cisg <- unique(cisgene$name2)
 ```
-### using EdgeR QLF model, 10% filtering
-```{r, er50k-qlf}
-load("data/edgeR-qlf-10%filter_res.Rd")
-fisher_cisg(resm, cisg, pcut)
-```
-### using EdgeR lrt model, 10% filtering
-```{r, er50k-lrt}
-load("data/edgeR-lrt-10%filter_res.Rd")
-fisher_cisg(resm, cisg, pcut)
-```
 
-## Enrichment of significant genes +/- 200kb of targeted SNPs
+## genes +/- 200kb of targeted SNPs
 ```{r, er200k}
 cisgene <- read.table("data/SNP_200000.txt", stringsAsFactors = F,sep="\t", header=T)
 cisg <- unique(cisgene$name2)
 ```
-### using EdgeR QLF model, 10% filtering
-```{r, er200k-qlf}
-load("data/edgeR-qlf-10%filter_res.Rd")
-fisher_cisg(resm, cisg, pcut)
-```
-### using EdgeR lrt model, 10% filtering
-```{r, er200k-lrt}
-load("data/edgeR-lrt-10%filter_res.Rd")
-fisher_cisg(resm, cisg, pcut)
-```
 
-## Enrichment of significant genes +/- 500kb of targeted SNPs
+
+## genes +/- 500kb of targeted SNPs
 ```{r, er500k}
 cisgene <- read.table("data/SNP_500000.txt", stringsAsFactors = F,sep="\t", header=T)
 cisg <- unique(cisgene$name2)
 ```
-### using EdgeR QLF model, 10% filtering
-```{r, er500k-qlf}
-load("data/edgeR-qlf-10%filter_res.Rd")
-fisher_cisg(resm, cisg, pcut)
-```
-### using EdgeR lrt model, 10% filtering
-```{r, er500k-lrt}
-load("data/edgeR-lrt-10%filter_res.Rd")
-fisher_cisg(resm, cisg, pcut)
-```
-

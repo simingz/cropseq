@@ -26,4 +26,4 @@ Differetial expression
 
 Enrichment analysis
 
-* [Enrichment of differentially expressed cis genes](enrichment.html )
+* [Enrichment of differentially expressed cis genes](enrichment.html)
