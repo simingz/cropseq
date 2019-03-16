@@ -56,7 +56,7 @@ outdfall[, 5:10] <- signif(outdfall[,5:10],3)
 write.table( outdfall , file= "data/SNP_50000_empiricalP.txt" , row.names=F, col.names=T, sep="\t", quote = F)
 DT::datatable(outdfall)
 ```
-[download this table]("data/SNP_200000_empiricalP.txt")
+[download this table](https://github.com/simingz/cropseq/blob/master/data/SNP_50000_empiricalP.txt)
 
 ## genes +/- 200kb of targeted SNPs
 ```{r, er200k}
@@ -80,7 +80,7 @@ outdfall[, 5:10] <- signif(outdfall[,5:10],3)
 write.table( outdfall , file= "data/SNP_200000_empiricalP.txt" , row.names=F, col.names=T, sep="\t", quote = F)
 DT::datatable(outdfall)
 ```
-[download this table]("data/SNP_200000_empiricalP.txt")
+[download this table](https://github.com/simingz/cropseq/blob/master/data/SNP_200000_empiricalP.txt)
 
 ## genes +/- 500kb of targeted SNPs
 ```{r, er500k}
@@ -104,4 +104,4 @@ outdfall[, 5:10] <- signif(outdfall[,5:10],3)
 write.table( outdfall , file= "data/SNP_500000_empiricalP.txt" , row.names=F, col.names=T, sep="\t", quote = F)
 DT::datatable(outdfall)
 ```
-[download this table]("data/SNP_500000_empiricalP.txt")
+[download this table](https://github.com/simingz/cropseq/blob/master/data/SNP_500000_empiricalP.txt)
