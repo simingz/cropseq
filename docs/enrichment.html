@@ -11,9 +11,9 @@
 
 
 
-<title>enrichment</title>
+<title>cis gene enrichment</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/jquery-1.12.4/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -25,6 +25,14 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.3/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.5/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.16/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.16/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
 <link href="site_libs/font-awesome-5.0.13/css/fa-svg-with-js.css" rel="stylesheet" />
 <script src="site_libs/font-awesome-5.0.13/js/fontawesome-all.min.js"></script>
 <script src="site_libs/font-awesome-5.0.13/js/fa-v4-shims.min.js"></script>
@@ -314,109 +322,257 @@ div.section {
 
 
 
-<h1 class="title toc-ignore">enrichment</h1>
+<h1 class="title toc-ignore">cis gene enrichment</h1>
 
 </div>
 
 
-<p><strong>Last updated:</strong> 2019-02-14</p>
-<strong>workflowr checks:</strong> <small>(Click a bullet for more information)</small>
-<ul>
-<li>
-<p><details> <summary> <strong style="color:red;">✖</strong> <strong>R Markdown file:</strong> uncommitted changes </summary> The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
-</details>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Environment:</strong> empty </summary></p>
+<a data-toggle="tab" href="#report"> Report <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-03-15
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>cropseq/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.2.0). The <em>Report</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="report" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
 <p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
-</details>
-</li>
-<li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Seed:</strong> <code>set.seed(20181119)</code> </summary></p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20181119code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20181119)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20181119code" class="panel-collapse collapse">
+<div class="panel-body">
 <p>The command <code>set.seed(20181119)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
-</details>
-</li>
-<li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Session information:</strong> recorded </summary></p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
 <p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
-</details>
-</li>
-<li>
-<p><details> <summary> <strong style="color:blue;">✔</strong> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/01a5914362313fd7fbf78c601924e29e58314200" target="_blank">01a5914</a> </summary></p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomsimingzcropseqtree5b26d5052ff9e9a764c18c1c4f39fe1105fe1856targetblank5b26d50a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/simingz/cropseq/tree/5b26d5052ff9e9a764c18c1c4f39fe1105fe1856" target="_blank">5b26d50</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomsimingzcropseqtree5b26d5052ff9e9a764c18c1c4f39fe1105fe1856targetblank5b26d50a" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
 <pre><code>
 Ignored files:
     Ignored:    .Rproj.user/
+    Ignored:    analysis/figure/gRNA-EdgeR-QLF.Rmd/
+    Ignored:    data/gRNA_edgeR-QLF/
+    Ignored:    data/gRNA_edgeR-QLF_811d97b/
 
 Unstaged changes:
     Modified:   analysis/enrichment.Rmd
 
 </code></pre>
-Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes. </details>
-</li>
-</ul>
-<details> <summary> <small><strong>Expand here to see past versions:</strong></small> </summary>
-<ul>
-<table style="border-collapse:separate; border-spacing:5px;">
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
 <thead>
 <tr>
-<th style="text-align:left;">
+<th>
 File
 </th>
-<th style="text-align:left;">
+<th>
 Version
 </th>
-<th style="text-align:left;">
+<th>
 Author
 </th>
-<th style="text-align:left;">
+<th>
 Date
 </th>
-<th style="text-align:left;">
+<th>
 Message
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
+<td>
 Rmd
 </td>
-<td style="text-align:left;">
-<a href="https://github.com/simingz/cropseq/blob/01a5914362313fd7fbf78c601924e29e58314200/analysis/enrichment.Rmd" target="_blank">01a5914</a>
+<td>
+<a href="https://github.com/simingz/cropseq/blob/5b26d5052ff9e9a764c18c1c4f39fe1105fe1856/analysis/enrichment.Rmd" target="_blank">5b26d50</a>
 </td>
-<td style="text-align:left;">
+<td>
 simingz
 </td>
-<td style="text-align:left;">
+<td>
+2019-03-14
+</td>
+<td>
+empirical p
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/simingz/cropseq/blob/a970cce48f329a5ca228fd768864311b13dd20cf/analysis/enrichment.Rmd" target="_blank">a970cce</a>
+</td>
+<td>
+simingz
+</td>
+<td>
 2019-02-14
 </td>
-<td style="text-align:left;">
+<td>
+enrichment-fisher
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/simingz/cropseq/a970cce48f329a5ca228fd768864311b13dd20cf/docs/enrichment.html" target="_blank">a970cce</a>
+</td>
+<td>
+simingz
+</td>
+<td>
+2019-02-14
+</td>
+<td>
+enrichment-fisher
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/simingz/cropseq/blob/01a5914362313fd7fbf78c601924e29e58314200/analysis/enrichment.Rmd" target="_blank">01a5914</a>
+</td>
+<td>
+simingz
+</td>
+<td>
+2019-02-14
+</td>
+<td>
 permutation
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td>
 html
 </td>
-<td style="text-align:left;">
-<a href="https://cdn.rawgit.com/simingz/cropseq/01a5914362313fd7fbf78c601924e29e58314200/docs/enrichment.html" target="_blank">01a5914</a>
+<td>
+<a href="https://rawcdn.githack.com/simingz/cropseq/01a5914362313fd7fbf78c601924e29e58314200/docs/enrichment.html" target="_blank">01a5914</a>
 </td>
-<td style="text-align:left;">
+<td>
 simingz
 </td>
-<td style="text-align:left;">
+<td>
 2019-02-14
 </td>
-<td style="text-align:left;">
+<td>
 permutation
 </td>
 </tr>
 </tbody>
 </table>
-</ul>
-<p></details></p>
-<hr />
+</div>
+<hr>
+</div>
+</div>
+</div>
 <div id="get-cis-genes-for-each-targted-locus" class="section level2">
 <h2>Get cis genes for each targted locus</h2>
 <pre class="bash"><code># SNPfile: &quot;/project2/xinhe/simingz/CROP-seq/scRNA_seq_SNP_list.txt&quot;
@@ -437,153 +593,86 @@ left join refGene as K on
 where
  S.name in (&quot;rs7148456&quot;,&quot;rs12895055&quot;,&quot;rs7170068&quot;,&quot;rs520843&quot;,&quot;rs12716973&quot;,&quot;rs2192932&quot;,&quot;rs17200916&quot;,&quot;rs1198588&quot;,&quot;rs324017&quot;,&quot;rs4151680&quot;,&quot;rs301791&quot;,&quot;rs324015&quot;,&quot;rs9882911&quot;,&quot;rs11633075&quot;,&quot;rs2027349&quot;,&quot;rs186132169&quot;,&quot;rs9661794&quot;,&quot;rs7936858&quot;,&quot;rs3861678&quot;,&quot;rs10933&quot;,&quot;rs6071578&quot;)&#39; &gt; /project2/xinhe/simingz/CROP-seq/cropseq/data/SNP_50000.txt</code></pre>
 </div>
-<div id="functions-to-get-enrichment-p-values" class="section level2">
-<h2>functions to get enrichment p values</h2>
-<pre class="r"><code>pcut &lt;- 0.05
-fisher_cisg &lt;- function(resm, cisg, pcut){
-  res &lt;- resm$table
-  res.sig &lt;- res[res$PValue &lt; pcut, ]
-  cisgres &lt;- resm$table[cisg, ]
-  cisgres &lt;- cisgres[complete.cases(cisgres), ]
-  cisgres.sig &lt;- cisgres[cisgres$PValue &lt; pcut, ]
-  ct &lt;- matrix(c(dim(cisgres.sig)[1], dim(cisgres)[1] - dim(cisgres.sig)[1], dim(res.sig)[1], dim(res)[1]-dim(res.sig)[1]), nrow = 2)
-  print(ct)
-  fisher.test(ct)
-}</code></pre>
-</div>
-<div id="enrichment-of-significant-genes---50kb-of-targeted-snps" class="section level2">
-<h2>Enrichment of significant genes +/- 50kb of targeted SNPs</h2>
+<div id="genes---50kb-of-targeted-snps" class="section level2">
+<h2>genes +/- 50kb of targeted SNPs</h2>
+<pre class="r"><code>snpfile &lt;- &quot;/project2/xinhe/simingz/CROP-seq/scRNA_seq_SNP_list.txt&quot;
+gRNAsnp &lt;- read.table(snpfile, header=F, stringsAsFactors = F)
+colnames(gRNAsnp) &lt;- c(&quot;locus_SNP&quot;, &quot;locus&quot;)</code></pre>
 <pre class="r"><code>cisgene &lt;- read.table(&quot;data/SNP_50000.txt&quot;, stringsAsFactors = F,sep=&quot;\t&quot;, header=T)
-cisg &lt;- unique(cisgene$name2)</code></pre>
-<div id="using-edger-qlf-model-10-filtering" class="section level3">
-<h3>using EdgeR QLF model, 10% filtering</h3>
-<pre class="r"><code>load(&quot;data/edgeR-qlf-10%filter_res.Rd&quot;)
-fisher_cisg(resm, cisg, pcut)</code></pre>
-<pre><code>Loading required package: edgeR</code></pre>
-<pre><code>Loading required package: limma</code></pre>
-<pre><code>     [,1] [,2]
-[1,]    4  612
-[2,]   19 9009</code></pre>
-<pre><code>
-    Fisher&#39;s Exact Test for Count Data
-
-data:  ct
-p-value = 0.0554
-alternative hypothesis: true odds ratio is not equal to 1
-95 percent confidence interval:
- 0.7642145 9.3655805
-sample estimates:
-odds ratio 
-  3.098467 </code></pre>
+outdfall &lt;- NULL
+for (i in 1:dim(gRNAsnp)[1]){
+  locsnp &lt;- gRNAsnp[i,&quot;locus_SNP&quot;]
+  loc &lt;- gRNAsnp[i,&quot;locus&quot;]
+  loccisgene &lt;- unique(cisgene[cisgene[,3]==locsnp,1])
+  for (pfile in list.files(&quot;data/gRNA_edgeR-QLF/&quot;, paste0(loc, &quot;_.*_edgeR-qlf_Neg1_Empricialp.Rd&quot;))){
+    load(paste0(&quot;data/gRNA_edgeR-QLF/&quot;,pfile))
+    gRNA &lt;- strsplit(pfile, split = &quot;_edgeR&quot;)[[1]][1]
+    outdf &lt;- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,4,5,9,10)])
+    colnames(outdf)[c(1,2,4,9,10)] &lt;- c(&quot;locus_SNP&quot;, &quot;locus&quot;, &quot;cisGene&quot;, &quot;empiricalP&quot;, &quot;empiricalFDR&quot;)
+    outdfall &lt;- rbind(outdfall, outdf)
+  }
+}
+rownames(outdfall) &lt;- NULL
+outdfall &lt;- outdfall[complete.cases(outdfall),]
+outdfall[, 5:10] &lt;- signif(outdfall[,5:10],3)
+write.table( outdfall , file= &quot;data/SNP_50000_empiricalP.txt&quot; , row.names=F, col.names=T, sep=&quot;\t&quot;, quote = F)
+DT::datatable(outdfall)</code></pre>
+<p><div id="htmlwidget-2ff079ad11e073dc4254" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2ff079ad11e073dc4254">{"x":{"filter":"none","data":[["3","4","7","8","11","12","31","36","41","43","46","49","68","73","78","79","81","83","90","96","143","144","148","152","153","154","158","162","163","164","168","172"],["rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs12716973","rs12716973","rs12716973","rs2192932","rs2192932","rs2192932","rs324017","rs324017","rs324017","rs301791","rs301791","rs301791","rs324015","rs324015","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933"],["BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","KCTD13","KCTD13","KCTD13","KMT2E","KMT2E","KMT2E","NAB2","NAB2","NAB2","RERE","RERE","RERE","STAT6","STAT6","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1"],["BAG5_1_gene","BAG5_1_gene","BAG5_2_gene","BAG5_2_gene","BAG5_3_gene","BAG5_3_gene","KCTD13_1_gene","KCTD13_2_gene","KCTD13_3_gene","KMT2E_1_gene","KMT2E_2_gene","KMT2E_3_gene","NAB2_1_gene","NAB2_2_gene","NAB2_3_gene","RERE_1_gene","RERE_2_gene","RERE_3_gene","STAT6_1_gene","STAT6_2_gene","PBRM1_1_gene","PBRM1_1_gene","PBRM1_1_gene","PBRM1_1_gene","PBRM1_2_gene","PBRM1_2_gene","PBRM1_2_gene","PBRM1_2_gene","PBRM1_3_gene","PBRM1_3_gene","PBRM1_3_gene","PBRM1_3_gene"],["APOPT1","CKB","APOPT1","CKB","APOPT1","CKB","TMEM219","TMEM219","TMEM219","KMT2E","KMT2E","KMT2E","NAB2","NAB2","NAB2","RERE","RERE","RERE","NAB2","NAB2","PBRM1","GLT8D1","GNL3","SPCS1","PBRM1","GLT8D1","GNL3","SPCS1","PBRM1","GLT8D1","GNL3","SPCS1"],[-0.161,0.138,-0.546,-0.159,-0.221,0.158,0.434,0.464,0.0775,-0.393,0.15,-0.212,0.841,0.317,-0.0754,0.341,0.272,-0.0203,0.436,0.273,1.67,0.642,-0.268,-0.0668,0.87,0.23,-0.0592,0.0316,0.895,-0.188,1.41,-0.0936],[7.32,10.9,7.37,11,7.3,10.9,7.48,7.48,7.51,7.32,7.3,7.31,6.74,6.74,6.79,6.96,6.95,6.96,6.75,6.77,6.92,6.85,7.64,8.41,6.9,6.84,7.63,8.4,6.93,6.86,7.61,8.41],[0.477,0.407,0.0149,0.377,0.33,0.364,0.0651,0.0448,0.797,0.281,0.636,0.484,0.0194,0.402,0.831,0.215,0.319,0.96,0.261,0.398,0.111,0.473,0.56,0.852,0.0904,0.623,0.83,0.878,0.333,0.807,0.0258,0.792],[1,1,0.884,0.999,0.999,0.999,1,0.999,0.997,1,0.995,0.999,1,0.971,0.998,0.99,0.997,0.999,0.999,0.992,0.999,0.999,0.999,0.999,0.998,0.998,0.998,0.998,0.861,0.976,0.523,0.975],[0.474,0.405,0.0133,0.359,0.314,0.348,0.0589,0.0391,0.788,0.272,0.631,0.475,0.0188,0.389,0.823,0.203,0.313,0.958,0.244,0.377,0.104,0.461,0.548,0.85,0.0869,0.616,0.826,0.874,0.33,0.803,0.0316,0.787],[1,1,0.784,0.968,0.999,0.999,0.986,0.971,0.992,1,0.991,0.998,0.995,0.94,0.998,0.986,0.996,0.998,0.995,0.952,0.949,0.984,0.984,0.998,0.997,0.997,0.997,0.997,0.852,0.971,0.64,0.969]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>locus_SNP<\/th>\n      <th>locus<\/th>\n      <th>gRNA<\/th>\n      <th>cisGene<\/th>\n      <th>logFC<\/th>\n      <th>logCPM<\/th>\n      <th>PValue<\/th>\n      <th>FDR<\/th>\n      <th>empiricalP<\/th>\n      <th>empiricalFDR<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[5,6,7,8,9,10]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script> <a href="%22data/SNP_200000_empiricalP.txt%22">download this table</a></p>
 </div>
-<div id="using-edger-lrt-model-10-filtering" class="section level3">
-<h3>using EdgeR lrt model, 10% filtering</h3>
-<pre class="r"><code>load(&quot;data/edgeR-lrt-10%filter_res.Rd&quot;)
-fisher_cisg(resm, cisg, pcut)</code></pre>
-<pre><code>     [,1] [,2]
-[1,]    4  559
-[2,]   19 9062</code></pre>
-<pre><code>
-    Fisher&#39;s Exact Test for Count Data
-
-data:  ct
-p-value = 0.04201
-alternative hypothesis: true odds ratio is not equal to 1
-95 percent confidence interval:
-  0.8413445 10.3169944
-sample estimates:
-odds ratio 
-  3.412093 </code></pre>
-</div>
-</div>
-<div id="enrichment-of-significant-genes---200kb-of-targeted-snps" class="section level2">
-<h2>Enrichment of significant genes +/- 200kb of targeted SNPs</h2>
+<div id="genes---200kb-of-targeted-snps" class="section level2">
+<h2>genes +/- 200kb of targeted SNPs</h2>
 <pre class="r"><code>cisgene &lt;- read.table(&quot;data/SNP_200000.txt&quot;, stringsAsFactors = F,sep=&quot;\t&quot;, header=T)
-cisg &lt;- unique(cisgene$name2)</code></pre>
-<div id="using-edger-qlf-model-10-filtering-1" class="section level3">
-<h3>using EdgeR QLF model, 10% filtering</h3>
-<pre class="r"><code>load(&quot;data/edgeR-qlf-10%filter_res.Rd&quot;)
-fisher_cisg(resm, cisg, pcut)</code></pre>
-<pre><code>     [,1] [,2]
-[1,]    8  612
-[2,]   69 9009</code></pre>
-<pre><code>
-    Fisher&#39;s Exact Test for Count Data
-
-data:  ct
-p-value = 0.1557
-alternative hypothesis: true odds ratio is not equal to 1
-95 percent confidence interval:
- 0.7054235 3.5761036
-sample estimates:
-odds ratio 
-   1.70661 </code></pre>
+outdfall &lt;- NULL
+for (i in 1:dim(gRNAsnp)[1]){
+  locsnp &lt;- gRNAsnp[i,&quot;locus_SNP&quot;]
+  loc &lt;- gRNAsnp[i,&quot;locus&quot;]
+  loccisgene &lt;- unique(cisgene[cisgene[,3]==locsnp,1])
+  for (pfile in list.files(&quot;data/gRNA_edgeR-QLF/&quot;, paste0(loc, &quot;_.*_edgeR-qlf_Neg1_Empricialp.Rd&quot;))){
+    load(paste0(&quot;data/gRNA_edgeR-QLF/&quot;,pfile))
+    gRNA &lt;- strsplit(pfile, split = &quot;_edgeR&quot;)[[1]][1]
+    outdf &lt;- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,4,5,9,10)])
+    colnames(outdf)[c(1,2,4,9,10)] &lt;- c(&quot;locus_SNP&quot;, &quot;locus&quot;, &quot;cisGene&quot;, &quot;empiricalP&quot;, &quot;empiricalFDR&quot;)
+    outdfall &lt;- rbind(outdfall, outdf)
+  }
+}
+rownames(outdfall) &lt;- NULL
+outdfall &lt;- outdfall[complete.cases(outdfall),]
+outdfall[, 5:10] &lt;- signif(outdfall[,5:10],3)
+write.table( outdfall , file= &quot;data/SNP_200000_empiricalP.txt&quot; , row.names=F, col.names=T, sep=&quot;\t&quot;, quote = F)
+DT::datatable(outdfall)</code></pre>
+<p><div id="htmlwidget-5ced88c7e759b7d2c377" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5ced88c7e759b7d2c377">{"x":{"filter":"none","data":[["1","5","6","7","8","10","14","15","16","17","19","23","24","25","26","34","36","42","44","50","52","70","72","75","77","82","84","88","96","97","99","102","104","109","111","115","124","126","129","131","136","138","142","150","151","152","157","158","163","164","207","208","224","225","241","242","248","253","258","273","274","290","291","308","316","321","326","329","339","342","352","355","365","374","376","377","379","389","391","392","394","404","406","407","409","413","420","461","462","469","470","477","478","483","485","488","489","493","497","505","507","510","511","515","519","527","529","532","533","537","541"],["rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7170068","rs7170068","rs7170068","rs7170068","rs7170068","rs7170068","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs2192932","rs2192932","rs2192932","rs2192932","rs2192932","rs2192932","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs301791","rs301791","rs301791","rs324015","rs324015","rs324015","rs324015","rs324015","rs9882911","rs9882911","rs9882911","rs11633075","rs11633075","rs11633075","rs11633075","rs11633075","rs11633075","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs186132169","rs186132169","rs3861678","rs3861678","rs3861678","rs3861678","rs3861678","rs3861678","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933"],["BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","CHRNA3","CHRNA3","CHRNA3","CHRNA3","CHRNA3","CHRNA3","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KMT2E","KMT2E","KMT2E","KMT2E","KMT2E","KMT2E","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","RERE","RERE","RERE","STAT6","STAT6","STAT6","STAT6","STAT6","TRANK1","TRANK1","TRANK1","UBE2Q2P1","UBE2Q2P1","UBE2Q2P1","UBE2Q2P1","UBE2Q2P1","UBE2Q2P1","VPS45","VPS45","VPS45","VPS45","VPS45","VPS45","VPS45","VPS45","VPS45","VPS45","VPS45","VPS45","NGEF","NGEF","LINC00637","LINC00637","LINC00637","LINC00637","LINC00637","LINC00637","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1"],["BAG5_1_gene","BAG5_1_gene","BAG5_1_gene","BAG5_1_gene","BAG5_1_gene","BAG5_2_gene","BAG5_2_gene","BAG5_2_gene","BAG5_2_gene","BAG5_2_gene","BAG5_3_gene","BAG5_3_gene","BAG5_3_gene","BAG5_3_gene","BAG5_3_gene","CHRNA3_1_gene","CHRNA3_1_gene","CHRNA3_2_gene","CHRNA3_2_gene","CHRNA3_3_gene","CHRNA3_3_gene","KCTD13_1_gene","KCTD13_1_gene","KCTD13_1_gene","KCTD13_1_gene","KCTD13_1_gene","KCTD13_1_gene","KCTD13_1_gene","KCTD13_1_gene","KCTD13_2_gene","KCTD13_2_gene","KCTD13_2_gene","KCTD13_2_gene","KCTD13_2_gene","KCTD13_2_gene","KCTD13_2_gene","KCTD13_3_gene","KCTD13_3_gene","KCTD13_3_gene","KCTD13_3_gene","KCTD13_3_gene","KCTD13_3_gene","KCTD13_3_gene","KCTD13_3_gene","KMT2E_1_gene","KMT2E_1_gene","KMT2E_2_gene","KMT2E_2_gene","KMT2E_3_gene","KMT2E_3_gene","NAB2_1_gene","NAB2_1_gene","NAB2_2_gene","NAB2_2_gene","NAB2_3_gene","NAB2_3_gene","RERE_1_gene","RERE_2_gene","RERE_3_gene","STAT6_1_gene","STAT6_1_gene","STAT6_2_gene","STAT6_2_gene","STAT6_3_gene","TRANK1_1_gene","TRANK1_2_gene","TRANK1_3_gene","UBE2Q2P1_1_gene","UBE2Q2P1_1_gene","UBE2Q2P1_2_gene","UBE2Q2P1_2_gene","UBE2Q2P1_3_gene","UBE2Q2P1_3_gene","VPS45_1_gene","VPS45_1_gene","VPS45_1_gene","VPS45_1_gene","VPS45_2_gene","VPS45_2_gene","VPS45_2_gene","VPS45_2_gene","VPS45_3_gene","VPS45_3_gene","VPS45_3_gene","VPS45_3_gene","NGEF_1_gene","NGEF_2_gene","LINC00637_1_gene","LINC00637_1_gene","LINC00637_2_gene","LINC00637_2_gene","LINC00637_3_gene","LINC00637_3_gene","PBRM1_1_gene","PBRM1_1_gene","PBRM1_1_gene","PBRM1_1_gene","PBRM1_1_gene","PBRM1_1_gene","PBRM1_2_gene","PBRM1_2_gene","PBRM1_2_gene","PBRM1_2_gene","PBRM1_2_gene","PBRM1_2_gene","PBRM1_3_gene","PBRM1_3_gene","PBRM1_3_gene","PBRM1_3_gene","PBRM1_3_gene","PBRM1_3_gene"],["MARK3","APOPT1","CKB","ZFYVE21","KLC1","MARK3","APOPT1","CKB","ZFYVE21","KLC1","MARK3","APOPT1","CKB","ZFYVE21","KLC1","IREB2","PSMA4","IREB2","PSMA4","IREB2","PSMA4","INO80E","MAZ","KIF22","CDIPT","HIRIP3","TMEM219","PPP4C","MAPK3","INO80E","MAZ","KIF22","CDIPT","HIRIP3","TMEM219","PPP4C","INO80E","MAZ","KIF22","CDIPT","HIRIP3","TMEM219","PPP4C","MAPK3","SRPK2","KMT2E","SRPK2","KMT2E","SRPK2","KMT2E","NAB2","SHMT2","NAB2","SHMT2","NAB2","SHMT2","RERE","RERE","RERE","NAB2","SHMT2","NAB2","SHMT2","SHMT2","MLH1","MLH1","MLH1","WDR73","SEC11A","WDR73","SEC11A","WDR73","SEC11A","SF3B4","PLEKHO1","ANP32E","APH1A","SF3B4","PLEKHO1","ANP32E","APH1A","SF3B4","PLEKHO1","ANP32E","APH1A","GIGYF2","GIGYF2","ZFYVE21","KLC1","ZFYVE21","KLC1","ZFYVE21","KLC1","PBRM1","NT5DC2","SMIM4","GLT8D1","GNL3","SPCS1","PBRM1","NT5DC2","SMIM4","GLT8D1","GNL3","SPCS1","PBRM1","NT5DC2","SMIM4","GLT8D1","GNL3","SPCS1"],[-0.232,-0.161,0.138,-0.0344,0.147,0.155,-0.546,-0.159,0.116,-0.0817,-0.144,-0.221,0.158,-0.0178,0.125,-0.844,-0.294,-0.145,-0.0756,0.26,0.355,0.41,-0.112,0.0973,-0.017,-0.295,0.434,0.0264,0.146,0.208,0.0913,0.052,0.362,0.395,0.464,-0.198,0.0691,-0.119,-0.882,-0.0843,-0.406,0.0775,0.0686,0.0471,0.18,-0.393,-0.252,0.15,0.275,-0.212,0.841,0.11,0.317,-0.015,-0.0754,-0.295,0.341,0.272,-0.0203,0.436,0.186,0.273,-0.0884,-0.0387,0.165,0.235,-0.212,0.276,-0.18,0.228,0.212,-0.261,0.39,0.137,0.0935,1.01,-0.154,0.0135,-0.043,0.109,-0.0229,1.29,-0.00465,0.315,-0.286,-0.59,-1.15,-0.288,-0.00319,-0.0596,0.297,-0.22,-0.101,1.67,-0.299,-0.431,0.642,-0.268,-0.0668,0.87,0.0369,-0.141,0.23,-0.0592,0.0316,0.895,1.78,0.487,-0.188,1.41,-0.0936],[7.04,7.32,10.9,6.87,7.35,6.98,7.37,11,6.84,7.37,7,7.3,10.9,6.84,7.33,6.7,9.25,6.7,9.25,6.66,9.21,7,7.46,7.42,6.85,7.12,7.48,8.08,6.78,7.02,7.44,7.43,6.83,7.06,7.48,8.12,7.01,7.44,7.5,6.84,7.1,7.51,8.07,6.77,7.3,7.32,7.35,7.3,7.29,7.31,6.74,7.53,6.74,7.53,6.79,7.59,6.96,6.95,6.96,6.75,7.52,6.77,7.57,7.56,6.99,6.96,7,7.22,9.22,7.24,9.2,7.26,9.18,7.71,7.35,7.67,7.58,7.73,7.37,7.71,7.58,7.7,7.36,7.72,7.59,6.91,6.89,6.86,7.34,6.84,7.31,6.83,7.34,6.92,7.37,6.98,6.85,7.64,8.41,6.9,7.35,6.96,6.84,7.63,8.4,6.93,7.34,6.96,6.86,7.61,8.41],[0.396,0.477,0.407,0.911,0.538,0.583,0.0149,0.377,0.705,0.718,0.613,0.33,0.364,0.954,0.599,0.289,0.38,0.712,0.578,0.604,0.0571,0.174,0.62,0.733,0.952,0.304,0.0651,0.871,0.656,0.46,0.685,0.839,0.247,0.202,0.0448,0.18,0.867,0.691,0.00615,0.845,0.276,0.797,0.745,0.915,0.654,0.281,0.406,0.636,0.391,0.484,0.0194,0.684,0.402,0.956,0.831,0.304,0.215,0.319,0.96,0.261,0.53,0.398,0.733,0.858,0.843,0.486,0.277,0.443,0.304,0.584,0.34,0.459,0.0489,0.62,0.804,0.0112,0.574,0.914,0.822,0.536,0.867,0.002,0.994,0.471,0.392,0.163,0.148,0.261,0.99,0.842,0.214,0.35,0.587,0.111,0.624,0.531,0.473,0.56,0.852,0.0904,0.916,0.731,0.623,0.83,0.878,0.333,0.0434,0.54,0.807,0.0258,0.792],[1,1,1,1,1,0.999,0.884,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.998,0.998,1,1,0.978,0.885,1,1,1,1,1,1,1,1,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.997,0.997,0.963,0.997,0.994,0.997,0.997,0.997,1,1,0.995,0.995,0.999,0.999,1,1,0.971,0.993,0.998,0.998,0.99,0.997,0.999,0.999,0.999,0.992,0.999,0.999,0.998,0.999,1,0.99,0.97,0.967,0.93,0.998,0.998,0.948,0.992,0.443,0.939,1,1,1,1,0.654,0.999,0.97,0.97,0.996,0.993,0.999,1,0.999,0.999,0.997,0.997,0.999,0.999,0.999,0.999,0.999,0.999,0.998,0.998,0.998,0.998,0.998,0.998,0.861,0.588,0.941,0.976,0.523,0.975],[0.394,0.474,0.405,0.909,0.536,0.568,0.0133,0.359,0.694,0.707,0.601,0.314,0.348,0.952,0.587,0.271,0.363,0.705,0.568,0.599,0.0546,0.161,0.61,0.725,0.951,0.289,0.0589,0.867,0.646,0.443,0.672,0.832,0.229,0.185,0.0391,0.163,0.861,0.679,0.00537,0.839,0.258,0.788,0.735,0.911,0.646,0.272,0.4,0.631,0.383,0.475,0.0188,0.675,0.389,0.954,0.823,0.281,0.203,0.313,0.958,0.244,0.513,0.377,0.722,0.853,0.839,0.474,0.263,0.435,0.298,0.574,0.33,0.444,0.0461,0.615,0.802,0.0121,0.569,0.911,0.818,0.529,0.863,0.00203,0.994,0.454,0.374,0.148,0.171,0.247,0.989,0.837,0.201,0.331,0.572,0.104,0.613,0.519,0.461,0.548,0.85,0.0869,0.914,0.725,0.616,0.826,0.874,0.33,0.0492,0.534,0.803,0.0316,0.787],[1,1,1,1,1,0.985,0.784,0.968,0.995,0.995,0.999,0.999,0.999,0.999,0.999,0.978,0.985,0.999,0.999,0.97,0.843,0.986,0.998,0.999,0.999,0.986,0.986,0.999,0.999,0.996,0.996,0.997,0.996,0.996,0.971,0.996,0.994,0.992,0.842,0.994,0.928,0.992,0.992,0.994,1,1,0.986,0.991,0.998,0.998,0.995,0.996,0.94,0.991,0.998,0.985,0.986,0.996,0.998,0.995,0.995,0.952,0.986,0.995,0.998,0.999,1,0.973,0.952,0.954,0.9,0.995,0.995,0.941,0.99,0.459,0.931,0.999,0.998,0.998,0.998,0.612,0.999,0.937,0.929,0.952,0.994,0.978,0.999,0.998,0.998,0.971,0.982,0.949,0.99,0.984,0.984,0.984,0.998,0.997,0.997,0.997,0.997,0.997,0.997,0.852,0.667,0.929,0.971,0.64,0.969]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>locus_SNP<\/th>\n      <th>locus<\/th>\n      <th>gRNA<\/th>\n      <th>cisGene<\/th>\n      <th>logFC<\/th>\n      <th>logCPM<\/th>\n      <th>PValue<\/th>\n      <th>FDR<\/th>\n      <th>empiricalP<\/th>\n      <th>empiricalFDR<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[5,6,7,8,9,10]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script> <a href="%22data/SNP_200000_empiricalP.txt%22">download this table</a></p>
 </div>
-<div id="using-edger-lrt-model-10-filtering-1" class="section level3">
-<h3>using EdgeR lrt model, 10% filtering</h3>
-<pre class="r"><code>load(&quot;data/edgeR-lrt-10%filter_res.Rd&quot;)
-fisher_cisg(resm, cisg, pcut)</code></pre>
-<pre><code>     [,1] [,2]
-[1,]    8  559
-[2,]   69 9062</code></pre>
-<pre><code>
-    Fisher&#39;s Exact Test for Count Data
-
-data:  ct
-p-value = 0.08919
-alternative hypothesis: true odds ratio is not equal to 1
-95 percent confidence interval:
- 0.7765322 3.9401042
-sample estimates:
-odds ratio 
-  1.879465 </code></pre>
-</div>
-</div>
-<div id="enrichment-of-significant-genes---500kb-of-targeted-snps" class="section level2">
-<h2>Enrichment of significant genes +/- 500kb of targeted SNPs</h2>
+<div id="genes---500kb-of-targeted-snps" class="section level2">
+<h2>genes +/- 500kb of targeted SNPs</h2>
 <pre class="r"><code>cisgene &lt;- read.table(&quot;data/SNP_500000.txt&quot;, stringsAsFactors = F,sep=&quot;\t&quot;, header=T)
-cisg &lt;- unique(cisgene$name2)</code></pre>
-<div id="using-edger-qlf-model-10-filtering-2" class="section level3">
-<h3>using EdgeR QLF model, 10% filtering</h3>
-<pre class="r"><code>load(&quot;data/edgeR-qlf-10%filter_res.Rd&quot;)
-fisher_cisg(resm, cisg, pcut)</code></pre>
-<pre><code>     [,1] [,2]
-[1,]   13  612
-[2,]  130 9009</code></pre>
-<pre><code>
-    Fisher&#39;s Exact Test for Count Data
-
-data:  ct
-p-value = 0.1706
-alternative hypothesis: true odds ratio is not equal to 1
-95 percent confidence interval:
- 0.7587635 2.6261486
-sample estimates:
-odds ratio 
-  1.471976 </code></pre>
-</div>
-<div id="using-edger-lrt-model-10-filtering-2" class="section level3">
-<h3>using EdgeR lrt model, 10% filtering</h3>
-<pre class="r"><code>load(&quot;data/edgeR-lrt-10%filter_res.Rd&quot;)
-fisher_cisg(resm, cisg, pcut)</code></pre>
-<pre><code>     [,1] [,2]
-[1,]   13  559
-[2,]  130 9062</code></pre>
-<pre><code>
-    Fisher&#39;s Exact Test for Count Data
-
-data:  ct
-p-value = 0.1044
-alternative hypothesis: true odds ratio is not equal to 1
-95 percent confidence interval:
- 0.8351417 2.8937582
-sample estimates:
-odds ratio 
-  1.620998 </code></pre>
-</div>
-</div>
-<div id="session-information" class="section level2">
-<h2>Session information</h2>
+outdfall &lt;- NULL
+for (i in 1:dim(gRNAsnp)[1]){
+  locsnp &lt;- gRNAsnp[i,&quot;locus_SNP&quot;]
+  loc &lt;- gRNAsnp[i,&quot;locus&quot;]
+  loccisgene &lt;- unique(cisgene[cisgene[,3]==locsnp,1])
+  for (pfile in list.files(&quot;data/gRNA_edgeR-QLF/&quot;, paste0(loc, &quot;_.*_edgeR-qlf_Neg1_Empricialp.Rd&quot;))){
+    load(paste0(&quot;data/gRNA_edgeR-QLF/&quot;,pfile))
+    gRNA &lt;- strsplit(pfile, split = &quot;_edgeR&quot;)[[1]][1]
+    outdf &lt;- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,4,5,9,10)])
+    colnames(outdf)[c(1,2,4,9,10)] &lt;- c(&quot;locus_SNP&quot;, &quot;locus&quot;, &quot;cisGene&quot;, &quot;empiricalP&quot;, &quot;empiricalFDR&quot;)
+    outdfall &lt;- rbind(outdfall, outdf)
+  }
+}
+rownames(outdfall) &lt;- NULL
+outdfall &lt;- outdfall[complete.cases(outdfall),]
+outdfall[, 5:10] &lt;- signif(outdfall[,5:10],3)
+write.table( outdfall , file= &quot;data/SNP_500000_empiricalP.txt&quot; , row.names=F, col.names=T, sep=&quot;\t&quot;, quote = F)
+DT::datatable(outdfall)</code></pre>
+<div id="htmlwidget-9e4717ef37345b58cc87" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9e4717ef37345b58cc87">{"x":{"filter":"none","data":[["1","2","15","16","17","18","23","24","37","38","39","40","45","46","59","60","61","62","71","77","83","86","88","90","93","94","95","104","106","108","111","112","113","122","124","126","129","130","131","140","152","164","175","176","195","197","200","202","207","209","213","221","225","229","233","252","254","257","259","264","266","270","282","286","288","290","309","311","314","316","321","323","327","335","339","343","346","347","349","354","355","357","362","363","365","401","405","407","408","421","422","429","434","439","443","445","446","459","460","467","472","477","481","483","484","497","498","505","510","516","517","518","523","527","528","529","534","538","539","540","545","548","552","553","554","567","568","575","580","585","589","590","591","604","605","612","617","622","626","627","628","642","649","654","659","663","665","668","672","674","677","681","683","689","705","712","728","735","751","780","782","783","785","788","824","826","827","829","832","868","870","871","873","876","887","888","908","909","973","979","980","981","982","992","996","998","999","1000","1001","1011","1015","1017","1018","1019","1020","1031","1032","1035","1038","1052","1053","1057","1061","1071","1072","1075","1078","1092","1093","1097","1101","1111","1112","1115","1118","1132","1133","1137","1141","1156","1176","1196"],["rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs7148456","rs12895055","rs12895055","rs12895055","rs7170068","rs7170068","rs7170068","rs7170068","rs7170068","rs7170068","rs7170068","rs7170068","rs7170068","rs7170068","rs7170068","rs7170068","rs7170068","rs7170068","rs7170068","rs7170068","rs7170068","rs7170068","rs520843","rs520843","rs520843","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs12716973","rs2192932","rs2192932","rs2192932","rs2192932","rs2192932","rs2192932","rs2192932","rs2192932","rs2192932","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs324017","rs301791","rs301791","rs301791","rs301791","rs301791","rs301791","rs301791","rs301791","rs301791","rs301791","rs301791","rs301791","rs324015","rs324015","rs324015","rs324015","rs324015","rs324015","rs324015","rs324015","rs324015","rs324015","rs324015","rs324015","rs324015","rs324015","rs324015","rs324015","rs324015","rs324015","rs324015","rs324015","rs324015","rs324015","rs324015","rs9882911","rs9882911","rs9882911","rs9882911","rs9882911","rs9882911","rs9882911","rs9882911","rs9882911","rs11633075","rs11633075","rs11633075","rs11633075","rs11633075","rs11633075","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs2027349","rs186132169","rs186132169","rs186132169","rs186132169","rs3861678","rs3861678","rs3861678","rs3861678","rs3861678","rs3861678","rs3861678","rs3861678","rs3861678","rs3861678","rs3861678","rs3861678","rs3861678","rs3861678","rs3861678","rs3861678","rs3861678","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs10933","rs6071578","rs6071578","rs6071578"],["BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BAG5","BCL11B","BCL11B","BCL11B","CHRNA3","CHRNA3","CHRNA3","CHRNA3","CHRNA3","CHRNA3","CHRNA3","CHRNA3","CHRNA3","CHRNA3","CHRNA3","CHRNA3","CHRNA3","CHRNA3","CHRNA3","CHRNA3","CHRNA3","CHRNA3","GALNT10","GALNT10","GALNT10","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KCTD13","KMT2E","KMT2E","KMT2E","KMT2E","KMT2E","KMT2E","KMT2E","KMT2E","KMT2E","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","NAB2","RERE","RERE","RERE","RERE","RERE","RERE","RERE","RERE","RERE","RERE","RERE","RERE","STAT6","STAT6","STAT6","STAT6","STAT6","STAT6","STAT6","STAT6","STAT6","STAT6","STAT6","STAT6","STAT6","STAT6","STAT6","STAT6","STAT6","STAT6","STAT6","STAT6","STAT6","STAT6","STAT6","TRANK1","TRANK1","TRANK1","TRANK1","TRANK1","TRANK1","TRANK1","TRANK1","TRANK1","UBE2Q2P1","UBE2Q2P1","UBE2Q2P1","UBE2Q2P1","UBE2Q2P1","UBE2Q2P1","VPS45","VPS45","VPS45","VPS45","VPS45","VPS45","VPS45","VPS45","VPS45","VPS45","VPS45","VPS45","VPS45","VPS45","VPS45","NGEF","NGEF","NGEF","NGEF","LINC00637","LINC00637","LINC00637","LINC00637","LINC00637","LINC00637","LINC00637","LINC00637","LINC00637","LINC00637","LINC00637","LINC00637","LINC00637","LINC00637","LINC00637","LINC00637","LINC00637","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PBRM1","PPP1R16B","PPP1R16B","PPP1R16B"],["BAG5_1_gene","BAG5_1_gene","BAG5_1_gene","BAG5_1_gene","BAG5_1_gene","BAG5_1_gene","BAG5_2_gene","BAG5_2_gene","BAG5_2_gene","BAG5_2_gene","BAG5_2_gene","BAG5_2_gene","BAG5_3_gene","BAG5_3_gene","BAG5_3_gene","BAG5_3_gene","BAG5_3_gene","BAG5_3_gene","BCL11B_1_gene","BCL11B_2_gene","BCL11B_3_gene","CHRNA3_1_gene","CHRNA3_1_gene","CHRNA3_1_gene","CHRNA3_1_gene","CHRNA3_1_gene","CHRNA3_1_gene","CHRNA3_2_gene","CHRNA3_2_gene","CHRNA3_2_gene","CHRNA3_2_gene","CHRNA3_2_gene","CHRNA3_2_gene","CHRNA3_3_gene","CHRNA3_3_gene","CHRNA3_3_gene","CHRNA3_3_gene","CHRNA3_3_gene","CHRNA3_3_gene","GALNT10_1_gene","GALNT10_2_gene","GALNT10_3_gene","KCTD13_1_gene","KCTD13_1_gene","KCTD13_1_gene","KCTD13_1_gene","KCTD13_1_gene","KCTD13_1_gene","KCTD13_1_gene","KCTD13_1_gene","KCTD13_1_gene","KCTD13_1_gene","KCTD13_1_gene","KCTD13_1_gene","KCTD13_2_gene","KCTD13_2_gene","KCTD13_2_gene","KCTD13_2_gene","KCTD13_2_gene","KCTD13_2_gene","KCTD13_2_gene","KCTD13_2_gene","KCTD13_2_gene","KCTD13_2_gene","KCTD13_2_gene","KCTD13_3_gene","KCTD13_3_gene","KCTD13_3_gene","KCTD13_3_gene","KCTD13_3_gene","KCTD13_3_gene","KCTD13_3_gene","KCTD13_3_gene","KCTD13_3_gene","KCTD13_3_gene","KCTD13_3_gene","KMT2E_1_gene","KMT2E_1_gene","KMT2E_1_gene","KMT2E_2_gene","KMT2E_2_gene","KMT2E_2_gene","KMT2E_3_gene","KMT2E_3_gene","KMT2E_3_gene","NAB2_1_gene","NAB2_1_gene","NAB2_1_gene","NAB2_1_gene","NAB2_1_gene","NAB2_1_gene","NAB2_1_gene","NAB2_1_gene","NAB2_2_gene","NAB2_2_gene","NAB2_2_gene","NAB2_2_gene","NAB2_2_gene","NAB2_2_gene","NAB2_2_gene","NAB2_2_gene","NAB2_3_gene","NAB2_3_gene","NAB2_3_gene","NAB2_3_gene","NAB2_3_gene","NAB2_3_gene","NAB2_3_gene","NAB2_3_gene","RERE_1_gene","RERE_1_gene","RERE_1_gene","RERE_1_gene","RERE_2_gene","RERE_2_gene","RERE_2_gene","RERE_2_gene","RERE_3_gene","RERE_3_gene","RERE_3_gene","RERE_3_gene","STAT6_1_gene","STAT6_1_gene","STAT6_1_gene","STAT6_1_gene","STAT6_1_gene","STAT6_1_gene","STAT6_1_gene","STAT6_1_gene","STAT6_2_gene","STAT6_2_gene","STAT6_2_gene","STAT6_2_gene","STAT6_2_gene","STAT6_2_gene","STAT6_2_gene","STAT6_2_gene","STAT6_3_gene","STAT6_3_gene","STAT6_3_gene","STAT6_3_gene","STAT6_3_gene","STAT6_3_gene","STAT6_3_gene","TRANK1_1_gene","TRANK1_1_gene","TRANK1_1_gene","TRANK1_2_gene","TRANK1_2_gene","TRANK1_2_gene","TRANK1_3_gene","TRANK1_3_gene","TRANK1_3_gene","UBE2Q2P1_1_gene","UBE2Q2P1_1_gene","UBE2Q2P1_2_gene","UBE2Q2P1_2_gene","UBE2Q2P1_3_gene","UBE2Q2P1_3_gene","VPS45_1_gene","VPS45_1_gene","VPS45_1_gene","VPS45_1_gene","VPS45_1_gene","VPS45_2_gene","VPS45_2_gene","VPS45_2_gene","VPS45_2_gene","VPS45_2_gene","VPS45_3_gene","VPS45_3_gene","VPS45_3_gene","VPS45_3_gene","VPS45_3_gene","NGEF_1_gene","NGEF_1_gene","NGEF_2_gene","NGEF_2_gene","LINC00637_1_gene","LINC00637_1_gene","LINC00637_1_gene","LINC00637_1_gene","LINC00637_1_gene","LINC00637_2_gene","LINC00637_2_gene","LINC00637_2_gene","LINC00637_2_gene","LINC00637_2_gene","LINC00637_2_gene","LINC00637_3_gene","LINC00637_3_gene","LINC00637_3_gene","LINC00637_3_gene","LINC00637_3_gene","LINC00637_3_gene","PBRM1_1_gene","PBRM1_1_gene","PBRM1_1_gene","PBRM1_1_gene","PBRM1_1_gene","PBRM1_1_gene","PBRM1_1_gene","PBRM1_1_gene","PBRM1_2_gene","PBRM1_2_gene","PBRM1_2_gene","PBRM1_2_gene","PBRM1_2_gene","PBRM1_2_gene","PBRM1_2_gene","PBRM1_2_gene","PBRM1_3_gene","PBRM1_3_gene","PBRM1_3_gene","PBRM1_3_gene","PBRM1_3_gene","PBRM1_3_gene","PBRM1_3_gene","PBRM1_3_gene","PPP1R16B_1_gene","PPP1R16B_2_gene","PPP1R16B_3_gene"],["EIF5","MARK3","APOPT1","CKB","ZFYVE21","KLC1","EIF5","MARK3","APOPT1","CKB","ZFYVE21","KLC1","EIF5","MARK3","APOPT1","CKB","ZFYVE21","KLC1","CCNK","CCNK","CCNK","IREB2","MORF4L1","CIB2","WDR61","CRABP1","PSMA4","IREB2","MORF4L1","CIB2","WDR61","CRABP1","PSMA4","IREB2","MORF4L1","CIB2","WDR61","CRABP1","PSMA4","LARP1","LARP1","LARP1","ZNF48","INO80E","QPRT","MAZ","KIF22","CDIPT","HIRIP3","TMEM219","PPP4C","MAPK3","CD2BP2","DCTPP1","INO80E","QPRT","MAZ","KIF22","CDIPT","HIRIP3","TMEM219","PPP4C","CD2BP2","DCTPP1","ZNF771","INO80E","QPRT","MAZ","KIF22","CDIPT","HIRIP3","TMEM219","PPP4C","MAPK3","CD2BP2","DCTPP1","SRPK2","KMT2E","PUS7","SRPK2","KMT2E","PUS7","SRPK2","KMT2E","PUS7","BAZ2A","DCTN2","PTGES3","NACA","NAB2","SHMT2","DDIT3","MARS","BAZ2A","DCTN2","PTGES3","NACA","NAB2","SHMT2","DDIT3","MARS","BAZ2A","DCTN2","PTGES3","NACA","NAB2","SHMT2","DDIT3","MARS","RERE","PARK7","ERRFI1","ENO1","RERE","PARK7","ERRFI1","ENO1","RERE","PARK7","ERRFI1","ENO1","BAZ2A","DCTN2","PTGES3","NACA","NAB2","SHMT2","DDIT3","MARS","BAZ2A","DCTN2","PTGES3","NACA","NAB2","SHMT2","DDIT3","MARS","BAZ2A","DCTN2","PTGES3","NACA","SHMT2","DDIT3","MARS","GOLGA4","MLH1","LRRFIP2","GOLGA4","MLH1","LRRFIP2","GOLGA4","MLH1","LRRFIP2","WDR73","SEC11A","WDR73","SEC11A","WDR73","SEC11A","SF3B4","PLEKHO1","ANP32E","APH1A","MRPS21","SF3B4","PLEKHO1","ANP32E","APH1A","MRPS21","SF3B4","PLEKHO1","ANP32E","APH1A","MRPS21","EIF4E2","GIGYF2","EIF4E2","GIGYF2","MARK3","APOPT1","CKB","ZFYVE21","KLC1","MARK3","TRMT61A","APOPT1","CKB","ZFYVE21","KLC1","MARK3","TRMT61A","APOPT1","CKB","ZFYVE21","KLC1","WDR82","PBRM1","NT5DC2","TWF2","SMIM4","GLT8D1","GNL3","SPCS1","WDR82","PBRM1","NT5DC2","TWF2","SMIM4","GLT8D1","GNL3","SPCS1","WDR82","PBRM1","NT5DC2","TWF2","SMIM4","GLT8D1","GNL3","SPCS1","SNHG11","SNHG11","SNHG11"],[-0.149,-0.232,-0.161,0.138,-0.0344,0.147,-0.0842,0.155,-0.546,-0.159,0.116,-0.0817,-0.254,-0.144,-0.221,0.158,-0.0178,0.125,0.288,-0.129,0.215,-0.844,-0.0307,-0.756,-0.627,-0.611,-0.294,-0.145,0.00298,0.272,0.0473,-0.648,-0.0756,0.26,-0.168,0.78,-0.293,0.519,0.355,-0.00814,-0.165,-0.138,-0.775,0.41,0.573,-0.112,0.0973,-0.017,-0.295,0.434,0.0264,0.146,-0.0933,0.221,0.208,0.856,0.0913,0.052,0.362,0.395,0.464,-0.198,0.11,0.168,-0.501,0.0691,-0.149,-0.119,-0.882,-0.0843,-0.406,0.0775,0.0686,0.0471,0.0709,0.355,0.18,-0.393,-0.47,-0.252,0.15,0.821,0.275,-0.212,-0.573,-0.0163,0.148,0.259,-0.0654,0.841,0.11,-0.456,0.383,0.1,-0.162,0.181,0.0464,0.317,-0.015,-0.64,0.0337,-0.171,-0.174,0.0544,-0.0252,-0.0754,-0.295,0.194,-0.53,0.341,0.147,0.1,0.166,0.272,0.0807,0.288,0.0339,-0.0203,-0.052,0.822,0.0479,0.493,0.00429,0.0147,-0.0944,0.436,0.186,-0.156,0.0852,0.12,0.0229,-0.0437,0.0479,0.273,-0.0884,-0.284,0.109,0.0424,0.0383,0.103,0.013,-0.0387,0.576,-0.189,-0.0809,0.165,1.05,0.202,0.235,0.793,-0.028,-0.212,-0.206,0.276,-0.18,0.228,0.212,-0.261,0.39,0.137,0.0935,1.01,-0.154,0.1,0.0135,-0.043,0.109,-0.0229,0.0535,1.29,-0.00465,0.315,-0.286,0.0575,0.142,-0.59,0.3,-1.15,-0.0632,-0.34,-0.0243,-0.288,-0.00319,-0.262,-0.603,0.0125,-0.0784,-0.0596,0.297,-0.244,-0.462,0.00687,0.43,-0.22,-0.101,0.446,1.67,-0.299,-0.753,-0.431,0.642,-0.268,-0.0668,-0.434,0.87,0.0369,-0.252,-0.141,0.23,-0.0592,0.0316,0.945,0.895,1.78,1.2,0.487,-0.188,1.41,-0.0936,-0.217,-0.197,0.0803],[8.96,7.04,7.32,10.9,6.87,7.35,8.94,6.98,7.37,11,6.84,7.37,8.96,7,7.3,10.9,6.84,7.33,6.98,6.99,6.97,6.7,9.52,6.91,7.15,10.2,9.25,6.7,9.52,6.88,7.13,10.3,9.25,6.66,9.54,6.86,7.14,10.1,9.21,7.39,7.41,7.41,6.75,7,6.9,7.46,7.42,6.85,7.12,7.48,8.08,6.78,7.16,7.59,7.02,6.88,7.44,7.43,6.83,7.06,7.48,8.12,7.15,7.6,6.81,7.01,6.93,7.44,7.5,6.84,7.1,7.51,8.07,6.77,7.14,7.58,7.3,7.32,6.88,7.35,7.3,6.85,7.29,7.31,6.89,6.87,8.17,9.3,11.4,6.74,7.53,7.28,7.21,6.82,8.21,9.33,11.4,6.74,7.53,7.27,7.23,6.87,8.22,9.35,11.4,6.79,7.59,7.2,7.31,6.96,9.39,6.78,10.5,6.95,9.41,6.74,10.5,6.96,9.42,6.71,10.5,6.81,8.19,9.36,11.4,6.75,7.52,7.23,7.23,6.85,8.2,9.38,11.4,6.77,7.57,7.26,7.24,6.86,8.18,9.33,11.4,7.56,7.14,7.29,7.01,6.99,6.82,6.98,6.96,6.77,6.98,7,6.82,7.22,9.22,7.24,9.2,7.26,9.18,7.71,7.35,7.67,7.58,8.86,7.73,7.37,7.71,7.58,8.86,7.7,7.36,7.72,7.59,8.88,7.62,6.91,7.62,6.89,6.98,7.33,10.9,6.86,7.34,7.01,6.7,7.27,11,6.84,7.31,6.99,6.67,7.25,10.8,6.83,7.34,6.95,6.92,7.37,6.78,6.98,6.85,7.64,8.41,6.97,6.9,7.35,6.77,6.96,6.84,7.63,8.4,6.95,6.93,7.34,6.76,6.96,6.86,7.61,8.41,6.84,6.86,6.86],[0.341,0.396,0.477,0.407,0.911,0.538,0.58,0.583,0.0149,0.377,0.705,0.718,0.112,0.613,0.33,0.364,0.954,0.599,0.524,0.643,0.633,0.289,0.92,0.27,0.35,0.576,0.38,0.712,0.98,0.435,0.872,0.169,0.578,0.604,0.256,0.0859,0.406,0.423,0.0571,0.966,0.411,0.458,0.00746,0.174,0.144,0.62,0.733,0.952,0.304,0.0651,0.871,0.656,0.711,0.414,0.46,0.0318,0.685,0.839,0.247,0.202,0.0448,0.18,0.669,0.528,0.0835,0.867,0.776,0.691,0.00615,0.845,0.276,0.797,0.745,0.915,0.834,0.349,0.654,0.281,0.315,0.406,0.636,0.0654,0.391,0.484,0.104,0.958,0.33,0.025,0.368,0.0194,0.684,0.226,0.158,0.743,0.373,0.158,0.603,0.402,0.956,0.095,0.909,0.585,0.316,0.673,0.775,0.831,0.304,0.643,0.048,0.215,0.134,0.727,0.0992,0.319,0.411,0.335,0.761,0.96,0.665,0.051,0.717,0.146,0.981,0.904,0.287,0.261,0.53,0.705,0.778,0.66,0.881,0.691,0.507,0.398,0.733,0.419,0.67,0.857,0.776,0.288,0.842,0.858,0.082,0.377,0.913,0.843,0.345,0.572,0.486,0.0636,0.892,0.277,0.375,0.443,0.304,0.584,0.34,0.459,0.0489,0.62,0.804,0.0112,0.574,0.629,0.914,0.822,0.536,0.867,0.605,0.002,0.994,0.471,0.392,0.82,0.68,0.163,0.69,0.148,0.801,0.0818,0.873,0.261,0.99,0.335,0.0487,0.957,0.662,0.842,0.214,0.254,0.0657,0.976,0.00237,0.35,0.587,0.563,0.111,0.624,0.281,0.531,0.473,0.56,0.852,0.248,0.0904,0.916,0.556,0.731,0.623,0.83,0.878,0.261,0.333,0.0434,0.218,0.54,0.807,0.0258,0.792,0.37,0.491,0.768],[1,1,1,1,1,1,0.999,0.999,0.884,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.991,0.95,1,0.998,0.998,0.998,0.998,0.998,0.998,1,1,1,1,1,1,0.978,0.937,0.9,0.955,0.957,0.885,0.998,1,0.995,0.947,1,1,1,1,1,1,1,1,1,1,1,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.997,0.997,0.997,0.963,0.997,0.994,0.997,0.997,0.997,0.997,0.997,1,1,1,0.995,0.995,0.986,0.999,0.999,0.999,1,1,1,1,1,1,1,1,0.991,0.965,0.918,0.991,0.971,0.993,0.879,0.991,0.998,0.998,0.998,0.998,0.998,0.998,0.998,0.998,0.99,0.99,0.99,0.99,0.997,0.997,0.997,0.997,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.992,0.999,0.992,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.998,0.998,0.998,0.999,0.999,0.999,1,1,1,0.99,0.97,0.967,0.93,0.998,0.998,0.948,0.992,0.443,0.939,0.951,1,1,1,1,1,0.654,0.999,0.97,0.97,0.983,0.996,0.996,0.993,0.993,0.999,0.999,0.999,0.999,1,0.999,0.999,0.999,0.999,0.999,0.999,0.997,0.997,0.997,0.78,0.997,0.997,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.999,0.998,0.998,0.998,0.998,0.998,0.998,0.998,0.998,0.834,0.861,0.588,0.812,0.941,0.976,0.523,0.975,0.999,1,0.999],[0.338,0.394,0.474,0.405,0.909,0.536,0.565,0.568,0.0133,0.359,0.694,0.707,0.103,0.601,0.314,0.348,0.952,0.587,0.503,0.631,0.623,0.271,0.914,0.252,0.333,0.562,0.363,0.705,0.98,0.425,0.87,0.161,0.568,0.599,0.249,0.0818,0.398,0.416,0.0546,0.964,0.395,0.443,0.00712,0.161,0.133,0.61,0.725,0.951,0.289,0.0589,0.867,0.646,0.703,0.401,0.443,0.0272,0.672,0.832,0.229,0.185,0.0391,0.163,0.655,0.511,0.073,0.861,0.767,0.679,0.00537,0.839,0.258,0.788,0.735,0.911,0.827,0.33,0.646,0.272,0.306,0.4,0.631,0.0638,0.383,0.475,0.0989,0.956,0.317,0.0242,0.355,0.0188,0.675,0.214,0.149,0.735,0.361,0.149,0.593,0.389,0.954,0.0887,0.905,0.566,0.292,0.657,0.764,0.823,0.281,0.626,0.0395,0.203,0.124,0.718,0.0902,0.313,0.405,0.329,0.757,0.958,0.658,0.0476,0.71,0.131,0.98,0.899,0.269,0.244,0.513,0.693,0.769,0.647,0.875,0.678,0.488,0.377,0.722,0.399,0.657,0.851,0.769,0.277,0.837,0.853,0.0756,0.364,0.911,0.839,0.337,0.561,0.474,0.0589,0.889,0.263,0.36,0.435,0.298,0.574,0.33,0.444,0.0461,0.615,0.802,0.0121,0.569,0.625,0.911,0.818,0.529,0.863,0.598,0.00203,0.994,0.454,0.374,0.812,0.667,0.148,0.69,0.171,0.794,0.0756,0.868,0.247,0.989,0.323,0.044,0.956,0.654,0.837,0.201,0.236,0.0585,0.975,0.00264,0.331,0.572,0.552,0.104,0.613,0.27,0.519,0.461,0.548,0.85,0.24,0.0869,0.914,0.549,0.725,0.616,0.826,0.874,0.26,0.33,0.0492,0.217,0.534,0.803,0.0316,0.787,0.362,0.477,0.762],[1,1,1,1,1,1,0.985,0.985,0.784,0.968,0.995,0.995,0.999,0.999,0.999,0.999,0.999,0.999,0.963,0.931,1,0.978,0.996,0.972,0.985,0.985,0.985,0.999,0.999,0.999,0.999,0.999,0.999,0.97,0.912,0.86,0.938,0.941,0.843,0.998,0.998,0.991,0.86,0.986,0.986,0.998,0.999,0.999,0.986,0.986,0.999,0.999,0.999,0.986,0.996,0.971,0.996,0.997,0.996,0.996,0.971,0.996,0.996,0.996,0.971,0.994,0.992,0.992,0.842,0.994,0.928,0.992,0.992,0.994,0.994,0.965,1,1,1,0.986,0.991,0.971,0.998,0.998,0.998,1,0.996,0.995,0.996,0.995,0.996,0.995,0.995,0.988,0.932,0.868,0.982,0.94,0.991,0.82,0.988,0.995,0.985,0.995,0.998,0.998,0.985,0.995,0.977,0.986,0.986,0.986,0.986,0.996,0.996,0.996,0.996,0.998,0.998,0.998,0.998,0.995,0.999,0.995,0.995,0.995,0.995,0.995,0.995,0.981,0.996,0.983,0.963,0.952,0.986,0.952,0.981,0.995,0.994,0.994,0.994,0.995,0.994,0.994,0.998,0.998,0.998,0.999,0.999,0.999,1,1,1,0.973,0.952,0.954,0.9,0.995,0.995,0.941,0.99,0.459,0.931,0.944,0.999,0.998,0.998,0.998,0.998,0.612,0.999,0.937,0.929,0.974,0.993,0.952,0.994,0.994,0.993,0.942,0.994,0.978,0.999,0.998,0.998,0.999,0.998,0.998,0.998,0.971,0.971,0.996,0.836,0.971,0.982,0.984,0.949,0.99,0.981,0.984,0.984,0.984,0.998,0.997,0.997,0.997,0.997,0.997,0.997,0.997,0.997,0.828,0.852,0.667,0.808,0.929,0.971,0.64,0.969,0.992,1,0.998]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>locus_SNP<\/th>\n      <th>locus<\/th>\n      <th>gRNA<\/th>\n      <th>cisGene<\/th>\n      <th>logFC<\/th>\n      <th>logCPM<\/th>\n      <th>PValue<\/th>\n      <th>FDR<\/th>\n      <th>empiricalP<\/th>\n      <th>empiricalFDR<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[5,6,7,8,9,10]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script> <a href="%22data/SNP_500000_empiricalP.txt%22">download this table</a> <br> <br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 3.5.1 (2018-07-02)
 Platform: x86_64-pc-linux-gnu (64-bit)
@@ -603,19 +692,18 @@ locale:
 attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
-other attached packages:
-[1] edgeR_3.24.3 limma_3.38.2
-
 loaded via a namespace (and not attached):
- [1] locfit_1.5-9.1    workflowr_1.1.1   Rcpp_1.0.0       
- [4] lattice_0.20-38   digest_0.6.18     rprojroot_1.3-2  
- [7] R.methodsS3_1.7.1 grid_3.5.1        backports_1.1.2  
-[10] git2r_0.23.0      magrittr_1.5      evaluate_0.12    
-[13] stringi_1.3.1     whisker_0.3-2     R.oo_1.22.0      
-[16] R.utils_2.7.0     rmarkdown_1.10    tools_3.5.1      
-[19] stringr_1.4.0     yaml_2.2.0        compiler_3.5.1   
-[22] htmltools_0.3.6   knitr_1.20       </code></pre>
+ [1] Rcpp_1.0.0      knitr_1.20      whisker_0.3-2   magrittr_1.5   
+ [5] workflowr_1.2.0 xtable_1.8-3    R6_2.3.0        stringr_1.4.0  
+ [9] tools_3.5.1     DT_0.5          git2r_0.23.0    htmltools_0.3.6
+[13] crosstalk_1.0.0 yaml_2.2.0      rprojroot_1.3-2 digest_0.6.18  
+[17] shiny_1.2.0     later_0.7.5     htmlwidgets_1.3 fs_1.2.6       
+[21] promises_1.0.1  glue_1.3.0      evaluate_0.12   mime_0.6       
+[25] rmarkdown_1.10  stringi_1.3.1   compiler_3.5.1  backports_1.1.2
+[29] jsonlite_1.6    httpuv_1.4.5   </code></pre>
 </div>
+</div>
+
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
@@ -628,14 +716,6 @@ footer is added to webpages before the MathJax javascript. -->
     "HTML-CSS": { availableFonts: ["TeX"] }
   });
 </script>
-
-<hr>
-<p>
-  This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a>
-  analysis was created with
-  <a href="https://github.com/jdblischak/workflowr">workflowr</a> 1.1.1
-</p>
-<hr>
 
 
 </div>

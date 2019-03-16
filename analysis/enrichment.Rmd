@@ -29,20 +29,79 @@ where
 ```
 
 ## genes +/- 50kb of targeted SNPs
+```{r, gRNAsnp}
+snpfile <- "/project2/xinhe/simingz/CROP-seq/scRNA_seq_SNP_list.txt"
+gRNAsnp <- read.table(snpfile, header=F, stringsAsFactors = F)
+colnames(gRNAsnp) <- c("locus_SNP", "locus")
+```
+
 ```{r, er50k}
 cisgene <- read.table("data/SNP_50000.txt", stringsAsFactors = F,sep="\t", header=T)
-cisg <- unique(cisgene$name2)
+outdfall <- NULL
+for (i in 1:dim(gRNAsnp)[1]){
+  locsnp <- gRNAsnp[i,"locus_SNP"]
+  loc <- gRNAsnp[i,"locus"]
+  loccisgene <- unique(cisgene[cisgene[,3]==locsnp,1])
+  for (pfile in list.files("data/gRNA_edgeR-QLF/", paste0(loc, "_.*_edgeR-qlf_Neg1_Empricialp.Rd"))){
+    load(paste0("data/gRNA_edgeR-QLF/",pfile))
+    gRNA <- strsplit(pfile, split = "_edgeR")[[1]][1]
+    outdf <- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,4,5,9,10)])
+    colnames(outdf)[c(1,2,4,9,10)] <- c("locus_SNP", "locus", "cisGene", "empiricalP", "empiricalFDR")
+    outdfall <- rbind(outdfall, outdf)
+  }
+}
+rownames(outdfall) <- NULL
+outdfall <- outdfall[complete.cases(outdfall),]
+outdfall[, 5:10] <- signif(outdfall[,5:10],3)
+write.table( outdfall , file= "data/SNP_50000_empiricalP.txt" , row.names=F, col.names=T, sep="\t", quote = F)
+DT::datatable(outdfall)
 ```
+[download this table]("data/SNP_200000_empiricalP.txt")
 
 ## genes +/- 200kb of targeted SNPs
 ```{r, er200k}
 cisgene <- read.table("data/SNP_200000.txt", stringsAsFactors = F,sep="\t", header=T)
-cisg <- unique(cisgene$name2)
+outdfall <- NULL
+for (i in 1:dim(gRNAsnp)[1]){
+  locsnp <- gRNAsnp[i,"locus_SNP"]
+  loc <- gRNAsnp[i,"locus"]
+  loccisgene <- unique(cisgene[cisgene[,3]==locsnp,1])
+  for (pfile in list.files("data/gRNA_edgeR-QLF/", paste0(loc, "_.*_edgeR-qlf_Neg1_Empricialp.Rd"))){
+    load(paste0("data/gRNA_edgeR-QLF/",pfile))
+    gRNA <- strsplit(pfile, split = "_edgeR")[[1]][1]
+    outdf <- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,4,5,9,10)])
+    colnames(outdf)[c(1,2,4,9,10)] <- c("locus_SNP", "locus", "cisGene", "empiricalP", "empiricalFDR")
+    outdfall <- rbind(outdfall, outdf)
+  }
+}
+rownames(outdfall) <- NULL
+outdfall <- outdfall[complete.cases(outdfall),]
+outdfall[, 5:10] <- signif(outdfall[,5:10],3)
+write.table( outdfall , file= "data/SNP_200000_empiricalP.txt" , row.names=F, col.names=T, sep="\t", quote = F)
+DT::datatable(outdfall)
 ```
-
+[download this table]("data/SNP_200000_empiricalP.txt")
 
 ## genes +/- 500kb of targeted SNPs
 ```{r, er500k}
 cisgene <- read.table("data/SNP_500000.txt", stringsAsFactors = F,sep="\t", header=T)
-cisg <- unique(cisgene$name2)
+outdfall <- NULL
+for (i in 1:dim(gRNAsnp)[1]){
+  locsnp <- gRNAsnp[i,"locus_SNP"]
+  loc <- gRNAsnp[i,"locus"]
+  loccisgene <- unique(cisgene[cisgene[,3]==locsnp,1])
+  for (pfile in list.files("data/gRNA_edgeR-QLF/", paste0(loc, "_.*_edgeR-qlf_Neg1_Empricialp.Rd"))){
+    load(paste0("data/gRNA_edgeR-QLF/",pfile))
+    gRNA <- strsplit(pfile, split = "_edgeR")[[1]][1]
+    outdf <- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,4,5,9,10)])
+    colnames(outdf)[c(1,2,4,9,10)] <- c("locus_SNP", "locus", "cisGene", "empiricalP", "empiricalFDR")
+    outdfall <- rbind(outdfall, outdf)
+  }
+}
+rownames(outdfall) <- NULL
+outdfall <- outdfall[complete.cases(outdfall),]
+outdfall[, 5:10] <- signif(outdfall[,5:10],3)
+write.table( outdfall , file= "data/SNP_500000_empiricalP.txt" , row.names=F, col.names=T, sep="\t", quote = F)
+DT::datatable(outdfall)
 ```
+[download this table]("data/SNP_500000_empiricalP.txt")
