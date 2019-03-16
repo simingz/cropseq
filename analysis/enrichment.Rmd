@@ -45,14 +45,14 @@ for (i in 1:dim(gRNAsnp)[1]){
   for (pfile in list.files("data/gRNA_edgeR-QLF/", paste0(loc, "_.*_edgeR-qlf_Neg1_Empricialp.Rd"))){
     load(paste0("data/gRNA_edgeR-QLF/",pfile))
     gRNA <- strsplit(pfile, split = "_edgeR")[[1]][1]
-    outdf <- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,4,5,9,10)])
-    colnames(outdf)[c(1,2,4,9,10)] <- c("locus_SNP", "locus", "cisGene", "empiricalP", "empiricalFDR")
+    outdf <- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,9,10)])
+    colnames(outdf)[c(1,2,4,7,8)] <- c("locus_SNP", "locus", "cisGene", "empiricalP", "empiricalFDR")
     outdfall <- rbind(outdfall, outdf)
   }
 }
 rownames(outdfall) <- NULL
 outdfall <- outdfall[complete.cases(outdfall),]
-outdfall[, 5:10] <- signif(outdfall[,5:10],3)
+outdfall[, 5:8] <- signif(outdfall[,5:8],3)
 write.table( outdfall , file= "data/SNP_50000_empiricalP.txt" , row.names=F, col.names=T, sep="\t", quote = F)
 DT::datatable(outdfall)
 ```
@@ -69,14 +69,14 @@ for (i in 1:dim(gRNAsnp)[1]){
   for (pfile in list.files("data/gRNA_edgeR-QLF/", paste0(loc, "_.*_edgeR-qlf_Neg1_Empricialp.Rd"))){
     load(paste0("data/gRNA_edgeR-QLF/",pfile))
     gRNA <- strsplit(pfile, split = "_edgeR")[[1]][1]
-    outdf <- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,4,5,9,10)])
-    colnames(outdf)[c(1,2,4,9,10)] <- c("locus_SNP", "locus", "cisGene", "empiricalP", "empiricalFDR")
+    outdf <- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,9,10)])
+    colnames(outdf)[c(1,2,4,7,8)] <- c("locus_SNP", "locus", "cisGene", "empiricalP", "empiricalFDR")
     outdfall <- rbind(outdfall, outdf)
   }
 }
 rownames(outdfall) <- NULL
 outdfall <- outdfall[complete.cases(outdfall),]
-outdfall[, 5:10] <- signif(outdfall[,5:10],3)
+outdfall[, 5:8] <- signif(outdfall[,5:8],3)
 write.table( outdfall , file= "data/SNP_200000_empiricalP.txt" , row.names=F, col.names=T, sep="\t", quote = F)
 DT::datatable(outdfall)
 ```
@@ -93,14 +93,14 @@ for (i in 1:dim(gRNAsnp)[1]){
   for (pfile in list.files("data/gRNA_edgeR-QLF/", paste0(loc, "_.*_edgeR-qlf_Neg1_Empricialp.Rd"))){
     load(paste0("data/gRNA_edgeR-QLF/",pfile))
     gRNA <- strsplit(pfile, split = "_edgeR")[[1]][1]
-    outdf <- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,4,5,9,10)])
-    colnames(outdf)[c(1,2,4,9,10)] <- c("locus_SNP", "locus", "cisGene", "empiricalP", "empiricalFDR")
+    outdf <- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,9,10)])
+    colnames(outdf)[c(1,2,4,7,8)] <- c("locus_SNP", "locus", "cisGene", "empiricalP", "empiricalFDR")
     outdfall <- rbind(outdfall, outdf)
   }
 }
 rownames(outdfall) <- NULL
 outdfall <- outdfall[complete.cases(outdfall),]
-outdfall[, 5:10] <- signif(outdfall[,5:10],3)
+outdfall[, 5:8] <- signif(outdfall[,5:8],3)
 write.table( outdfall , file= "data/SNP_500000_empiricalP.txt" , row.names=F, col.names=T, sep="\t", quote = F)
 DT::datatable(outdfall)
 ```
