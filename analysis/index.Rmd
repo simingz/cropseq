@@ -19,10 +19,10 @@ Differetial expression
     * [DEseq2-standard](DEseq2-standard.html)  
     * [DESeq2-LRT](DEseq2-LRT.html)  
     * [EdgeR-QLF](EdgeR-QLF.html)  
-    * [EdgeR-LRT](EdgeR-LRT.html)  
+    * [EdgeR-LRT](EdgeR-LRT.html)
 
-* Exploring for each individual gRNA
-    * [gRNA-EdgeR-QLF](gRNA-EdgeR-QLF.html)
+* Exploring for each individual gRNA and get permutation p values
+    * [gRNA-EdgeR-QLF](gRNA-EdgeR-QLF_permutation.html)
 
 Enrichment analysis
 

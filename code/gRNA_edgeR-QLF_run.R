@@ -2,23 +2,22 @@ source("code/DE_functions.R")
 library(foreach)
 library(Matrix)
 
-ncluster <- 5
+ncluster <- 5 # for neg2, 1 core requires 10G for 6000 genes,4000 samples
 load("data/DE_input.Rd")
 Nperm <- 30
-filtcpm=50
+filtcpm= 30
 filtpercent=0.2
 
 genedm <- dm[1:(dim(dm)[1]-76), ]
 gRNAdm0 <- dm[(dim(dm)[1]-75):dim(dm)[1],]
 
-# cellpercent <-  apply(genedm0,1,function(x) length(x[x>1])/length(x))
-# genedm <- genedm0[cellpercent> filt,]
-
 cl <- parallel::makeCluster(ncluster, outfile="")
 doParallel::registerDoParallel(cl)
 foreach (gRNAindex=1:dim(gRNAdm0)[1], .packages = c("Matrix", "edgeR","gtools")) %dopar% {
+#for (gRNAindex in 1:dim(gRNAdm0)[1]){
   gRNA <- rownames(gRNAdm0)[gRNAindex]
   print(gRNA)
+  if (!file.exists(paste0("data/gRNA_edgeR-QLF/", gRNA, "_edgeR-qlf_Neg2.Rd"))) {
   gRNAlocus <- strsplit(gRNA, split = "_")[[1]][1]
   gcount <- genedm[,gRNAdm0[gRNA,] >0 & colSums(gRNAdm0[rownames(gRNAdm0) != gRNA,]) ==0]
   if (dim(gcount)[2] !=0 & gRNAlocus != "neg") {
@@ -39,7 +38,7 @@ foreach (gRNAindex=1:dim(gRNAdm0)[1], .packages = c("Matrix", "edgeR","gtools"))
     save(res2, permres2, file=paste0("data/gRNA_edgeR-QLF/", gRNA, "_edgeR-qlf_Neg2.Rd"))
   }
 }
-
+}
 parallel::stopCluster(cl)
 
 
