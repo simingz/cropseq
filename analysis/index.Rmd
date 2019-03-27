@@ -23,7 +23,10 @@ output:
     * [MASTcpmdet](MASTcpmdet.html)
     * [t-test](t-test.html)
     * [wilcoxon](wilcoxon.html)
-
+    
+* Exploring for each individual gRNA
+    * [gRNA-MASTcpmdet](gRNA-MASTcpmdet.html)
+    
 * Exploring for each individual gRNA and get permutation p values
     * [gRNA-EdgeR-QLF](gRNA-EdgeR-QLF_permutation.html)
 

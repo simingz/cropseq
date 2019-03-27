@@ -7,6 +7,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Using MAST result. p value comes from MAST, no permutation.
 ## Get cis genes for each targted locus
 ```{bash, eval=F}
 # SNPfile: "/project2/xinhe/simingz/CROP-seq/scRNA_seq_SNP_list.txt"
@@ -42,21 +43,20 @@ for (i in 1:dim(gRNAsnp)[1]){
   locsnp <- gRNAsnp[i,"locus_SNP"]
   loc <- gRNAsnp[i,"locus"]
   loccisgene <- unique(cisgene[cisgene[,3]==locsnp,1])
-  for (pfile in list.files("data/gRNA_edgeR-QLF/", paste0(loc, "_.*_edgeR-qlf_Neg1_Empricialp.Rd"))){
-    load(paste0("data/gRNA_edgeR-QLF/",pfile))
-    gRNA <- strsplit(pfile, split = "_edgeR")[[1]][1]
-    outdf <- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,9,10)])
-    colnames(outdf)[c(1,2,4,7,8)] <- c("locus_SNP", "locus", "cisGene", "empiricalP", "empiricalFDR")
+  for (pfile in list.files("data/gRNA_MASTcpmdet/", paste0(loc, "_.*_MASTcpmdet_Neg1.Rd"))){
+    load(paste0("data/gRNA_MASTcpmdet/",pfile))
+    gRNA <- strsplit(pfile, split = "_MAST")[[1]][1]
+    outdf <- cbind(locsnp, loc, gRNA,loccisgene, res1[loccisgene, c(1,2)])
+    colnames(outdf)[c(1,2,4,5,6)] <- c("locus_SNP", "locus", "cisGene", "MASTcpmdetvalue", "FDR")
     outdfall <- rbind(outdfall, outdf)
   }
 }
 rownames(outdfall) <- NULL
 outdfall <- outdfall[complete.cases(outdfall),]
-outdfall[, 5:8] <- signif(outdfall[,5:8],3)
-write.table( outdfall , file= "data/SNP_50000_empiricalP.txt" , row.names=F, col.names=T, sep="\t", quote = F)
+write.table( outdfall , file= "data/SNP_50000_MASTcpmdet.txt" , row.names=F, col.names=T, sep="\t", quote = F)
 DT::datatable(outdfall)
 ```
-[download this table](https://github.com/simingz/cropseq/blob/master/data/SNP_50000_empiricalP.txt)
+[download this table](https://github.com/simingz/cropseq/blob/master/data/SNP_50000_MASTcpmdet.txt)
 
 ## genes +/- 200kb of targeted SNPs
 ```{r, er200k}
@@ -66,21 +66,20 @@ for (i in 1:dim(gRNAsnp)[1]){
   locsnp <- gRNAsnp[i,"locus_SNP"]
   loc <- gRNAsnp[i,"locus"]
   loccisgene <- unique(cisgene[cisgene[,3]==locsnp,1])
-  for (pfile in list.files("data/gRNA_edgeR-QLF/", paste0(loc, "_.*_edgeR-qlf_Neg1_Empricialp.Rd"))){
-    load(paste0("data/gRNA_edgeR-QLF/",pfile))
-    gRNA <- strsplit(pfile, split = "_edgeR")[[1]][1]
-    outdf <- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,9,10)])
-    colnames(outdf)[c(1,2,4,7,8)] <- c("locus_SNP", "locus", "cisGene", "empiricalP", "empiricalFDR")
+  for (pfile in list.files("data/gRNA_MASTcpmdet/", paste0(loc, "_.*_MASTcpmdet_Neg1.Rd"))){
+    load(paste0("data/gRNA_MASTcpmdet/",pfile))
+    gRNA <- strsplit(pfile, split = "_MAST")[[1]][1]
+    outdf <- cbind(locsnp, loc, gRNA,loccisgene, res1[loccisgene, c(1,2)])
+    colnames(outdf)[c(1,2,4,5,6)] <- c("locus_SNP", "locus", "cisGene", "MASTcpmdetvalue", "FDR")
     outdfall <- rbind(outdfall, outdf)
   }
 }
 rownames(outdfall) <- NULL
 outdfall <- outdfall[complete.cases(outdfall),]
-outdfall[, 5:8] <- signif(outdfall[,5:8],3)
-write.table( outdfall , file= "data/SNP_200000_empiricalP.txt" , row.names=F, col.names=T, sep="\t", quote = F)
+write.table( outdfall , file= "data/SNP_200000_MASTcpmdet.txt" , row.names=F, col.names=T, sep="\t", quote = F)
 DT::datatable(outdfall)
 ```
-[download this table](https://github.com/simingz/cropseq/blob/master/data/SNP_200000_empiricalP.txt)
+[download this table](https://github.com/simingz/cropseq/blob/master/data/SNP_200000_MASTcpmdet.txt)
 
 ## genes +/- 500kb of targeted SNPs
 ```{r, er500k}
@@ -90,21 +89,20 @@ for (i in 1:dim(gRNAsnp)[1]){
   locsnp <- gRNAsnp[i,"locus_SNP"]
   loc <- gRNAsnp[i,"locus"]
   loccisgene <- unique(cisgene[cisgene[,3]==locsnp,1])
-  for (pfile in list.files("data/gRNA_edgeR-QLF/", paste0(loc, "_.*_edgeR-qlf_Neg1_Empricialp.Rd"))){
-    load(paste0("data/gRNA_edgeR-QLF/",pfile))
-    gRNA <- strsplit(pfile, split = "_edgeR")[[1]][1]
-    outdf <- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,9,10)])
-    colnames(outdf)[c(1,2,4,7,8)] <- c("locus_SNP", "locus", "cisGene", "empiricalP", "empiricalFDR")
+  for (pfile in list.files("data/gRNA_MASTcpmdet/", paste0(loc, "_.*_MASTcpmdet_Neg1.Rd"))){
+    load(paste0("data/gRNA_MASTcpmdet/",pfile))
+    gRNA <- strsplit(pfile, split = "_MAST")[[1]][1]
+    outdf <- cbind(locsnp, loc, gRNA,loccisgene, res1[loccisgene, c(1,2)])
+    colnames(outdf)[c(1,2,4,5,6)] <- c("locus_SNP", "locus", "cisGene", "MASTcpmdetvalue", "FDR")
     outdfall <- rbind(outdfall, outdf)
   }
 }
 rownames(outdfall) <- NULL
 outdfall <- outdfall[complete.cases(outdfall),]
-outdfall[, 5:8] <- signif(outdfall[,5:8],3)
-write.table( outdfall , file= "data/SNP_500000_empiricalP.txt" , row.names=F, col.names=T, sep="\t", quote = F)
+write.table( outdfall , file= "data/SNP_500000_MASTcpmdet.txt" , row.names=F, col.names=T, sep="\t", quote = F)
 DT::datatable(outdfall)
 ```
-[download this table](https://github.com/simingz/cropseq/blob/master/data/SNP_500000_empiricalP.txt)
+[download this table](https://github.com/simingz/cropseq/blob/master/data/SNP_500000_MASTcpmdet.txt)
 
 ## genes +/- 1Mb of targeted SNPs
 ```{r, er1M}
@@ -114,18 +112,17 @@ for (i in 1:dim(gRNAsnp)[1]){
   locsnp <- gRNAsnp[i,"locus_SNP"]
   loc <- gRNAsnp[i,"locus"]
   loccisgene <- unique(cisgene[cisgene[,3]==locsnp,1])
-  for (pfile in list.files("data/gRNA_edgeR-QLF/", paste0(loc, "_.*_edgeR-qlf_Neg1_Empricialp.Rd"))){
-    load(paste0("data/gRNA_edgeR-QLF/",pfile))
-    gRNA <- strsplit(pfile, split = "_edgeR")[[1]][1]
-    outdf <- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,9,10)])
-    colnames(outdf)[c(1,2,4,7,8)] <- c("locus_SNP", "locus", "cisGene", "empiricalP", "empiricalFDR")
+  for (pfile in list.files("data/gRNA_MASTcpmdet/", paste0(loc, "_.*_MASTcpmdet_Neg1.Rd"))){
+    load(paste0("data/gRNA_MASTcpmdet/",pfile))
+    gRNA <- strsplit(pfile, split = "_MAST")[[1]][1]
+    outdf <- cbind(locsnp, loc, gRNA,loccisgene, res1[loccisgene, c(1,2)])
+    colnames(outdf)[c(1,2,4,5,6)] <- c("locus_SNP", "locus", "cisGene", "MASTcpmdetvalue", "FDR")
     outdfall <- rbind(outdfall, outdf)
   }
 }
 rownames(outdfall) <- NULL
 outdfall <- outdfall[complete.cases(outdfall),]
-outdfall[, 5:8] <- signif(outdfall[,5:8],3)
-write.table( outdfall , file= "data/SNP_1000000_empiricalP.txt" , row.names=F, col.names=T, sep="\t", quote = F)
+write.table( outdfall , file= "data/SNP_1000000_MASTcpmdet.txt" , row.names=F, col.names=T, sep="\t", quote = F)
 DT::datatable(outdfall)
 ```
-[download this table](https://github.com/simingz/cropseq/blob/master/data/SNP_1000000_empiricalP.txt)
+[download this table](https://github.com/simingz/cropseq/blob/master/data/SNP_1000000_MASTcpmdet.txt)

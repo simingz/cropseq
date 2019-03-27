@@ -1,0 +1,61 @@
+---
+title: "gRNA res MASTcpmdet result"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+This summarizes results obtained from running `module load R; Rscript code/gRNA_MASTcpmdet_run.R` from shell.
+
+```{r}
+library(Matrix)
+load("data/DE_input.Rd")
+source("code/summary_functions.R")
+gRNAdm0 <- dm[(dim(dm)[1]-75):dim(dm)[1],]
+```
+## Using only cells with negative control gRNA as controls
+```{r, message=F}
+for (gRNAfile in  list.files("data/gRNA_MASTcpmdet/", "*MASTcpmdet_Neg1.Rd")){
+  print(gRNAfile)
+  gRNA <- strsplit(gRNAfile, "_MAST")[[1]][1]
+  gRNAlocus <- strsplit(gRNA, split = "_")[[1]][1]
+  load(paste0("data/gRNA_MASTcpmdet/", gRNAfile))
+  print(signif(head(res1,n=10),2))
+  plotgn <- rownames(res1[,][res1[,"fdr"] <0.2,])
+  if (length(plotgn)!=0){
+    summ_pvalues(res1$pval)
+    for (gn in plotgn){
+      gcount <- dm[gn, gRNAdm0[gRNA,] >0 & colSums(gRNAdm0[rownames(gRNAdm0) != gRNA,]) == 0]
+      ncount1 <- dm[gn, colnames(dm1dfagg)[dm1dfagg["neg",] >0 & nlocus==1]]
+      a <- rbind(cbind(gcount,1),cbind(ncount1,2))
+      colnames(a) <- c("count","categ")
+      boxplot(count ~categ, data = a, lwd = 2, main=paste(gRNA, gn, sep=":"),  outcol="white")
+      stripchart(count ~categ, data=a, vertical = TRUE,  method = "jitter", add = TRUE, pch = 21, cex=2, col = 'blue')
+    }
+  }
+}
+```
+## Using all cells except the ones with targeted gRNA as controls
+
+```{r, message=F, eval=F}
+for (gRNAfile in  list.files("data/gRNA_MASTcpmdet/", "*MASTcpmdet_Neg2.Rd")){
+  print(gRNAfile)
+  gRNA <- strsplit(gRNAfile, "_MAST")[[1]][1]
+  gRNAlocus <- strsplit(gRNA, split = "_")[[1]][1]
+  load(paste0("data/gRNA_MASTcpmdet/", gRNAfile))
+  print(signif(head(res2,n=10),2))
+  plotgn <- rownames(res2[,][res2[,"fdr"] <0.2,])
+  if (length(plotgn)!=0){
+    summ_pvalues(res2$pval)
+    for (gn in plotgn){
+      gcount <- dm[gn, gRNAdm0[gRNA,] >0 & colSums(gRNAdm0[rownames(gRNAdm0) != gRNA,]) == 0]
+      ncount2 <- dm[gn, colnames(dm1dfagg)[dm1dfagg[gRNAlocus,] == 0]]
+      a <- rbind(cbind(gcount,1),cbind(ncount2,2))
+      colnames(a) <- c("count","categ")
+      boxplot(count ~categ, data = a, lwd = 2, main=paste(gRNA, gn, sep=":"),  outcol="white")
+      stripchart(count ~categ, data=a, vertical = TRUE,  method = "jitter", add = TRUE, pch = 21, cex=2, col = 'blue')
+    }
+  }
+}
+```
