@@ -5,25 +5,30 @@ output:
     toc: false
 ---
 
-### Crop-seq 
+# Crop-seq 
 
-[Exploratory Analysis & DESeq2 from Alan](crop_workflow_Alan.html) 
+## [Exploratory Analysis & DESeq2 from Alan](crop_workflow_Alan.html) 
 
-[Exploratory Analysis from Siwei](crop_workflow_Siwei.html) 
+## [Exploratory Analysis from Siwei](crop_workflow_Siwei.html) 
 
-[Quality_metrics](Quality_metrics.html) 
+## [Quality_metrics](Quality_metrics.html) 
 
-Differetial expression
+## Differential expression
 
 * Exploring different methods for locus VPS45
     * [DEseq2-standard](DEseq2-standard.html)  
     * [DESeq2-LRT](DEseq2-LRT.html)  
     * [EdgeR-QLF](EdgeR-QLF.html)  
     * [EdgeR-LRT](EdgeR-LRT.html)
+    * [MASTcpmdet](MASTcpmdet.html)
+    * [t-test](t-test.html)
+    * [wilcoxon](wilcoxon.html)
 
 * Exploring for each individual gRNA and get permutation p values
     * [gRNA-EdgeR-QLF](gRNA-EdgeR-QLF_permutation.html)
 
-Enrichment analysis
+## Enrichment of differentially expressed cis genes
 
-* [Enrichment of differentially expressed cis genes](enrichment.html)
+* [Using individual gRNA, edgeR-QLF, permutation pvalue](enrichment_gRNA-EdgeR-QLF_permutation.html)
+* [Using individual gRNA, MASTcpmdet](enrichment_gRNA-MASTcpmdet.html)
+

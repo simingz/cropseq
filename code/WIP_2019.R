@@ -2,9 +2,7 @@ source("code/DE_functions.R")
 library(foreach)
 library(Matrix)
 
-ncluster <- 5
 load("data/DE_input.Rd")
-Nperm <- 30
 filtcpm=0
 filtpercent=0.03
 gRNA <- "BAG5_3_gene"

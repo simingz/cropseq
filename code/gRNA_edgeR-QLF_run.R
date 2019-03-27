@@ -21,13 +21,13 @@ foreach (gRNAindex=1:dim(gRNAdm0)[1], .packages = c("Matrix", "edgeR","gtools"))
   gRNAlocus <- strsplit(gRNA, split = "_")[[1]][1]
   gcount <- genedm[,gRNAdm0[gRNA,] >0 & colSums(gRNAdm0[rownames(gRNAdm0) != gRNA,]) ==0]
   if (dim(gcount)[2] !=0 & gRNAlocus != "neg") {
-    # ncount1 <- genedm[, colnames(dm1dfagg)[dm1dfagg["neg",] >0 & nlocus==1]]
-    # res1 <- run_edgeR_qlf(gcount,ncount1, filtcpm, filtpercent, perm=F)
-    # permres1 <- list()
-    # for (i in 1:Nperm) {
-    #   permres1[[i]] <- run_edgeR_qlf(gcount,ncount1,filtcpm, filtpercent, perm=T)
-    # }
-    # save(res1, permres1, file=paste0("data/gRNA_edgeR-QLF/", gRNA, "_edgeR-qlf_Neg1.Rd"))
+    ncount1 <- genedm[, colnames(dm1dfagg)[dm1dfagg["neg",] >0 & nlocus==1]]
+    res1 <- run_edgeR_qlf(gcount,ncount1, filtcpm, filtpercent, perm=F)
+    permres1 <- list()
+    for (i in 1:Nperm) {
+      permres1[[i]] <- run_edgeR_qlf(gcount,ncount1,filtcpm, filtpercent, perm=T)
+    }
+    save(res1, permres1, file=paste0("data/gRNA_edgeR-QLF/", gRNA, "_edgeR-qlf_Neg1.Rd"))
 
     ncount2 <- genedm[, colnames(dm1dfagg)[dm1dfagg[gRNAlocus,] == 0]] # much larger neg control, takes very long time
     res2 <- run_edgeR_qlf(gcount,ncount2, filtcpm, filtpercent, perm=F)

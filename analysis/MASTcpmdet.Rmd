@@ -1,0 +1,101 @@
+---
+title: "Differential expression analysis--MAST cpm det mode"
+author: "Siming Zhao"
+date: "2019-03-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval=T, message=FALSE)
+```
+MAST cpm det mode from https://github.com/csoneson/conquer_comparison/blob/master/scripts/apply_MASTcpmDetRate.R.
+
+Load functions and setup
+```{r loadfunc, eval=T}
+source("code/summary_functions.R")
+source("code/DE_functions.R")
+library(dplyr)
+library(gtools)
+library(data.table)
+load("data/DE_input.Rd")
+
+displayout <- function(res){
+ summ_pvalues(res$pval)
+ print(paste0("There are ",dim(res[res$fdr < 0.1,])[1], " genes passed FDR <0.1 cutoff"))
+ print(knitr::kable(signif(as.matrix(head(res)),digit=2)))
+}
+```
+
+Load data for a particular locus
+```{r locusdata, eval=T}
+glocus <- "VPS45"
+Nperm <- 5
+gcount <- dm[1:(dim(dm)[1]-76), colnames(dm1dfagg)[dm1dfagg[glocus,] >0 & nlocus==1]]
+ncount <- dm[1:(dim(dm)[1]-76), colnames(dm1dfagg)[dm1dfagg["neg",] >0 & nlocus==1]]
+```
+
+Load data for a particular gRNA
+```{r gRNAdata, eval=F, include=F, echo=F}
+gRNA <- "VPS45_1_gene"
+genedm <- dm[1:(dim(dm)[1]-76), ]
+gRNAdm0 <- dm[(dim(dm)[1]-75):dim(dm)[1],]
+gRNAlocus <- strsplit(gRNA, split = "_")[[1]][1]
+gcount <- genedm[,gRNAdm0[gRNA,] >0 & colSums(gRNAdm0[rownames(gRNAdm0) != gRNA,]) ==0]
+if (dim(gcount)[2] !=0 & gRNAlocus != "neg") {
+    ncount1 <- genedm[, colnames(dm1dfagg)[dm1dfagg["neg",] >0 & nlocus==1]]
+    ncount2 <- genedm[, colnames(dm1dfagg)[dm1dfagg[gRNAlocus,] == 0]]
+}
+ncount <- ncount1
+```
+
+## Run MAST--No filtering
+```{r }
+y <- DE_process(gcount, ncount, filtcpm=-1, filtpercent=0.2, perm=F)
+res <- run_MASTcpmDetRate(y)
+displayout(res)
+```
+
+### Permutation
+```{r }
+for (n in 1:Nperm){
+  y <- DE_process(gcount, ncount, filtcpm=-1, filtpercent=0.2, perm=T)
+  res <- run_MASTcpmDetRate(y)
+  displayout(res)
+}
+```
+
+## Run MAST-- filtering cpm > `r filtcpm=0; filtcpm` in more than `r filtpercent=0.03;filtpercent` cells
+```{r }
+y <- DE_process(gcount, ncount, filtcpm=filtcpm, filtpercent=filtpercent, perm=F)
+res <- run_MASTcpmDetRate(y)
+displayout(res)
+```
+
+### Permutation
+```{r }
+for (n in 1:Nperm){
+  y <- DE_process(gcount, ncount, filtcpm=filtcpm, filtpercent=filtpercent, perm=T)
+  res <- run_MASTcpmDetRate(y)
+  displayout(res)
+}
+```
+
+## Run MAST-- filtering cpm > `r filtcpm=0; filtcpm` in more than `r filtpercent=0.2;filtpercent` cells
+```{r }
+y <- DE_process(gcount, ncount, filtcpm=filtcpm, filtpercent=filtpercent, perm=F)
+res <- run_MASTcpmDetRate(y)
+displayout(res)
+```
+
+### Permutation
+```{r }
+for (n in 1:Nperm){
+  y <- DE_process(gcount, ncount, filtcpm=filtcpm, filtpercent=filtpercent, perm=T)
+  res <- run_MASTcpmDetRate(y)
+  displayout(res)
+}
+```
+
+## Parameters used
+* We used data processed after QC step [here](Quality_metrics.html).  
+* targeted locus, choose `r glocus`. 
