@@ -52,7 +52,7 @@ for (i in 1:dim(gRNAsnp)[1]){
   }
 }
 rownames(outdfall) <- NULL
-outdfall <- outdfall[complete.cases(outdfall),]
+# outdfall <- outdfall[complete.cases(outdfall),]
 write.table( outdfall , file= "data/SNP_50000_MASTcpmdet.txt" , row.names=F, col.names=T, sep="\t", quote = F)
 DT::datatable(outdfall)
 ```
@@ -75,7 +75,7 @@ for (i in 1:dim(gRNAsnp)[1]){
   }
 }
 rownames(outdfall) <- NULL
-outdfall <- outdfall[complete.cases(outdfall),]
+# outdfall <- outdfall[complete.cases(outdfall),]
 write.table( outdfall , file= "data/SNP_200000_MASTcpmdet.txt" , row.names=F, col.names=T, sep="\t", quote = F)
 DT::datatable(outdfall)
 ```
@@ -98,7 +98,7 @@ for (i in 1:dim(gRNAsnp)[1]){
   }
 }
 rownames(outdfall) <- NULL
-outdfall <- outdfall[complete.cases(outdfall),]
+# outdfall <- outdfall[complete.cases(outdfall),]
 write.table( outdfall , file= "data/SNP_500000_MASTcpmdet.txt" , row.names=F, col.names=T, sep="\t", quote = F)
 DT::datatable(outdfall)
 ```
@@ -121,7 +121,7 @@ for (i in 1:dim(gRNAsnp)[1]){
   }
 }
 rownames(outdfall) <- NULL
-outdfall <- outdfall[complete.cases(outdfall),]
+# outdfall <- outdfall[complete.cases(outdfall),]
 write.table( outdfall , file= "data/SNP_1000000_MASTcpmdet.txt" , row.names=F, col.names=T, sep="\t", quote = F)
 DT::datatable(outdfall)
 ```
