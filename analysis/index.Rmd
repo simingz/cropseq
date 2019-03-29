@@ -15,6 +15,8 @@ output:
 
 ## Differential expression
 
+Note for all differential expression analysis, we are using group 1 as case and group 2 as control. log fold change is group2 vs. group1 (a negative value means activation). 
+
 * Exploring different methods for locus VPS45
     * [DEseq2-standard](DEseq2-standard.html)  
     * [DESeq2-LRT](DEseq2-LRT.html)  
