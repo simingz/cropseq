@@ -2,7 +2,7 @@ source("code/DE_functions.R")
 library(foreach)
 library(Matrix)
 
-ncluster <- 4 # for neg2
+ncluster <- 3 # for neg2 need 12G/task
 load("data/DE_input.Rd")
 Nperm <- 0 # for MAST seems no need to permute
 filtcpm= -1 # no filtering for MAST

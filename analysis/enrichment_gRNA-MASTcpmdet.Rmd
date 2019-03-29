@@ -46,8 +46,8 @@ for (i in 1:dim(gRNAsnp)[1]){
   for (pfile in list.files("data/gRNA_MASTcpmdet/", paste0(loc, "_.*_MASTcpmdet_Neg1.Rd"))){
     load(paste0("data/gRNA_MASTcpmdet/",pfile))
     gRNA <- strsplit(pfile, split = "_MAST")[[1]][1]
-    outdf <- cbind(locsnp, loc, gRNA,loccisgene, res1[loccisgene, c(1,2)])
-    colnames(outdf)[c(1,2,4,5,6)] <- c("locus_SNP", "locus", "cisGene", "MASTcpmdetvalue", "FDR")
+    outdf <- cbind(locsnp, loc, gRNA,loccisgene, res1[loccisgene, c(3,1,2)])
+    colnames(outdf)[c(1,2,4,5,6,7)] <- c("locus_SNP", "locus", "cisGene", "logFC", "MASTcpmdetvalue", "FDR")
     outdfall <- rbind(outdfall, outdf)
   }
 }
@@ -69,8 +69,8 @@ for (i in 1:dim(gRNAsnp)[1]){
   for (pfile in list.files("data/gRNA_MASTcpmdet/", paste0(loc, "_.*_MASTcpmdet_Neg1.Rd"))){
     load(paste0("data/gRNA_MASTcpmdet/",pfile))
     gRNA <- strsplit(pfile, split = "_MAST")[[1]][1]
-    outdf <- cbind(locsnp, loc, gRNA,loccisgene, res1[loccisgene, c(1,2)])
-    colnames(outdf)[c(1,2,4,5,6)] <- c("locus_SNP", "locus", "cisGene", "MASTcpmdetvalue", "FDR")
+    outdf <- cbind(locsnp, loc, gRNA,loccisgene, res1[loccisgene, c(3,1,2)])
+    colnames(outdf)[c(1,2,4,5,6,7)] <- c("locus_SNP", "locus", "cisGene", "logFC", "MASTcpmdetvalue", "FDR")
     outdfall <- rbind(outdfall, outdf)
   }
 }
@@ -92,8 +92,8 @@ for (i in 1:dim(gRNAsnp)[1]){
   for (pfile in list.files("data/gRNA_MASTcpmdet/", paste0(loc, "_.*_MASTcpmdet_Neg1.Rd"))){
     load(paste0("data/gRNA_MASTcpmdet/",pfile))
     gRNA <- strsplit(pfile, split = "_MAST")[[1]][1]
-    outdf <- cbind(locsnp, loc, gRNA,loccisgene, res1[loccisgene, c(1,2)])
-    colnames(outdf)[c(1,2,4,5,6)] <- c("locus_SNP", "locus", "cisGene", "MASTcpmdetvalue", "FDR")
+    outdf <- cbind(locsnp, loc, gRNA,loccisgene, res1[loccisgene, c(3,1,2)])
+    colnames(outdf)[c(1,2,4,5,6,7)] <- c("locus_SNP", "locus", "cisGene", "logFC", "MASTcpmdetvalue", "FDR")
     outdfall <- rbind(outdfall, outdf)
   }
 }
@@ -115,8 +115,8 @@ for (i in 1:dim(gRNAsnp)[1]){
   for (pfile in list.files("data/gRNA_MASTcpmdet/", paste0(loc, "_.*_MASTcpmdet_Neg1.Rd"))){
     load(paste0("data/gRNA_MASTcpmdet/",pfile))
     gRNA <- strsplit(pfile, split = "_MAST")[[1]][1]
-    outdf <- cbind(locsnp, loc, gRNA,loccisgene, res1[loccisgene, c(1,2)])
-    colnames(outdf)[c(1,2,4,5,6)] <- c("locus_SNP", "locus", "cisGene", "MASTcpmdetvalue", "FDR")
+    outdf <- cbind(locsnp, loc, gRNA,loccisgene, res1[loccisgene, c(3,1,2)])
+    colnames(outdf)[c(1,2,4,5,6,7)] <- c("locus_SNP", "locus", "cisGene", "logFC", "MASTcpmdetvalue", "FDR")
     outdfall <- rbind(outdfall, outdf)
   }
 }
