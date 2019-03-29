@@ -44,7 +44,6 @@ for (gRNAfile in  list.files("data/gRNA_edgeR-QLF/", "*edgeR-qlf_Neg1.Rd")){
   empiricalP <- c(empiricalPall[1:10], rep(NA,length(pbins)))
   empiricalP.FDR <- c(empiricalPfdrall[1:10], rep(NA,length(pbins)))
   outm <- cbind(outm,empiricalP,empiricalP.FDR, fdrmetric)
-  outm$logFC <- -outm$logFC
   print(signif(outm,2))
   plotgn <- rownames(outm[1:10,][outm[1:10, "EmpiricalFDR"] <0.2,])
   if (length(plotgn)!=0){
@@ -68,7 +67,7 @@ for (gRNAfile in  list.files("data/gRNA_edgeR-QLF/", "*edgeR-qlf_Neg1.Rd")){
 ```
 ## Using all cells except the ones with targeted gRNA as controls
 
-```{r, message=F, eval=T}
+```{r, message=F, eval=F}
 source("code/empiricalFDR.R")
 
 pbins <- 10** (-4:-10)
@@ -98,7 +97,6 @@ for (gRNAfile in  list.files("data/gRNA_edgeR-QLF/", "*edgeR-qlf_Neg2.Rd")){
   empiricalP <- c(empiricalPall[1:10], rep(NA,length(pbins)))
   empiricalP.FDR <- c(empiricalPfdrall[1:10], rep(NA,length(pbins)))
   outm <- cbind(outm,empiricalP,empiricalP.FDR, fdrmetric)
-  outm$logFC <- -outm$logFC
   print(signif(outm,2))
   plotgn <- rownames(outm[1:10,][outm[1:10, "EmpiricalFDR"] <0.2,])
   if (length(plotgn)!=0){
