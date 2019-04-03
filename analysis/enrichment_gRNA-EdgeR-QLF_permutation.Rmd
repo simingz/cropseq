@@ -28,104 +28,111 @@ where
  S.name in ("rs7148456","rs12895055","rs7170068","rs520843","rs12716973","rs2192932","rs17200916","rs1198588","rs324017","rs4151680","rs301791","rs324015","rs9882911","rs11633075","rs2027349","rs186132169","rs9661794","rs7936858","rs3861678","rs10933","rs6071578")' > /project2/xinhe/simingz/CROP-seq/cropseq/data/SNP_1000000.txt
 ```
 
-## genes +/- 50kb of targeted SNPs
 ```{r, gRNAsnp}
 snpfile <- "/project2/xinhe/simingz/CROP-seq/scRNA_seq_SNP_list.txt"
 gRNAsnp <- read.table(snpfile, header=F, stringsAsFactors = F)
 colnames(gRNAsnp) <- c("locus_SNP", "locus")
+
+show_cisgene <- function(cisgene){
+  outdfall <- NULL
+  outstat <-  rep(0,8)
+  names(outstat) <- c("No.cisgene", "No.cisgene(p<0.05)","No.cisgene(logFC>0)","No.cisgene(p<0.05,logFC>0)", "No.allgene", "No.allgene(p<0.05)","No.allgene(logFC>0)","No.allgene(p<0.05,logFC>0)") 
+  for (i in 1:dim(gRNAsnp)[1]){
+    locsnp <- gRNAsnp[i,"locus_SNP"]
+    loc <- gRNAsnp[i,"locus"]
+    loccisgene <- unique(cisgene[cisgene[,3]==locsnp,1])
+    for (pfile in list.files("data/gRNA_edgeR-QLF/", paste0(loc, "_.*_edgeR-qlf_Neg1_Empricialp.Rd"))){
+      load(paste0("data/gRNA_edgeR-QLF/",pfile))
+      gRNA <- strsplit(pfile, split = "_edgeR")[[1]][1]
+      outdf <- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,9,10)])
+      colnames(outdf)[c(1,2,4,7,8)] <- c("locus_SNP", "locus", "cisGene", "empiricalP", "empiricalFDR")
+      outstat[5] <- outstat[5] + dim(resEmpiricalp)[1]
+      outstat[6] <- outstat[6] + dim(resEmpiricalp[resEmpiricalp$empiricalPall < 0.05,])[1]
+      outstat[7] <- outstat[7] + dim(resEmpiricalp[resEmpiricalp$logFC>0 ,])[1]
+      outstat[8] <- outstat[8] + dim(resEmpiricalp[resEmpiricalp$empiricalPall < 0.05 & resEmpiricalp$logFC>0, ])[1]
+      outdfall <- rbind(outdfall, outdf)
+    }
+  }
+  rownames(outdfall) <- NULL
+  outdfall <- outdfall[complete.cases(outdfall),]
+  outdfall[, 5:8] <- signif(outdfall[,5:8],3)
+  outstat[1] <- dim(outdfall)[1]
+  outstat[2] <- dim(outdfall[outdfall$empiricalP < 0.05,])[1]
+  outstat[3] <- dim(outdfall[outdfall$logFC>0 ,])[1]
+  outstat[4] <- dim(outdfall[outdfall$empiricalP < 0.05 & outdfall$logFC>0, ])[1]
+  return(list(outdfall,outstat))
+}
 ```
 
+## genes +/- 50kb of targeted SNPs
 ```{r, er50k}
 cisgene <- read.table("data/SNP_50000.txt", stringsAsFactors = F,sep="\t", header=T)
-outdfall <- NULL
-for (i in 1:dim(gRNAsnp)[1]){
-  locsnp <- gRNAsnp[i,"locus_SNP"]
-  loc <- gRNAsnp[i,"locus"]
-  loccisgene <- unique(cisgene[cisgene[,3]==locsnp,1])
-  for (pfile in list.files("data/gRNA_edgeR-QLF/", paste0(loc, "_.*_edgeR-qlf_Neg1_Empricialp.Rd"))){
-    load(paste0("data/gRNA_edgeR-QLF/",pfile))
-    gRNA <- strsplit(pfile, split = "_edgeR")[[1]][1]
-    outdf <- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,9,10)])
-    colnames(outdf)[c(1,2,4,7,8)] <- c("locus_SNP", "locus", "cisGene", "empiricalP", "empiricalFDR")
-    outdfall <- rbind(outdfall, outdf)
-  }
-}
-rownames(outdfall) <- NULL
-outdfall <- outdfall[complete.cases(outdfall),]
-outdfall[, 5:8] <- signif(outdfall[,5:8],3)
+outres<- show_cisgene(cisgene)
+outdfall <- outres[[1]]
 write.table( outdfall , file= "data/SNP_50000_empiricalP.txt" , row.names=F, col.names=T, sep="\t", quote = F)
 DT::datatable(outdfall)
 ```
 [download this table](https://github.com/simingz/cropseq/blob/master/data/SNP_50000_empiricalP.txt)
 
+```{r, er50k-2}
+outstat <- outres[[2]]
+outstat 
+test1 <- fisher.test(matrix(c(outstat[2]-outstat[4], outstat[4],outstat[6]-outstat[8], outstat[8]), ncol=2))
+test2 <- fisher.test(matrix(c(outstat[2]-outstat[4], outstat[4],outstat[5]-outstat[7], outstat[7]), ncol=2))
+```
+Enrichment of repressed genes (logFC>0), p value is `r signif(test1$p.value,3)`(test1, using p <0.05 genes as background),  `r signif(test2$p.value,3)` (test2, using all genes as background). 
+
 ## genes +/- 200kb of targeted SNPs
 ```{r, er200k}
 cisgene <- read.table("data/SNP_200000.txt", stringsAsFactors = F,sep="\t", header=T)
-outdfall <- NULL
-for (i in 1:dim(gRNAsnp)[1]){
-  locsnp <- gRNAsnp[i,"locus_SNP"]
-  loc <- gRNAsnp[i,"locus"]
-  loccisgene <- unique(cisgene[cisgene[,3]==locsnp,1])
-  for (pfile in list.files("data/gRNA_edgeR-QLF/", paste0(loc, "_.*_edgeR-qlf_Neg1_Empricialp.Rd"))){
-    load(paste0("data/gRNA_edgeR-QLF/",pfile))
-    gRNA <- strsplit(pfile, split = "_edgeR")[[1]][1]
-    outdf <- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,9,10)])
-    colnames(outdf)[c(1,2,4,7,8)] <- c("locus_SNP", "locus", "cisGene", "empiricalP", "empiricalFDR")
-    outdfall <- rbind(outdfall, outdf)
-  }
-}
-rownames(outdfall) <- NULL
-outdfall <- outdfall[complete.cases(outdfall),]
-outdfall[, 5:8] <- signif(outdfall[,5:8],3)
+outres<- show_cisgene(cisgene)
+outdfall <- outres[[1]]
 write.table( outdfall , file= "data/SNP_200000_empiricalP.txt" , row.names=F, col.names=T, sep="\t", quote = F)
 DT::datatable(outdfall)
 ```
 [download this table](https://github.com/simingz/cropseq/blob/master/data/SNP_200000_empiricalP.txt)
 
+```{r, er200k-2}
+outstat <- outres[[2]]
+outstat 
+test1 <- fisher.test(matrix(c(outstat[2]-outstat[4], outstat[4],outstat[6]-outstat[8], outstat[8]), ncol=2))
+test2 <- fisher.test(matrix(c(outstat[2]-outstat[4], outstat[4],outstat[5]-outstat[7], outstat[7]), ncol=2))
+```
+Enrichment of repressed genes (logFC>0), p value is `r signif(test1$p.value,3)`(test1, using p <0.05 genes as background),  `r signif(test2$p.value,3)` (test2, using all genes as background). 
+
+
 ## genes +/- 500kb of targeted SNPs
 ```{r, er500k}
 cisgene <- read.table("data/SNP_500000.txt", stringsAsFactors = F,sep="\t", header=T)
-outdfall <- NULL
-for (i in 1:dim(gRNAsnp)[1]){
-  locsnp <- gRNAsnp[i,"locus_SNP"]
-  loc <- gRNAsnp[i,"locus"]
-  loccisgene <- unique(cisgene[cisgene[,3]==locsnp,1])
-  for (pfile in list.files("data/gRNA_edgeR-QLF/", paste0(loc, "_.*_edgeR-qlf_Neg1_Empricialp.Rd"))){
-    load(paste0("data/gRNA_edgeR-QLF/",pfile))
-    gRNA <- strsplit(pfile, split = "_edgeR")[[1]][1]
-    outdf <- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,9,10)])
-    colnames(outdf)[c(1,2,4,7,8)] <- c("locus_SNP", "locus", "cisGene", "empiricalP", "empiricalFDR")
-    outdfall <- rbind(outdfall, outdf)
-  }
-}
-rownames(outdfall) <- NULL
-outdfall <- outdfall[complete.cases(outdfall),]
-outdfall[, 5:8] <- signif(outdfall[,5:8],3)
+outres<- show_cisgene(cisgene)
+outdfall <- outres[[1]]
 write.table( outdfall , file= "data/SNP_500000_empiricalP.txt" , row.names=F, col.names=T, sep="\t", quote = F)
 DT::datatable(outdfall)
 ```
 [download this table](https://github.com/simingz/cropseq/blob/master/data/SNP_500000_empiricalP.txt)
 
+```{r, er500k-2}
+outstat <- outres[[2]]
+outstat 
+test1 <- fisher.test(matrix(c(outstat[2]-outstat[4], outstat[4],outstat[6]-outstat[8], outstat[8]), ncol=2))
+test2 <- fisher.test(matrix(c(outstat[2]-outstat[4], outstat[4],outstat[5]-outstat[7], outstat[7]), ncol=2))
+```
+Enrichment of repressed genes (logFC>0), p value is `r signif(test1$p.value,3)`(test1, using p <0.05 genes as background),  `r signif(test2$p.value,3)` (test2, using all genes as background). 
+
 ## genes +/- 1Mb of targeted SNPs
 ```{r, er1M}
 cisgene <- read.table("data/SNP_1000000.txt", stringsAsFactors = F,sep="\t", header=T)
-outdfall <- NULL
-for (i in 1:dim(gRNAsnp)[1]){
-  locsnp <- gRNAsnp[i,"locus_SNP"]
-  loc <- gRNAsnp[i,"locus"]
-  loccisgene <- unique(cisgene[cisgene[,3]==locsnp,1])
-  for (pfile in list.files("data/gRNA_edgeR-QLF/", paste0(loc, "_.*_edgeR-qlf_Neg1_Empricialp.Rd"))){
-    load(paste0("data/gRNA_edgeR-QLF/",pfile))
-    gRNA <- strsplit(pfile, split = "_edgeR")[[1]][1]
-    outdf <- cbind(locsnp, loc, gRNA,loccisgene, resEmpiricalp[loccisgene, c(1,2,9,10)])
-    colnames(outdf)[c(1,2,4,7,8)] <- c("locus_SNP", "locus", "cisGene", "empiricalP", "empiricalFDR")
-    outdfall <- rbind(outdfall, outdf)
-  }
-}
-rownames(outdfall) <- NULL
-outdfall <- outdfall[complete.cases(outdfall),]
-outdfall[, 5:8] <- signif(outdfall[,5:8],3)
+outres<- show_cisgene(cisgene)
+outdfall <- outres[[1]]
 write.table( outdfall , file= "data/SNP_1000000_empiricalP.txt" , row.names=F, col.names=T, sep="\t", quote = F)
 DT::datatable(outdfall)
 ```
 [download this table](https://github.com/simingz/cropseq/blob/master/data/SNP_1000000_empiricalP.txt)
+
+```{r, er1M-2}
+outstat <- outres[[2]]
+outstat 
+test1 <- fisher.test(matrix(c(outstat[2]-outstat[4], outstat[4],outstat[6]-outstat[8], outstat[8]), ncol=2))
+test2 <- fisher.test(matrix(c(outstat[2]-outstat[4], outstat[4],outstat[5]-outstat[7], outstat[7]), ncol=2))
+```
+Enrichment of repressed genes (logFC>0), p value is `r signif(test1$p.value,3)`(test1, using p <0.05 genes as background),  `r signif(test2$p.value,3)` (test2, using all genes as background). 
